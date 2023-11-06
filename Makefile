@@ -6,7 +6,7 @@
 #    By: dferjul <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 15:52:03 by dferjul           #+#    #+#              #
-#    Updated: 2023/11/06 15:57:13 by dferjul          ###   ########.fr        #
+#    Updated: 2023/11/06 16:03:57 by dferjul          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,4 +37,4 @@ fclean: clean
 re: fclean all
 
 .SILENT:
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
