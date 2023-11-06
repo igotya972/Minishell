@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: dferjul <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/06 15:52:03 by dferjul           #+#    #+#              #
+#    Updated: 2023/11/06 15:57:13 by dferjul          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS =	$(shell find ./source -name '*.c')
 
 OBJS = $(SRCS:.c=.o)
@@ -8,7 +20,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 
-all: $(NAME) 
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
@@ -25,4 +37,4 @@ fclean: clean
 re: fclean all
 
 .SILENT:
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
