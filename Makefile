@@ -9,10 +9,7 @@
 #    Updated: 2023/11/14 13:58:00 by dferjul          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-SRCS_DIR = sources
-
-SRCS =	$(shell find $(SRC_DIR) -name '*.c')
+SRCS =	$(shell find ./sources -name '*.c')
 
 OBJ_DIR = Objects
 
