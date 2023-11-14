@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 13:20:28 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 13:20:29 by dferjul          ###   ########.fr       */
+/*   Created: 2022/11/11 10:08:28 by dferjul           #+#    #+#             */
+/*   Updated: 2022/11/29 00:29:51 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "libft/libft.h"
+void	ft_bzero(void *s, size_t n)
+{
+	char	*str;
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
-
-#endif
+	str = (char *)s;
+	while (n--)
+	{
+		str[n] = 0;
+	}
+}

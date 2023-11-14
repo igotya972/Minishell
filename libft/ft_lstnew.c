@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 13:20:28 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 13:20:29 by dferjul          ###   ########.fr       */
+/*   Created: 2023/01/18 04:12:18 by dferjul           #+#    #+#             */
+/*   Updated: 2023/01/18 14:44:47 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "libft/libft.h"
+#include "libft.h"
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*ncontent;
 
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
-
-#endif
+	ncontent = (t_list *)malloc(sizeof(t_list));
+	if (!ncontent)
+		return (NULL);
+	ncontent -> content = content;
+	ncontent -> next = NULL;
+	return (ncontent);
+}

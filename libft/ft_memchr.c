@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 13:20:28 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 13:20:29 by dferjul          ###   ########.fr       */
+/*   Created: 2022/11/15 17:54:29 by dferjul           #+#    #+#             */
+/*   Updated: 2022/11/28 23:51:42 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "libft/libft.h"
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	char	*str;
+	size_t	i;
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
-
-#endif
+	i = 0;
+	str = (char *)s;
+	while (i < n)
+	{
+		if (str[i] == (char)c)
+			return ((void *) &str[i]);
+		i++;
+	}
+	return (0);
+}

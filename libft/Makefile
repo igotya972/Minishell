@@ -5,45 +5,58 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dferjul <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/06 15:52:03 by dferjul           #+#    #+#              #
-#    Updated: 2023/11/14 11:03:43 by dferjul          ###   ########.fr        #
+#    Created: 2022/11/09 13:40:08 by dferjul           #+#    #+#              #
+#    Updated: 2023/11/14 11:12:05 by dferjul          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_DIR = source
+SRCS	=	$(shell find $(SRC_DIR) -name '*.c')
 
-SRCS =	$(shell find $(SRC_DIR) -name '*.c')
+SRCS_BONUS = ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstclear.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c \
+			ft_lstdelone.c \
+			ft_lstiter.c \
+			ft_lstmap.c \
 
 OBJ_DIR = obj_o
 
-OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
+OBJS	= 	$(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
-CC = gcc
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CC		=	gcc
 
-NAME = minishell
+CFLAGS	=	-Wall -Werror -Wextra
+
+RM		=	rm -rf
+
+NAME	=	libft.a
 
 #--Règle pour compiler les fichiers .c en fichiers .o--#
  $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(NAME)
+#rules
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	echo "   \033[37;42;1m$(NAME) created\033[0m"
+all : $(NAME)
 
-clean:
-	rm -rf $(OBJS)
-	echo "   \033[41;1mObject file deleted\033[0m"
+$(NAME) : $(OBJS)
+	ar -rcs $(NAME) $(OBJS)
 
-fclean: clean
-	rm -rf $(NAME)
-	echo "   \033[41;1m$(NAME) deleted\033[0m"
+bonus : $(OBJS_BONUS)
+		ar -rcs $(NAME) $(OBJS_BONUS)
 
-re: fclean all
+clean :
+	$(RM) $(OBJS) $(OBJS_BONUS)
 
-.SILENT:
-.PHONY: all clean fclean re
+fclean : clean
+	$(RM) $(NAME)
+
+re : fclean all
+
+.PHONY : all, libft.a, clean, fclean, re, bonus
