@@ -9,12 +9,9 @@
 #    Updated: 2023/11/14 13:58:00 by dferjul          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+SRCS =	$(shell find ./sources -name '*.c')
 
-SRCS_DIR = source
-
-SRCS =	$(shell find $(SRC_DIR) -name '*.c')
-
-OBJ_DIR = obj_o
+OBJ_DIR = Objects
 
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
@@ -24,19 +21,18 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 
-#--Règle pour compiler les fichiers .c en fichiers .o--#
- $(OBJ_DIR)/%.o: %.c
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(NAME)
-
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
 	echo "   \033[37;42;1m$(NAME) created\033[0m"
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(OBJ_DIR)
 	echo "   \033[41;1mObject file deleted\033[0m"
 
 fclean: clean
