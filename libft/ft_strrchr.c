@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:19:46 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 14:23:13 by dferjul          ###   ########.fr       */
+/*   Created: 2022/11/14 12:38:53 by dferjul           #+#    #+#             */
+/*   Updated: 2022/11/29 00:45:26 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+char	*ft_strrchr(const char *s, int c)
+{
+	int	i;
 
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
+	i = ft_strlen(s);
+	if (!s)
+		return (0);
+	while (i >= 0)
+	{	
+		if (s[i] == (char)c)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);
+}

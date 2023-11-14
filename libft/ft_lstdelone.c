@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:19:46 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 14:23:13 by dferjul          ###   ########.fr       */
+/*   Created: 2023/01/16 19:15:11 by dferjul           #+#    #+#             */
+/*   Updated: 2023/01/19 04:00:56 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include "libft.h"
 
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (lst != NULL)
+	{
+		del(lst->content);
+		free(lst);
+	}
+}

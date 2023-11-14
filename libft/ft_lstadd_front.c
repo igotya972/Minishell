@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:19:46 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 14:23:13 by dferjul          ###   ########.fr       */
+/*   Created: 2023/01/16 16:32:02 by dferjul           #+#    #+#             */
+/*   Updated: 2023/01/18 18:57:35 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include "libft.h"
 
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst != NULL && new != NULL)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}

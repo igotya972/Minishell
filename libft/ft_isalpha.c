@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:19:46 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 14:23:13 by dferjul          ###   ########.fr       */
+/*   Created: 2022/11/07 14:52:13 by dferjul           #+#    #+#             */
+/*   Updated: 2022/11/12 17:41:53 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-
-#define MAX_INPUT_SIZE 1024
-
-/*	minishell.c	*/
-void	minishell_prompt(void);
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
+}

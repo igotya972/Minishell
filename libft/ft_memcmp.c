@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 14:19:46 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 14:23:13 by dferjul          ###   ########.fr       */
+/*   Created: 2022/11/21 10:36:58 by dferjul           #+#    #+#             */
+/*   Updated: 2022/11/21 12:14:14 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+#include "libft.h"
 
-#define MAX_INPUT_SIZE 1024
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	unsigned char	*s;
+	unsigned char	*c;
+	unsigned int	i;
 
-/*	minishell.c	*/
-void	minishell_prompt(void);
+	s = (unsigned char *)s1;
+	c = (unsigned char *)s2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s[i] == c[i] && i < (n - 1))
+		i++;
+	return (s[i] - c[i]);
+}
