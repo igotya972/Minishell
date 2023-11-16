@@ -21,6 +21,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 
+LIB = libft/libft.a
+
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
@@ -28,14 +30,17 @@ $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME)
+	make -C libft --no-print-directory
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) -lreadline -o $(NAME)
 	echo "   \033[37;42;1m$(NAME) created\033[0m"
 
 clean:
+	make clean -C libft --no-print-directory
 	rm -rf $(OBJS) $(OBJ_DIR)
 	echo "   \033[41;1mObject file deleted\033[0m"
 
 fclean: clean
+	make fclean -C libft --no-print-directory
 	rm -rf $(NAME)
 	echo "   \033[41;1m$(NAME) deleted\033[0m"
 
