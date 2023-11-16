@@ -59,4 +59,5 @@ fclean : clean
 
 re : fclean all
 
+.SILENT:
 .PHONY : all, libft.a, clean, fclean, re, bonus

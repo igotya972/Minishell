@@ -12,6 +12,7 @@ void	minishell_prompt(void)
 		//printf("Vous avez entré : %s\n", input);
 		if (strcmp(input, "exit") == 0)
 			return ;
+		lexer(input);
 	}
 }
 
