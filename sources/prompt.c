@@ -6,7 +6,7 @@
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2023/12/12 03:34:48 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/10 14:42:06 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@ void	exec_cmd(char *command)
 	pid_t	pid;
 	char	**argv;
 
-	argv = {command, NULL};
+	argv = malloc(sizeof(char *) * 2);
+	if (!argv)
+	{
+		perror("Erreur malloc argv");
+		exit(EXIT_FAILURE);
+	}
+	argv[0] = command;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -40,20 +46,32 @@ void	exec_cmd(char *command)
 		// Affiche le prompt
 void	minishell_prompt(void)
 {
-	char	*input;
+	//char	*input;
+	t_data	*data;
+	//int		signum;
 
+	data = malloc(sizeof(t_data));
+    if (!data)
+    {
+        perror("Erreur d'allocation de mémoire");
+        exit(EXIT_FAILURE);
+    }
+	//signum = 0;
 	while (1)
 	{
-		input = readline("minishell>");
-		add_history(input);
-		if (strcmp(input, "exit") == 0)
+		signal(SIGINT, &signal_manager);
+		signal(SIGQUIT, SIG_IGN);
+		//set_signal_action();
+		data->input = readline("minishell>");
+		add_history(data->input);
+		if (strcmp(data->input, "exit") == 0)
 		{
-			free(input);
+			free(data);
 			exit(EXIT_SUCCESS);
 		}
-		lexer(input);
-		exec_cmd(input);
-		free(input);
+		lexer(data->input);
+		//exec_cmd(input);
+		free(data->input);
 	}
 }
 
