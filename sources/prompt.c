@@ -70,9 +70,17 @@ void	minishell_prompt(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
 	t_data *data;
 
-	init_data(data);
+	data = malloc(sizeof(t_data));
+	if (!data)
+	{
+		perror("Erreur d'allocation de mémoire");
+		exit(EXIT_FAILURE);
+	}
+	init_data(data, envp);
 	minishell_prompt(data);
 	return (0);
 }

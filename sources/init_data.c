@@ -1,12 +1,9 @@
 #include 	"../includes/minishell.h"
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char **envp)
 {
-	data = malloc(sizeof(t_data));
-	if (!data)
-	{
-		perror("Erreur d'allocation de mémoire");
-		exit(EXIT_FAILURE);
-	}
+	data->input = NULL;
+	data->lexer = NULL;
 	data->env_path = getenv("PATH");
+	data->envp = envp;
 }
