@@ -11,8 +11,8 @@ void	launch_builtins(t_data *data, char **inputs)
 			i += ft_echo(data, inputs, i);
 		else if (ft_strcmp(inputs[i], "pwd") == 0)
 			ft_pwd();
-		//if (ft_strcmp(inputs[i], "env") == 0)
-			// ft_env();
+		else if (ft_strcmp(inputs[i], "env") == 0)
+			ft_env(data);
 	}
 }
 
@@ -56,4 +56,13 @@ int	ft_echo(t_data *data, char **inputs, int i)
 void	ft_pwd(void)
 {
 	printf("%s\n", getcwd(NULL, 0));
+}
+
+void	ft_env(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (data->envp[++i])
+		printf("%s\n", data->envp[i]);
 }

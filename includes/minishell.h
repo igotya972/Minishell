@@ -16,6 +16,7 @@ typedef struct	s_data
 	char	*input;
 	char	**lexer;
 	char	*env_path;
+	char	**envp;
 }				t_data;
 
 
@@ -27,15 +28,16 @@ void	exec_cmd(char *command);
 void	lexer(t_data *data);
 
 /*	ft_signal.c	*/
-void	signal_manager(int signum, t_data *data);
+void	signal_manager(int signum);
 void	set_signal_action(void);
 
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
 void	launch_builtins(t_data *data, char **input);
+void	ft_env(t_data *data);
 void	ft_pwd(void);
 
 /*	init_data.c	*/
-void	init_data(t_data *data);
+void	init_data(t_data *data, char **envp);
 
 #endif
