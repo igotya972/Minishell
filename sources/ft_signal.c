@@ -34,6 +34,6 @@ void	signal_manager(int signum)
 	else if (signum == SIGQUIT)
 	{
 		// Ctrl-\ : Ne fait rien
-		minishell_prompt();
+		//minishell_prompt();
 	}
 }

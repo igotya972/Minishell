@@ -44,39 +44,43 @@ void	exec_cmd(char *command)
 }
 
 		// Affiche le prompt
-void	minishell_prompt(void)
+void	minishell_prompt(t_data *data)
 {
 	//char	*input;
-	t_data	*data;
 	//int		signum;
-
-	data = malloc(sizeof(t_data));
-    if (!data)
-    {
-        perror("Erreur d'allocation de mémoire");
-        exit(EXIT_FAILURE);
-    }
 	//signum = 0;
 	while (1)
 	{
 		signal(SIGINT, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
 		//set_signal_action();
-		data->input = readline("minishell>");
+		data->input = readline("minishell> ");
 		add_history(data->input);
-		if (strcmp(data->input, "exit") == 0)
+		if (ft_strcmp(data->input, "exit") == 0)
 		{
 			free(data);
 			exit(EXIT_SUCCESS);
 		}
-		lexer(data->input);
+		lexer(data);
+		launch_builtins(data, data->lexer);
 		//exec_cmd(input);
 		free(data->input);
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	minishell_prompt();
+	(void)argc;
+	(void)argv;
+	t_data *data;
+
+	data = malloc(sizeof(t_data));
+	if (!data)
+	{
+		perror("Erreur d'allocation de mémoire");
+		exit(EXIT_FAILURE);
+	}
+	init_data(data, envp);
+	minishell_prompt(data);
 	return (0);
 }
