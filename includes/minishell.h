@@ -7,6 +7,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <sys/wait.h>
+# include "lexer.h"
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
