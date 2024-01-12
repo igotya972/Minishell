@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:19:14 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/12 16:19:15 by dferjul          ###   ########.fr       */
+/*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
+/*   Updated: 2024/01/12 16:29:45 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char		*append_char_to_token(char **token, char c)
 	char	*token_bis;
 
 	token_bis = malloc(sizeof char*) * (ft_strlen(token)) + 1);
-
 }
 
 char	**lexer(char *input)
