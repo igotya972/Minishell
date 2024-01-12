@@ -13,7 +13,7 @@
 #include <signal.h>
 #include "../includes/minishell.h"
 
-void	signal_manager(int signum)
+void	signal_manager(int signum, t_data *data)
 {
 	
 	if (signum == SIGINT)
@@ -34,6 +34,6 @@ void	signal_manager(int signum)
 	else if (signum == SIGQUIT)
 	{
 		// Ctrl-\ : Ne fait rien
-		minishell_prompt();
+		minishell_prompt(data);
 	}
 }
