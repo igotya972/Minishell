@@ -62,14 +62,15 @@ void	minishell_prompt(void)
 		signal(SIGINT, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
 		//set_signal_action();
-		data->input = readline("minishell>");
+		data->input = readline("minishell> ");
 		add_history(data->input);
 		if (strcmp(data->input, "exit") == 0)
 		{
 			free(data);
 			exit(EXIT_SUCCESS);
 		}
-		lexer(data->input);
+		lexer(data);
+		launch_builtins(data->lexer);
 		//exec_cmd(input);
 		free(data->input);
 	}

@@ -11,22 +11,26 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-typedef struct  s_data
+typedef struct	s_data
 {
-    char    *input;
-    char    **lexer;
-}               t_data;
+	char	*input;
+	char	**lexer;
+}				t_data;
 
 
 /*	minishell.c	*/
 void	minishell_prompt(void);
-void    exec_cmd(char *command);
+void	exec_cmd(char *command);
 
 /*	parser.c	*/
-char	**lexer(char *input);
+void	lexer(t_data *data);
 
-/*  ft_signal.c */
+/*	ft_signal.c	*/
 void	signal_manager(int signum);
 void	set_signal_action(void);
+
+/*	builtins.c	*/
+void	ft_echo(char **inputs, int i);
+void	launch_builtins(char **input);
 
 #endif

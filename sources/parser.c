@@ -1,9 +1,7 @@
 #include "../includes/minishell.h"
 
-char	**lexer(char *input)
+void	lexer(t_data *data)
 {
-	char	**tab;
-
-	tab = ft_split(input, ' ');
-	return (tab);
+	// ne pas split entre les guillemets ("salut                   s")
+	data->lexer = ft_split(data->input, ' ');
 }
