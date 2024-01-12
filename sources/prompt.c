@@ -44,18 +44,10 @@ void	exec_cmd(char *command)
 }
 
 		// Affiche le prompt
-void	minishell_prompt(void)
+void	minishell_prompt(t_data *data)
 {
 	//char	*input;
-	t_data	*data;
 	//int		signum;
-
-	data = malloc(sizeof(t_data));
-    if (!data)
-    {
-        perror("Erreur d'allocation de mémoire");
-        exit(EXIT_FAILURE);
-    }
 	//signum = 0;
 	while (1)
 	{
@@ -64,7 +56,7 @@ void	minishell_prompt(void)
 		//set_signal_action();
 		data->input = readline("minishell> ");
 		add_history(data->input);
-		if (strcmp(data->input, "exit") == 0)
+		if (ft_strcmp(data->input, "exit") == 0)
 		{
 			free(data);
 			exit(EXIT_SUCCESS);
@@ -76,8 +68,11 @@ void	minishell_prompt(void)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	minishell_prompt();
+	t_data *data;
+
+	init_data(data);
+	minishell_prompt(data);
 	return (0);
 }

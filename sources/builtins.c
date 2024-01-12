@@ -8,12 +8,19 @@ void	launch_builtins(char **inputs)
 	while (inputs[++i])
 	{
 		if (ft_strcmp(inputs[i], "echo") == 0)
-			ft_echo(inputs, i);
+			i += ft_echo(inputs, i);
+		else if (ft_strcmp(inputs[i], "pwd") == 0)
+			ft_pwd();
+		//if (ft_strcmp(inputs[i], "env") == 0)
+			// ft_env();
 	}
 }
 
-void	ft_echo(char **inputs, int i)
+int	ft_echo(char **inputs, int i)
 {
+	int	add;
+
+	add = 0;
 	if (inputs[i + 1])
 	{
 		if (ft_strcmp(inputs[i + 1], "-n") == 0)
@@ -22,6 +29,7 @@ void	ft_echo(char **inputs, int i)
 			{
 				while (inputs[++i + 1])
 				{
+					add++;
 					printf("%s", inputs[i + 1]);
 					if (inputs[i + 2])
 						printf(" ");
@@ -33,10 +41,19 @@ void	ft_echo(char **inputs, int i)
 		else
 		{
 			while (inputs[++i])
+			{
+				add++;
 				printf("%s ", inputs[i]);
+			}
 			printf("\n");
 		}
 	}
 	else
 		printf("\n");
+	return (add);
+}
+
+void	ft_pwd(void)
+{
+	printf("%s\n", getcwd(NULL, 0));
 }
