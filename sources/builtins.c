@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-void	launch_builtins(char **inputs)
+void	launch_builtins(t_data *data, char **inputs)
 {
 	int	i;
 
@@ -8,7 +8,7 @@ void	launch_builtins(char **inputs)
 	while (inputs[++i])
 	{
 		if (ft_strcmp(inputs[i], "echo") == 0)
-			i += ft_echo(inputs, i);
+			i += ft_echo(data, inputs, i);
 		else if (ft_strcmp(inputs[i], "pwd") == 0)
 			ft_pwd();
 		//if (ft_strcmp(inputs[i], "env") == 0)
@@ -16,7 +16,7 @@ void	launch_builtins(char **inputs)
 	}
 }
 
-int	ft_echo(char **inputs, int i)
+int	ft_echo(t_data *data, char **inputs, int i)
 {
 	int	add;
 
@@ -36,7 +36,7 @@ int	ft_echo(char **inputs, int i)
 				}
 			}
 			else 
-				minishell_prompt();
+				minishell_prompt(data);
 		}
 		else
 		{

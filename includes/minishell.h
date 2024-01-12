@@ -31,8 +31,8 @@ void	signal_manager(int signum, t_data *data);
 void	set_signal_action(void);
 
 /*	builtins.c	*/
-int		ft_echo(char **inputs, int i);
-void	launch_builtins(char **input);
+int		ft_echo(t_data *data, char **inputs, int i);
+void	launch_builtins(t_data *data, char **input);
 void	ft_pwd(void);
 
 /*	init_data.c	*/

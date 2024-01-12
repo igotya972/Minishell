@@ -62,7 +62,7 @@ void	minishell_prompt(t_data *data)
 			exit(EXIT_SUCCESS);
 		}
 		lexer(data);
-		launch_builtins(data->lexer);
+		launch_builtins(data, data->lexer);
 		//exec_cmd(input);
 		free(data->input);
 	}
