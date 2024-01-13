@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/10 14:42:06 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/13 18:29:52 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	minishell_prompt(t_data *data)
 			free(data);
 			exit(EXIT_SUCCESS);
 		}
-		lexer(data);
+		//lexer(data);
 		launch_builtins(data, data->lexer);
 		//exec_cmd(input);
 		free(data->input);

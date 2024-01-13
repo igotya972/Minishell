@@ -19,7 +19,6 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <sys/wait.h>
-# include "lexer.h"
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -32,13 +31,19 @@ typedef struct	s_data
 	char	**envp;
 }				t_data;
 
+typedef struct s_lexer
+{
+	//char	*input
+}				t_lexer;
+
+
 
 /*	minishell.c	*/
 void	minishell_prompt(t_data *data);
 void	exec_cmd(char *command);
 
 /*	parser.c	*/
-void	lexer(t_data *data);
+char	**lexer(t_data *input);
 
 /*	ft_signal.c	*/
 void	signal_manager(int signum);

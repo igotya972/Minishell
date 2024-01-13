@@ -6,13 +6,13 @@
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/12 16:29:45 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/12 23:56:56 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		count_tokens(t_data *data)
+/* int		count_tokens(t_data *data)
 {
 	int		i;
 	int		count;
@@ -36,24 +36,24 @@ int		count_tokens(t_data *data)
 		i++;
 	}
 	return (count);
-}
+} */
 
-char		*append_char_to_token(char **token, char c)
+/* char		*append_char_to_token(char **token, char c)
 {
 	int		i;
 	int		len;
 	char	*token_bis;
 
-	token_bis = malloc(sizeof char*) * (ft_strlen(token)) + 1);
-}
+	//token_bis = malloc(sizeof char*) * (ft_strlen(token)) + 1);
+} */
 
-char	**lexer(char *input)
+/* char	**lexer(t_data *data)
 {
-	char	**tab;
+	//char	**tab;
 	int		i;
 	int		j;
 
-	tab = malloc(sizeof(char *) * (count_tokens(input) + 1));
+	//tab = malloc(sizeof(char *) * (count_tokens(data->input) + 1));
 	if (!tab)
 	{
 		perror("Erreur d'allocation de mémoire");
@@ -61,17 +61,17 @@ char	**lexer(char *input)
 	}
 	i = 0;
 	j = 0;
-	while (input[i])
+	while (data->input[i])
 	{
-		while (input[i] && input[i] != ' ')
+		while (data->input[i] && data->input[i] != ' ')
 		{
-			tab[j] = append_char_to_token(tab[j], input[i]);
+			//tab[j] = append_char_to_token(tab[j], input);
 			i++;
 		}
 		j++;
-		while (input[i] == ' ')
+		while (data->input[i] == ' ')
 			i++;
 	}
-	tab[j] = NULL;
+	//tab[j] = NULL;
 	return (tab);
-}
+} */
