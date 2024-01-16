@@ -14,7 +14,7 @@ void	launch_builtins(t_data *data, char **inputs)
 		else if (ft_strcmp(inputs[i], "env") == 0)
 			ft_env(data);
 		else if (ft_strcmp(inputs[i], "cd") == 0)
-			ft_cd(data, inputs);
+			ft_cd(data, inputs, i);
 		
 	}
 }
@@ -64,26 +64,17 @@ void	ft_pwd(void)
 
 void	ft_env(t_data *data)
 {
-	int	i;
+	int			i;
+	static int	flag;
 
 	i = -1;
 	while (data->envp[++i])
-		printf("%s\n", data->envp[i]);
-}
-
-void	ft_cd(t_data *data, char **inputs)
-{
-	(void)data;
-	if (inputs[2])
-		printf("cd: too many arguments\n");
-	else if (inputs[1])
 	{
-		if (chdir(inputs[1]) == -1)
+		if (flag == 0 && ft_strncmp(data->envp[i], "OLDPWD=", 7) == 0)
 		{
-			printf("cd: %s: No such file or directory\n", inputs[1]);
+			flag = 1;
 			return ;
 		}
+		printf("%s\n", data->envp[i]);
 	}
-	else
-		chdir(getenv("HOME"));
 }

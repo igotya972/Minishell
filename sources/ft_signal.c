@@ -16,32 +16,22 @@
 void	signal_manager(int signum)
 {
 	//printf("%d\n", signum);
-	if (signum == SIGINT)
+	if (signum == SIGINT || signum == SIGTSTP)
 	{
 		// Ctrl-C
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		//minishell_prompt();
 	}
-	else if (signum == SIGCHLD)
+}
+
+void	handle_ctrld(t_data *data)
+{
+	if (!data->input)
 	{
-		// Ctrl-D
-		//free(input);
+		printf("exit\n");
+		//ft_free(data);
 		exit(EXIT_SUCCESS);
-	}
-	else if (signum == SIGQUIT)
-	{
-		// Ctrl-\ : Ne fait rien
-		//minishell_prompt();
-	}
-	else if (signum == SIGTSTP)
-	{
-		// Ctrl-Z : Ne stop pas minishell
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
 	}
 }

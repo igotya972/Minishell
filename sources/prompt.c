@@ -56,10 +56,11 @@ void	minishell_prompt(t_data *data)
 		signal(SIGQUIT, SIG_IGN);
 		//set_signal_action();
 		data->input = readline("\033[0;34mminishell>\033[0;0m ");
+		handle_ctrld(data);
 		add_history(data->input);
 		if (ft_strcmp(data->input, "exit") == 0)
 		{
-			free(data);
+			// ft_free(data);
 			exit(EXIT_SUCCESS);
 		}
 		//lexer(data);
@@ -80,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!data)
 	{
 		perror("Erreur d'allocation de mémoire");
+		//ft_free(data);
 		exit(EXIT_FAILURE);
 	}
 	init_data(data, envp);
