@@ -15,7 +15,7 @@
 
 void	signal_manager(int signum)
 {
-	
+	//printf("%d\n", signum);
 	if (signum == SIGINT)
 	{
 		// Ctrl-C
@@ -35,5 +35,13 @@ void	signal_manager(int signum)
 	{
 		// Ctrl-\ : Ne fait rien
 		//minishell_prompt();
+	}
+	else if (signum == SIGTSTP)
+	{
+		// Ctrl-Z : Ne stop pas minishell
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }

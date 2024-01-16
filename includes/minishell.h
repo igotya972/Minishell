@@ -55,6 +55,7 @@ int		ft_echo(t_data *data, char **inputs, int i);
 void	launch_builtins(t_data *data, char **input);
 void	ft_env(t_data *data);
 void	ft_pwd(void);
+void	ft_cd(t_data *data, char **inputs);
 
 /*	init_data.c	*/
 void	init_data(t_data *data, char **envp);

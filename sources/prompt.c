@@ -52,6 +52,7 @@ void	minishell_prompt(t_data *data)
 	while (1)
 	{
 		signal(SIGINT, &signal_manager);
+		signal(SIGTSTP, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
 		//set_signal_action();
 		data->input = readline("\033[0;34mminishell>\033[0;0m ");
