@@ -54,7 +54,7 @@ void	minishell_prompt(t_data *data)
 		signal(SIGINT, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
 		//set_signal_action();
-		data->input = readline("minishell> ");
+		data->input = readline("\033[0;34mminishell>\033[0;0m ");
 		add_history(data->input);
 		if (ft_strcmp(data->input, "exit") == 0)
 		{
@@ -62,6 +62,7 @@ void	minishell_prompt(t_data *data)
 			exit(EXIT_SUCCESS);
 		}
 		//lexer(data);
+		lexer_temporaire(data);
 		launch_builtins(data, data->lexer);
 		//exec_cmd(input);
 		free(data->input);

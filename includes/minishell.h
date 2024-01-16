@@ -43,7 +43,8 @@ void	minishell_prompt(t_data *data);
 void	exec_cmd(char *command);
 
 /*	parser.c	*/
-char	**lexer(t_data *input);
+void	lexer_temporaire(t_data *data);
+
 
 /*	ft_signal.c	*/
 void	signal_manager(int signum);

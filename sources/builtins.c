@@ -25,6 +25,7 @@ int	ft_echo(t_data *data, char **inputs, int i)
 	{
 		if (ft_strcmp(inputs[i + 1], "-n") == 0)
 		{
+			add++;
 			if (inputs[i + 2])
 			{
 				while (inputs[++i + 1])
