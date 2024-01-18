@@ -65,16 +65,10 @@ void	ft_pwd(void)
 void	ft_env(t_data *data)
 {
 	int			i;
-	static int	flag;
 
 	i = -1;
 	while (data->envp[++i])
-	{
-		if (flag == 0 && ft_strncmp(data->envp[i], "OLDPWD=", 7) == 0)
-		{
-			flag = 1;
-			return ;
-		}
 		printf("%s\n", data->envp[i]);
-	}
+	if (data->oldpwd_status == 1)
+		printf("OLDPWD=%s\n", data->old_pwd);
 }

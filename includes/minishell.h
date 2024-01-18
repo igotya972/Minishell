@@ -30,6 +30,7 @@ typedef struct	s_data
 	char	*env_path;
 	char	**envp;
 	char	*old_pwd;
+	int		oldpwd_status;
 }				t_data;
 
 typedef struct s_lexer
