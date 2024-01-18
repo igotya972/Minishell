@@ -67,7 +67,6 @@ char	**envp_modifier(t_data *data);
 
 /*	init_data.c	*/
 void	init_data(t_data *data, char **envp);
-char	**envp_without_oldpwd(char **envp);
 
 /*	free.c	*/
 void	free_arguments(char **args);
