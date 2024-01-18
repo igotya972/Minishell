@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/18 05:26:34 by dferjul          ###   ########.fr       */
+/*   Created: 2024/01/18 03:03:07 by dferjul           #+#    #+#             */
+/*   Updated: 2024/01/18 05:27:16 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	signal_manager(int signum)
+void	free_arguments(char **args)
 {
-	//printf("%d\n", signum);
-	if (signum == SIGINT || signum == SIGTSTP)
-	{
-		// Ctrl-C
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
+	int	i;
 
-void	handle_ctrld(t_data *data)
-{
-	if (!data->input)
+	i = 0;
+	while (args[i] != NULL)
 	{
-		printf("exit\n");
-		//ft_free(data);
-		exit(EXIT_SUCCESS);
+		free(args[i]);
+		i++;
 	}
+	free(args);
 }

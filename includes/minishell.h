@@ -38,18 +38,22 @@ typedef struct s_lexer
 }				t_lexer;
 
 
+/*	ft_signal.c	*/
+void	signal_manager(int signum);
+void	handle_ctrld(t_data *data);
 
 /*	minishell.c	*/
 void	minishell_prompt(t_data *data);
+
+/*	exec_cmd.c	*/
+void	execute_ls(void);
 void	exec_cmd(char *command);
 
 /*	parser.c	*/
 void	lexer_temporaire(t_data *data);
-
-
-/*	ft_signal.c	*/
-void	signal_manager(int signum);
-void	handle_ctrld(t_data *data);
+int		count_tokens(t_data *data);
+char	*append_char_to_token(char **token, char c);
+char	**lexer(t_data *data);
 
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
@@ -65,5 +69,6 @@ char	**envp_modifier(t_data *data);
 void	init_data(t_data *data, char **envp);
 char	**envp_without_oldpwd(char **envp);
 
-
+/*	free.c	*/
+void	free_arguments(char **args);
 #endif

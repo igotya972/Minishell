@@ -3,58 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/13 18:29:52 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/18 05:19:27 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exec_cmd(char *command)
-{
-	pid_t	pid;
-	char	**argv;
-
-	argv = malloc(sizeof(char *) * 2);
-	if (!argv)
-	{
-		perror("Erreur malloc argv");
-		exit(EXIT_FAILURE);
-	}
-	argv[0] = command;
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(argv[0], argv, NULL) == -1)
-		{
-			perror("Erreur lors de l'exécution de la commande");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else if (pid < 0)
-	{
-		perror("Erreur lors de la création du processus");
-	}
-	else
-	{
-		wait(NULL);
-	}
-}
-
 		// Affiche le prompt
 void	minishell_prompt(t_data *data)
 {
-	//char	*input;
-	//int		signum;
-	//signum = 0;
 	while (1)
 	{
 		signal(SIGINT, &signal_manager);
 		signal(SIGTSTP, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
-		//set_signal_action();
 		data->input = readline("\033[0;34mminishell>\033[0;0m ");
 		handle_ctrld(data);
 		add_history(data->input);
@@ -63,28 +28,14 @@ void	minishell_prompt(t_data *data)
 			// ft_free(data);
 			exit(EXIT_SUCCESS);
 		}
+		if (ft_strcmp(data->input, "ls") == 0)
+		{
+			execute_ls();
+		}
 		//lexer(data);
 		lexer_temporaire(data);
 		launch_builtins(data, data->lexer);
-		//exec_cmd(input);
+		//exec_cmd(data->input);
 		free(data->input);
 	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	(void)argc;
-	(void)argv;
-	t_data *data;
-
-	data = malloc(sizeof(t_data));
-	if (!data)
-	{
-		perror("Erreur d'allocation de mémoire");
-		//ft_free(data);
-		exit(EXIT_FAILURE);
-	}
-	init_data(data, envp);
-	minishell_prompt(data);
-	return (0);
 }

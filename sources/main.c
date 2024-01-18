@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/18 05:26:34 by dferjul          ###   ########.fr       */
+/*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
+/*   Updated: 2024/01/18 05:28:57 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	signal_manager(int signum)
+int	main(int argc, char **argv, char **envp)
 {
-	//printf("%d\n", signum);
-	if (signum == SIGINT || signum == SIGTSTP)
-	{
-		// Ctrl-C
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
+	t_data	*data;
 
-void	handle_ctrld(t_data *data)
-{
-	if (!data->input)
+	(void)argc;
+	(void)argv;
+	data = malloc(sizeof(t_data));
+	if (!data)
 	{
-		printf("exit\n");
-		//ft_free(data);
-		exit(EXIT_SUCCESS);
+		perror("Erreur d'allocation de mémoire");
+		exit(EXIT_FAILURE);
 	}
+	init_data(data, envp);
+	minishell_prompt(data);
+	return (0);
 }
