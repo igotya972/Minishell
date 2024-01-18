@@ -6,7 +6,7 @@
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/18 05:21:46 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/18 06:02:42 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,31 @@ void	execute_ls(void)
 	char	**argv;
 
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("Error fork");
+		exit(EXIT_FAILURE);
+	}
 	if (pid == 0)
 	{
 		argv = malloc(sizeof(char *) * 3);
+		if (!argv)
+		{
+			perror("Error malloc");
+			exit(EXIT_FAILURE);
+		}
 		argv[0] = "/bin/ls";
 		argv[1] = "-l";
 		argv[2] = NULL;
 		if (execve("/bin/ls", argv, NULL) == -1)
 		{
 			perror("Error exec ls");
+			free(argv);
 			exit(EXIT_FAILURE);
 		}
 	}
-	else if (pid < 0)
-		perror("Error processus");
+	else
+		waitpid(pid, NULL, 0);
 }
 
 void	exec_cmd(char *command)
@@ -47,6 +58,11 @@ void	exec_cmd(char *command)
 	}
 	args[0] = command;
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("Erreur fork");
+		exit(EXIT_FAILURE);
+	}
 	if (pid == 0)
 	{
 		if (execve(args[0], args, NULL) == -1)
@@ -55,10 +71,6 @@ void	exec_cmd(char *command)
 			exit(EXIT_FAILURE);
 		}
 	}
-	else if (pid < 0)
-		perror("Error processus");
 	else
-	{
 		wait(NULL);
-	}
 }
