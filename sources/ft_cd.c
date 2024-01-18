@@ -16,11 +16,16 @@ void	ft_cd(t_data *data, char **inputs, int i)
 		{
 			data->old_pwd = getcwd(NULL, 0);
 			chdir(inputs[i + 1]);
+			data->oldpwd_status = 1;
 			data->envp = envp_modifier(data);
 		}
 	}
 	else
+	{
 		chdir(getenv("HOME"));
+		data->oldpwd_status = 1;
+	}
+
 }
 
 char	**envp_modifier(t_data *data)

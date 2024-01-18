@@ -30,6 +30,7 @@ typedef struct	s_data
 	char	*env_path;
 	char	**envp;
 	char	*old_pwd;
+	int		oldpwd_status;
 }				t_data;
 
 typedef struct s_lexer
@@ -67,7 +68,6 @@ char	**envp_modifier(t_data *data);
 
 /*	init_data.c	*/
 void	init_data(t_data *data, char **envp);
-char	**envp_without_oldpwd(char **envp);
 
 /*	free.c	*/
 void	free_arguments(char **args);
