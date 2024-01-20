@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/18 05:19:27 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/19 11:24:48 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	minishell_prompt(t_data *data)
 			exit(EXIT_SUCCESS);
 		}
 		if (ft_strcmp(data->input, "ls") == 0)
-		{
 			execute_ls();
-		}
 		//lexer(data);
 		lexer_temporaire(data);
 		launch_builtins(data, data->lexer);

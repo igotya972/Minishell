@@ -1,4 +1,5 @@
 {
     "42header.username": "afont",
-    "42header.email": "afont@student.42nice.fr"
+    "42header.email": "afont@student.42nice.fr",
+    "C_Cpp.errorSquiggles": "disabled"
 }

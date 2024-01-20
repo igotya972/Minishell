@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/18 05:26:34 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/19 11:47:47 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	signal_manager(int signum)
 	//printf("%d\n", signum);
 	if (signum == SIGINT || signum == SIGTSTP)
 	{
-		// Ctrl-C
+		// Ctrl-C, Z
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
