@@ -78,6 +78,7 @@ char	**envp_add(t_data *data, char *key, char *value);
 char	*ft_keyinit(char *str, int j);
 void	ft_display_export(t_data *data);
 void	ft_sort_envp(char **envp);
+char	*ft_with_quotation_marks(char *str);
 
 
 #endif

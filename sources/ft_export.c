@@ -17,7 +17,8 @@ void	ft_export(t_data *data, char **inputs, int i)
 				return ;
 			}
 		}
-		printf("export: %s: not a valid identifier\n", inputs[i + 1]);
+		data->envp = envp_add(data, inputs[i + 1], "");
+		//printf("export: %s: not a valid identifier\n", inputs[i + 1]);
 	}
 	else
 		ft_display_export(data);
@@ -70,19 +71,14 @@ char	**envp_add(t_data *data, char *key, char *value)
  	tmp = malloc(sizeof(char *) * (envp_len) + 1);
 	while (++i < envp_len)
 	{
-		//tmp = ft_withquotation_marks(data->envp[i]);
-		tmp[i] = ft_strdup(data->envp[i]);
+		tmp[i] = ft_with_quotation_marks(data->envp[i]);
 		tmp[i] = ft_strjoin("declare -x ", tmp[i]);
 	}
 	tmp[i] = NULL;
 	ft_sort_envp(tmp);
 	i = -1;
 	while (tmp[++i])
-	{
 		printf("%s\n", tmp[i]);
-		free(tmp[i]);
-	}
-	free(tmp);
 }
 
 void	ft_sort_envp(char **envp)
@@ -107,6 +103,30 @@ void	ft_sort_envp(char **envp)
 	}
 }
 
-	
-	
- 	
+char	*ft_with_quotation_marks(char *str)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	tmp = ft_calloc(sizeof(char *), (ft_strlen(str) + 3));	
+	i = -1;
+	j = -1;
+	while (str[++i])
+	{
+		tmp[++j] = str[i];
+		if (str[i] == '=')
+			break;
+	}
+	tmp[++j] = '"';
+	while (str[++i])
+	{
+		if (str[i] == '\n')
+			break;
+		tmp[++j] = str[i];
+	}
+	tmp[j + 1] = '"';
+	tmp[j + 3] = '\0';
+	return (tmp);
+}
+			
