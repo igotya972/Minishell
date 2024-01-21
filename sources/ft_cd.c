@@ -18,6 +18,7 @@ void	ft_cd(t_data *data, char **inputs, int i)
 			chdir(inputs[i + 1]);
 			data->oldpwd_status = 1;
 			data->envp = envp_modifier(data);
+			//data->export_str = export_modifier(data);
 		}
 	}
 	else
@@ -27,6 +28,11 @@ void	ft_cd(t_data *data, char **inputs, int i)
 	}
 
 }
+
+// char	**export_modifier(t_data *data)
+// {
+
+// }
 
 char	**envp_modifier(t_data *data)
 {

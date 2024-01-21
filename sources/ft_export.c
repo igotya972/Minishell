@@ -14,14 +14,40 @@ void	ft_export(t_data *data, char **inputs, int i)
 			{
 				key = ft_keyinit(inputs[i + 1], j);
 				data->envp = envp_add(data, key, inputs[i + 1] + j + 1);
+				data->export_str = export_add(data, key, inputs[i + 1] + j + 1);
 				return ;
 			}
 		}
-		data->envp = envp_add(data, inputs[i + 1], "");
+		//data->export_str = envp_add(data, inputs[i + 1], "");
+		data->export_str = export_add(data, inputs[i + 1], NULL);
 		//printf("export: %s: not a valid identifier\n", inputs[i + 1]);
 	}
 	else
 		ft_display_export(data);
+}
+
+char 	**export_add(t_data *data, char *key, char *value)
+{
+	char	**new_export;
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (data->export_str[i])
+		i++;
+	new_export = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (data->export_str[++i])
+		new_export[i] = ft_strdup(data->export_str[i]);
+	tmp = ft_strjoin("", key);
+	if (value)
+	{
+		tmp = ft_strjoin(tmp, "=");
+		tmp = ft_strjoin(tmp, value);
+	}
+	new_export[i] = tmp;
+	new_export[i + 1] = NULL;
+	return (new_export);
 }
 
 char	*ft_keyinit(char *str, int j)
@@ -62,42 +88,42 @@ char	**envp_add(t_data *data, char *key, char *value)
 {
  	int		i;
  	char	**tmp;
-	int		envp_len;
+	int		export_len;
 
- 	envp_len = 0;
- 	while (data->envp[envp_len])
- 		envp_len++;
+ 	export_len = 0;
+ 	while (data->export_str[export_len])
+ 		export_len++;
  	i = -1;
- 	tmp = malloc(sizeof(char *) * (envp_len) + 1);
-	while (++i < envp_len)
+ 	tmp = malloc(sizeof(char *) * (export_len) + 1);
+	while (++i < export_len)
 	{
-		tmp[i] = ft_with_quotation_marks(data->envp[i]);
+		tmp[i] = ft_with_quotation_marks(data->export_str[i]);
 		tmp[i] = ft_strjoin("declare -x ", tmp[i]);
 	}
 	tmp[i] = NULL;
-	ft_sort_envp(tmp);
+	ft_sort_export(tmp);
 	i = -1;
 	while (tmp[++i])
 		printf("%s\n", tmp[i]);
 }
 
-void	ft_sort_envp(char **envp)
+void	ft_sort_export(char **export)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
 	i = -1;
-	while (envp[++i])
+	while (export[++i])
 	{
 		j = i;
-		while (envp[++j])
+		while (export[++j])
 		{
-			if (ft_strcmp(envp[i], envp[j]) > 0)
+			if (ft_strcmp(export[i], export[j]) > 0)
 			{
-				tmp = envp[i];
-				envp[i] = envp[j];
-				envp[j] = tmp;
+				tmp = export[i];
+				export[i] = export[j];
+				export[j] = tmp;
 			}
 		}
 	}
@@ -118,6 +144,8 @@ char	*ft_with_quotation_marks(char *str)
 		if (str[i] == '=')
 			break;
 	}
+	if (str[i] != '=')
+		return (tmp);
 	tmp[++j] = '"';
 	while (str[++i])
 	{
@@ -126,7 +154,7 @@ char	*ft_with_quotation_marks(char *str)
 		tmp[++j] = str[i];
 	}
 	tmp[j + 1] = '"';
-	tmp[j + 3] = '\0';
+	tmp[j + 2] = '\0';
 	return (tmp);
 }
 			

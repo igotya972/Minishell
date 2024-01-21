@@ -31,6 +31,7 @@ typedef struct	s_data
 	char	**envp;
 	char	*old_pwd;
 	int		oldpwd_status;
+	char	**export_str;
 }				t_data;
 
 typedef struct s_lexer
@@ -68,6 +69,7 @@ char	**envp_modifier(t_data *data);
 
 /*	init_data.c	*/
 void	init_data(t_data *data, char **envp);
+char	**init_export(char **envp);
 
 /*	free.c		*/
 void	free_arguments(char **args);
@@ -77,8 +79,9 @@ void	ft_export(t_data *data, char **inputs, int i);
 char	**envp_add(t_data *data, char *key, char *value);
 char	*ft_keyinit(char *str, int j);
 void	ft_display_export(t_data *data);
-void	ft_sort_envp(char **envp);
+void	ft_sort_export(char **envp);
 char	*ft_with_quotation_marks(char *str);
+char 	**export_add(t_data *data, char *key, char *value);
 
 
 #endif
