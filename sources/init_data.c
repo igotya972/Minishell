@@ -11,23 +11,6 @@ void	init_data(t_data *data, char **envp)
 	init_export(data);
 }
 
-
-// char	**bad_init_export(char **envp)
-// {
-// 	char	**export_str;
-// 	int		i;
-
-// 	i = 0;
-// 	while (envp[i])
-// 		i++;
-// 	export_str = malloc(sizeof(char *) * (i + 1));
-// 	i = -1;
-// 	while (envp[++i])
-// 		export_str[i] = ft_strdup(envp[i]);
-// 	export_str[i + 1] = NULL;
-// 	return (export_str);
-// }
-
 void	init_export(t_data *data)
 {
 	int		i;
