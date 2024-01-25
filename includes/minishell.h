@@ -23,15 +23,26 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-typedef struct	s_data
+typedef struct s_data	t_data;
+typedef struct s_export	t_export;
+
+struct	s_export
 {
-	char	*input;
-	char	**lexer;
-	char	*env_path;
-	char	**envp;
-	char	*old_pwd;
-	int		oldpwd_status;
-}				t_data;
+	char	*key;
+	char	*value;
+	char	*export_str;
+};
+
+struct	s_data
+{
+	char		*input;
+	char		**lexer;
+	char		*env_path;
+	char		**envp;
+	char		*old_pwd;
+	int			oldpwd_status;
+	t_export	*export;
+};
 
 typedef struct s_lexer
 {
@@ -65,20 +76,26 @@ void	ft_pwd(void);
 /*	ft_cd.c		*/
 void	ft_cd(t_data *data, char **inputs, int i);
 char	**envp_modifier(t_data *data);
+void	export_modifier(t_data *data);
+
 
 /*	init_data.c	*/
 void	init_data(t_data *data, char **envp);
+void	init_export(t_data *data);
+char	*ft_keyinit(char *str);
+char	*ft_valueinit(char *str);
+char	*ft_export_str_init(char *key, char *value);
 
 /*	free.c		*/
 void	free_arguments(char **args);
 
 /*	ft_export.c	*/
-void	ft_export(t_data *data, char **inputs, int i);
+void	ft_export(t_data *data, char **inputs, int i, int flag);
 char	**envp_add(t_data *data, char *key, char *value);
-char	*ft_keyinit(char *str, int j);
 void	ft_display_export(t_data *data);
-void	ft_sort_envp(char **envp);
-char	*ft_with_quotation_marks(char *str);
+void	export_add(t_data *data, char *key, char *value);
+void	ft_sort_export(t_export *export);
+char	*ft_value_with_quotation_mark(char *value);
 
 
 #endif

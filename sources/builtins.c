@@ -16,8 +16,17 @@ void	launch_builtins(t_data *data, char **inputs)
 		else if (ft_strcmp(inputs[i], "cd") == 0)
 			ft_cd(data, inputs, i);
 		else if (ft_strcmp(inputs[i], "export") == 0)
-			ft_export(data, inputs, i);
-		
+		{
+			if (!inputs[i + 1])
+				ft_display_export(data);
+			else
+				while(inputs[i + 1])
+				{
+					ft_export(data, inputs, i, 0);
+					i++;
+				}
+		}
+			
 	}
 }
 

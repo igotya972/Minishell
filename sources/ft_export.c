@@ -1,46 +1,86 @@
 #include "../includes/minishell.h"
-
-void	ft_export(t_data *data, char **inputs, int i)
+void	ft_export(t_data *data, char **inputs, int i, int flag)
 {
 	int		j;
 	char	*key;
 
-	if (inputs[i + 1])
+	j = -1;
+	if (ft_isalpha(inputs[i + 1][0]) != 0 || inputs[i + 1][0] == '_')
 	{
-		j = -1;
 		while (inputs[i + 1][++j])
 		{
 			if (inputs[i + 1][j] == '=')
 			{
-				key = ft_keyinit(inputs[i + 1], j);
-				data->envp = envp_add(data, key, inputs[i + 1] + j + 1);
+				key = ft_keyinit(inputs[i + 1]);
+				if (flag == 0)
+					data->envp = envp_add(data, key, inputs[i + 1] + j + 1);
+				export_add(data, key, inputs[i + 1] + j + 1);
 				return ;
 			}
 		}
-		data->envp = envp_add(data, inputs[i + 1], "");
-		//printf("export: %s: not a valid identifier\n", inputs[i + 1]);
+		export_add(data, inputs[i + 1], NULL);
 	}
 	else
-		ft_display_export(data);
+		printf("export: %s: not a valid identifier\n", inputs[i + 1]);
 }
 
-char	*ft_keyinit(char *str, int j)
+void	export_add(t_data *data, char *key, char *value)
 {
-	char	*key;
-	int		i;
+	int			i;
+	int			j;
+	int			key_count;
+	t_export	*tmp;
 
 	i = -1;
-	key = malloc(sizeof(char) * (j + 1));
-	while (++i < j)
-		key[i] = str[i];
-	key[i] = '\0';
-	return (key);
+	j = -1;
+	key_count = 0;
+	while (data->export[++i].key)
+		i++;
+	tmp = malloc(sizeof(t_export) * (i + 2));
+	i = -1;
+	while (data->export[++i].key)
+	{
+		if (!ft_strcmp(data->export[i].key, key) == 0 || (ft_strcmp(data->export[i].key, key) == 0 && !value))
+		{
+			tmp[++j].key = data->export[i].key;
+			tmp[j].value = data->export[i].value;
+			tmp[j].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
+			if (ft_strcmp(data->export[i].key, key) == 0 && !value)
+				key_count++;
+		}
+		//  free(data->export[i].export_str);
+		//  free(data->export[i].value);
+		//  free(data->export[i].key);
+		// printf("%s, %s, %s\n", data->export[i].key, data->export[i].value, data->export[i].export_str);
+	}
+	if (!key_count || (key_count && value))
+	{
+		tmp[++j].key = key;
+		tmp[j].value = ft_value_with_quotation_mark(value);
+		tmp[j].export_str = ft_export_str_init(key, value);
+	}
+	tmp[j + 1].key = NULL;
+	tmp[j + 1].value = NULL;
+	tmp[j + 1].export_str = NULL;
+	// printf("%s, %s, %s\n", tmp[i - 1].key, tmp[i - 1].value, tmp[i - 1].export_str);
+	free(data->export);
+	data->export = tmp;
+}
+
+char	*ft_value_with_quotation_mark(char *value)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin("\"", value);
+	tmp = ft_strjoin(tmp, "\"");
+	return (tmp);
 }
 
 char	**envp_add(t_data *data, char *key, char *value)
 {
 	char	**new_envp;
 	int		i;
+	int		j;
 	char	*tmp;
 
 	i = 0;
@@ -48,85 +88,48 @@ char	**envp_add(t_data *data, char *key, char *value)
 		i++;
 	new_envp = malloc(sizeof(char *) * (i + 1));
 	i = -1;
+	j = -1;
 	while (data->envp[++i])
-		new_envp[i] = ft_strdup(data->envp[i]);
+	{
+		if (!ft_strncmp(data->envp[i], key, ft_strlen(key)) == 0)
+			new_envp[++j] = ft_strdup(data->envp[i]);
+	}
 	tmp = ft_strjoin("", key);
 	tmp = ft_strjoin(tmp, "=");
 	tmp = ft_strjoin(tmp, value);
-	new_envp[i] = tmp;
-	new_envp[i + 1] = NULL;
+	new_envp[j] = tmp;
+	new_envp[j + 1] = NULL;
 	return (new_envp);
 }
 
  void	ft_display_export(t_data *data)
 {
- 	int		i;
- 	char	**tmp;
-	int		envp_len;
+ 	int	i;
 
- 	envp_len = 0;
- 	while (data->envp[envp_len])
- 		envp_len++;
- 	i = -1;
- 	tmp = malloc(sizeof(char *) * (envp_len) + 1);
-	while (++i < envp_len)
-	{
-		tmp[i] = ft_with_quotation_marks(data->envp[i]);
-		tmp[i] = ft_strjoin("declare -x ", tmp[i]);
-	}
-	tmp[i] = NULL;
-	ft_sort_envp(tmp);
+	ft_sort_export(data->export);
 	i = -1;
-	while (tmp[++i])
-		printf("%s\n", tmp[i]);
+	while (data->export[++i].key)
+		printf("%s\n", data->export[i].export_str);
 }
 
-void	ft_sort_envp(char **envp)
+void	ft_sort_export(t_export *export)
 {
 	int		i;
 	int		j;
-	char	*tmp;
+	t_export	tmp;
 
 	i = -1;
-	while (envp[++i])
+	while (export[++i].key)
 	{
 		j = i;
-		while (envp[++j])
+		while (export[++j].key)
 		{
-			if (ft_strcmp(envp[i], envp[j]) > 0)
+			if (ft_strcmp(export[i].key, export[j].key) > 0)
 			{
-				tmp = envp[i];
-				envp[i] = envp[j];
-				envp[j] = tmp;
+				tmp = export[i];
+				export[i] = export[j];
+				export[j] = tmp;
 			}
 		}
 	}
 }
-
-char	*ft_with_quotation_marks(char *str)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	tmp = ft_calloc(sizeof(char *), (ft_strlen(str) + 3));	
-	i = -1;
-	j = -1;
-	while (str[++i])
-	{
-		tmp[++j] = str[i];
-		if (str[i] == '=')
-			break;
-	}
-	tmp[++j] = '"';
-	while (str[++i])
-	{
-		if (str[i] == '\n')
-			break;
-		tmp[++j] = str[i];
-	}
-	tmp[j + 1] = '"';
-	tmp[j + 3] = '\0';
-	return (tmp);
-}
-			
