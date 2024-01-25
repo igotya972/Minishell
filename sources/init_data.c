@@ -8,22 +8,102 @@ void	init_data(t_data *data, char **envp)
 	data->envp = envp;
 	data->old_pwd = NULL;
 	data->oldpwd_status = 0;
-	data->export_str = init_export(envp);
+	init_export(data);
 }
 
 
-char	**init_export(char **envp)
+// char	**bad_init_export(char **envp)
+// {
+// 	char	**export_str;
+// 	int		i;
+
+// 	i = 0;
+// 	while (envp[i])
+// 		i++;
+// 	export_str = malloc(sizeof(char *) * (i + 1));
+// 	i = -1;
+// 	while (envp[++i])
+// 		export_str[i] = ft_strdup(envp[i]);
+// 	export_str[i + 1] = NULL;
+// 	return (export_str);
+// }
+
+void	init_export(t_data *data)
 {
-	char	**export_str;
 	int		i;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	export_str = malloc(sizeof(char *) * (i + 1));
 	i = -1;
-	while (envp[++i - 1])
-		export_str[i] = ft_strdup(envp[i]);
-	export_str[i + 1] = NULL;
-	return (export_str);
+	while (data->envp[++i])
+		i++;
+	data->export = malloc(sizeof(t_export) * i);
+	i = -1;
+	while (data->envp[++i])
+	{
+		data->export[i].key = ft_keyinit(data->envp[i]);
+		data->export[i].value = ft_valueinit(data->envp[i]);
+		data->export[i].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
+		//printf("%s, %s, %s\n", data->export[i].key, data->export[i].value, data->export[i].export_str);
+	}
+}
+
+char	*ft_export_str_init(char *key, char *value)
+{
+	char	*tmp_str;
+
+	tmp_str = ft_strjoin("declare -x ", key);
+	tmp_str = ft_strjoin(tmp_str, "=");
+	if (value)
+	{
+		if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
+			tmp_str = ft_strjoin(tmp_str, value);
+		else
+		{
+			tmp_str = ft_strjoin(tmp_str, "\"");
+			tmp_str = ft_strjoin(tmp_str, value);
+			tmp_str = ft_strjoin(tmp_str, "\"");
+		}
+	}
+	else
+		tmp_str = ft_strjoin(tmp_str, "\"\"");
+	return (tmp_str);
+}
+
+char	*ft_keyinit(char *str)
+{
+	char	*tmp_key;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = -1;
+	while (str[++i] != '=')
+		j++;
+	tmp_key = malloc(sizeof(char) * (j + 1));
+	i = -1;
+	while (++i < j)
+		tmp_key[i] = str[i];
+	tmp_key[i] = '\0';
+	return (tmp_key);
+}
+
+char	*ft_valueinit(char *str)
+{
+	char	*tmp_value;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = -1;
+	while (str[++i] != '=')
+		j++;
+	if (str[j + 1] == '\0')
+		return (NULL);
+	tmp_value = malloc(sizeof(char) * (ft_strlen(str) - j + 3));
+	i = -1;
+	tmp_value[++i] = '"';
+	while (str[++j])
+		tmp_value[++i] = str[j];
+	tmp_value[++i] = '"';
+	tmp_value[++i] = '\0';
+	return (tmp_value);
 }
