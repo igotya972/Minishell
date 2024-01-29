@@ -26,7 +26,8 @@ void	launch_builtins(t_data *data, char **inputs)
 					i++;
 				}
 		}
-			
+		else if (ft_strcmp(inputs[i], "unset") == 0)
+			ft_unset(data, inputs, i);
 	}
 }
 

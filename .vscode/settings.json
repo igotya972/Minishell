@@ -1,5 +1,8 @@
 {
     "42header.username": "afont",
     "42header.email": "afont@student.42nice.fr",
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "minishell.h": "c"
+    }
 }

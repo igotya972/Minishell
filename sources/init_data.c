@@ -15,10 +15,10 @@ void	init_export(t_data *data)
 {
 	int		i;
 
-	i = -1;
-	while (data->envp[++i])
+	i = 0;
+	while (data->envp[i])
 		i++;
-	data->export = malloc(sizeof(t_export) * i);
+	data->export = malloc(sizeof(t_export) * (i + 1));
 	i = -1;
 	while (data->envp[++i])
 	{
@@ -27,6 +27,9 @@ void	init_export(t_data *data)
 		data->export[i].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
 		//printf("%s, %s, %s\n", data->export[i].key, data->export[i].value, data->export[i].export_str);
 	}
+	data->export[i].key = NULL;
+	data->export[i].value = NULL;
+	data->export[i].export_str = NULL;
 }
 
 char	*ft_export_str_init(char *key, char *value)
