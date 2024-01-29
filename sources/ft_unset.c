@@ -4,8 +4,13 @@ void	ft_unset(t_data *data, char **inputs, int i)
 {
 	if (!inputs[i + 1])
 		return ;
-	ft_unset_export(data, inputs, i);
-	ft_unset_env(data, inputs, i);
+	if (ft_isalpha(inputs[i + 1][0]) != 0 || inputs[i + 1][0] == '_')
+	{
+		ft_unset_export(data, inputs, i);
+		ft_unset_env(data, inputs, i);
+	}
+	else
+		printf("export: %s: not a valid identifier\n", inputs[i + 1]);
 }
 
 void	ft_unset_export(t_data *data, char **inputs, int i)
