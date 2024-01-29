@@ -7,26 +7,37 @@ void	ft_cd(t_data *data, char **inputs, int i)
 		printf("cd: too many arguments\n");
 	else if (inputs[i + 1])
 	{
-		if (access(inputs[i + 1], F_OK) == -1)
+		if (ft_strcmp(inputs[i + 1], "-") == 0)
+		{
+			if (data->oldpwd_status == 0)
+				printf("cd: OLDPWD not set\n");
+			else
+			{
+				ft_chdir(data, data->old_pwd);
+				ft_pwd();
+			}
+		}
+		else if (ft_strcmp(inputs[i + 1], "/") == 0)
+			ft_chdir(data, "/");
+		else if (ft_strcmp(inputs[i + 1], "~") == 0)
+			ft_chdir(data, getenv("HOME"));
+		else if (access(inputs[i + 1], F_OK) == -1)
 			printf("cd: %s: No such file or directory\n", inputs[i + 1]);
 		else
-		{
-			data->old_pwd = getcwd(NULL, 0);
-			chdir(inputs[i + 1]);
-			data->oldpwd_status = 1;
-			data->envp = envp_modifier(data);
-			export_modifier(data);
-		}
+			ft_chdir(data, inputs[i + 1]);
 	}
 	else
-	{
-		data->old_pwd = getcwd(NULL, 0);
-		chdir(getenv("HOME"));
-		data->oldpwd_status = 1;
-		data->envp = envp_modifier(data);
-		export_modifier(data);
-	}
+		ft_chdir(data, getenv("HOME"));
 
+}
+
+void	ft_chdir(t_data *data, char *path)
+{
+	data->old_pwd = getcwd(NULL, 0);
+	chdir(path);
+	data->oldpwd_status = 1;
+	data->envp = envp_modifier(data);
+	export_modifier(data);
 }
 
 void	export_modifier(t_data *data)

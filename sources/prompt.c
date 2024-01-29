@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/19 11:24:48 by afont            ###   ########.fr       */
+/*   Updated: 2024/01/29 14:31:43 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	minishell_prompt(t_data *data)
 		signal(SIGINT, &signal_manager);
 		signal(SIGTSTP, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
-		data->input = readline("\033[0;34mminishell>\033[0;0m ");
+		//  ft_strjoin("\033[32mminishell\033[0;0m:\033[34m ", getcwd(NULL, 0))
+		//  ft_strjoin(truc au dessus, "\033[0;0m$ ")
+		data->input = readline(ft_strjoin(ft_strjoin("• \033[32mminishell\033[0;0m:\033[34m", getcwd(NULL, 0)), "\033[0;0m$ "));
 		handle_ctrld(data);
 		add_history(data->input);
 		if (ft_strcmp(data->input, "exit") == 0)

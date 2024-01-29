@@ -77,7 +77,7 @@ void	ft_pwd(void);
 void	ft_cd(t_data *data, char **inputs, int i);
 char	**envp_modifier(t_data *data);
 void	export_modifier(t_data *data);
-
+void	ft_chdir(t_data *data, char *path);
 
 /*	init_data.c	*/
 void	init_data(t_data *data, char **envp);

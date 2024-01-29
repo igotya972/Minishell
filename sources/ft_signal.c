@@ -6,11 +6,13 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/19 11:47:47 by afont            ###   ########.fr       */
+/*   Updated: 2024/01/29 14:37:31 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//to do : quitte une boucle infini
 
 void	signal_manager(int signum)
 {
