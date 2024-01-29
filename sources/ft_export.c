@@ -31,10 +31,10 @@ void	export_add(t_data *data, char *key, char *value)
 	int			key_count;
 	t_export	*tmp;
 
-	i = -1;
+	i = 0;
 	j = -1;
 	key_count = 0;
-	while (data->export[++i].key)
+	while (data->export[i].key)
 		i++;
 	tmp = malloc(sizeof(t_export) * (i + 2));
 	i = -1;
@@ -90,10 +90,8 @@ char	**envp_add(t_data *data, char *key, char *value)
 	i = -1;
 	j = -1;
 	while (data->envp[++i])
-	{
 		if (!ft_strncmp(data->envp[i], key, ft_strlen(key)) == 0)
 			new_envp[++j] = ft_strdup(data->envp[i]);
-	}
 	tmp = ft_strjoin("", key);
 	tmp = ft_strjoin(tmp, "=");
 	tmp = ft_strjoin(tmp, value);

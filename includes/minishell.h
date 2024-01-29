@@ -97,5 +97,9 @@ void	export_add(t_data *data, char *key, char *value);
 void	ft_sort_export(t_export *export);
 char	*ft_value_with_quotation_mark(char *value);
 
+/*	ft_unset.c	*/
+void	ft_unset(t_data *data, char **inputs, int i);
+void	ft_unset_export(t_data *data, char **inputs, int i);
+void	ft_unset_env(t_data *data, char **inputs, int i);
 
 #endif
