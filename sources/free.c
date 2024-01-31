@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 03:03:07 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/18 05:27:16 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/01/31 11:53:20 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,40 @@ void	free_arguments(char **args)
 		i++;
 	}
 	free(args);
+}
+
+void	ft_free(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	if (data->export[0].key)
+	{
+		while (data->export[++i].key)
+		{
+			free(data->export[i].key);
+			free(data->export[i].value);
+			free(data->export[i].export_str);
+		}
+		free(data->export);
+	}
+	if (data->input)
+		free(data->input);
+	if (data->lexer)
+	{
+		i = -1;
+		while (data->lexer[++i])
+			free(data->lexer[i]);
+		free(data->lexer);
+	}
+	if (data->envp[0])
+	{
+		i = -1;
+		while (data->envp[++i])
+			free(data->envp[i]);
+		free(data->envp);
+	}
+	if (data->old_pwd)
+		free(data->old_pwd);
+	free(data);
 }

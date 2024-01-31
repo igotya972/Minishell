@@ -5,11 +5,27 @@ void	init_data(t_data *data, char **envp)
 	data->input = NULL;
 	data->lexer = NULL;
 	data->env_path = getenv("PATH");
-	data->envp = envp;
+	data->envp = init_envp(envp);
 	data->old_pwd = NULL;
 	data->oldpwd_status = 0;
 	init_export(data);
 }
+
+ char	**init_envp(char **envp)
+ {
+	int		i;
+	char	**tmp_envp;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	tmp_envp = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (envp[++i])
+		tmp_envp[i] = ft_strdup(envp[i]);
+	tmp_envp[i] = NULL;
+	return (tmp_envp);
+ }
 
 void	init_export(t_data *data)
 {
@@ -35,22 +51,32 @@ void	init_export(t_data *data)
 char	*ft_export_str_init(char *key, char *value)
 {
 	char	*tmp_str;
+	//char	*tmp_str2;
 
-	tmp_str = ft_strjoin("declare -x ", key);
-	tmp_str = ft_strjoin(tmp_str, "=");
+	tmp_str = ft_strjoin(ft_strjoin("declare -x ", key), "=");
+	//free(tmp_str);
 	if (value)
 	{
 		if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
+		{
 			tmp_str = ft_strjoin(tmp_str, value);
+			//free(tmp_str2);
+		}
 		else
 		{
-			tmp_str = ft_strjoin(tmp_str, "\"");
-			tmp_str = ft_strjoin(tmp_str, value);
-			tmp_str = ft_strjoin(tmp_str, "\"");
+			//tmp_str = ft_strjoin(tmp_str, "\"");
+			//free(tmp_str2);
+			//tmp_str = ft_strjoin(ft_strjoin(tmp_str, "\""), value);
+			//free(tmp_str);
+			tmp_str = ft_strjoin(ft_strjoin(ft_strjoin(tmp_str, "\""), value), "\"");
+			//free(tmp_str2);
 		}
 	}
 	else
+	{
 		tmp_str = ft_strjoin(tmp_str, "\"\"");
+		//free(tmp_str2);
+	}
 	return (tmp_str);
 }
 

@@ -85,9 +85,11 @@ void	init_export(t_data *data);
 char	*ft_keyinit(char *str);
 char	*ft_valueinit(char *str);
 char	*ft_export_str_init(char *key, char *value);
+ char	**init_envp(char **envp);
 
 /*	free.c		*/
 void	free_arguments(char **args);
+void	ft_free(t_data *data);
 
 /*	ft_export.c	*/
 void	ft_export(t_data *data, char **inputs, int i, int flag);
@@ -101,5 +103,8 @@ char	*ft_value_with_quotation_mark(char *value);
 void	ft_unset(t_data *data, char **inputs, int i);
 void	ft_unset_export(t_data *data, char **inputs, int i);
 void	ft_unset_env(t_data *data, char **inputs, int i);
+
+/*	ft_utils.c */
+char	*ft_init_prompt(void);
 
 #endif

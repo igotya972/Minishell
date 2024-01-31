@@ -34,6 +34,7 @@ void	export_add(t_data *data, char *key, char *value)
 	i = 0;
 	j = -1;
 	key_count = 0;
+	//printf("%s\n", key);
 	while (data->export[i].key)
 		i++;
 	tmp = malloc(sizeof(t_export) * (i + 2));
@@ -59,10 +60,19 @@ void	export_add(t_data *data, char *key, char *value)
 		tmp[j].value = ft_value_with_quotation_mark(value);
 		tmp[j].export_str = ft_export_str_init(key, value);
 	}
+	else
+		free(key);
 	tmp[j + 1].key = NULL;
 	tmp[j + 1].value = NULL;
 	tmp[j + 1].export_str = NULL;
 	// printf("%s, %s, %s\n", tmp[i - 1].key, tmp[i - 1].value, tmp[i - 1].export_str);
+	// i = -1;
+	// while (data->export[++i].key)
+	// {
+	// 	free(data->export[i].key);
+	// 	free(data->export[i].value);
+	// 	free(data->export[i].export_str);
+	// }
 	free(data->export);
 	data->export = tmp;
 }
@@ -70,10 +80,12 @@ void	export_add(t_data *data, char *key, char *value)
 char	*ft_value_with_quotation_mark(char *value)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = ft_strjoin("\"", value);
-	tmp = ft_strjoin(tmp, "\"");
-	return (tmp);
+	tmp2 = ft_strjoin(tmp, "\"");
+	free(tmp);
+	return (tmp2);
 }
 
 char	**envp_add(t_data *data, char *key, char *value)

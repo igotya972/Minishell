@@ -33,6 +33,8 @@ void	ft_cd(t_data *data, char **inputs, int i)
 
 void	ft_chdir(t_data *data, char *path)
 {
+	// if (data->old_pwd)
+	//free(data->old_pwd);
 	data->old_pwd = getcwd(NULL, 0);
 	chdir(path);
 	data->oldpwd_status = 1;
@@ -43,11 +45,16 @@ void	ft_chdir(t_data *data, char *path)
 void	export_modifier(t_data *data)
 {
 	char	**new_export;
+	char	*tmp;
 
 	new_export = malloc(sizeof(char *) * 2);
+	tmp = getcwd(NULL, 0);
 	new_export[0] = ft_strdup("export");
-	new_export[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	new_export[1] = ft_strjoin("PWD=", tmp);
 	ft_export(data, new_export, 0, 1);
+	free(tmp);
+	free(new_export[0]);
+	free(new_export[1]);
 	new_export[0] = ft_strdup("export");
 	new_export[1] = ft_strjoin("OLDPWD=", data->old_pwd);
 	ft_export(data, new_export, 0, 1);
@@ -59,6 +66,7 @@ void	export_modifier(t_data *data)
 char	**envp_modifier(t_data *data)
 {
 	char	**new_envp;
+	char	*tmp;
 	int		i;
 
 	data->env_path = getenv("PATH");
@@ -72,7 +80,11 @@ char	**envp_modifier(t_data *data)
 		if (ft_strncmp(data->envp[i], "OLDPWD=", 7) == 0)
 			new_envp[i] = ft_strjoin("OLDPWD=", data->old_pwd);
 		else if (ft_strncmp(data->envp[i], "PWD=", 4) == 0)
-			new_envp[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+		{
+			tmp = getcwd(NULL, 0);
+			new_envp[i] = ft_strjoin("PWD=", tmp);
+			free(tmp);
+		}
 		else
 			new_envp[i] = ft_strdup(data->envp[i]);
 	}

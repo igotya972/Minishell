@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/29 14:37:31 by afont            ###   ########.fr       */
+/*   Updated: 2024/01/30 10:21:17 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_ctrld(t_data *data)
 	if (!data->input)
 	{
 		printf("exit\n");
-		//ft_free(data);
+		ft_free(data);
 		exit(EXIT_SUCCESS);
 	}
 }
