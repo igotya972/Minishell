@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dferjul <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: afont <afont@student.42nice.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 13:40:08 by dferjul           #+#    #+#              #
-#    Updated: 2023/11/14 11:12:05 by dferjul          ###   ########.fr        #
+#    Updated: 2024/02/01 16:03:05 by afont            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,27 +36,37 @@ RM		=	rm -rf
 
 NAME	=	libft.a
 
-#--Règle pour compiler les fichiers .c en fichiers .o--#
- $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+TOTAL_FILES = $(words $(SRCS))
 
-#rules
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@count=$$(find $(OBJ_DIR) -name '*.o' | wc -l); \
+	i=1; \
+	while [ $$i -le $$count ]; do \
+		echo -n "▰ "; \
+		i=$$((i + 1)); \
+	done; \
+	while [ $$i -le $(TOTAL_FILES) ]; do \
+		echo -n "══"; \
+		i=$$((i + 1)); \
+	done; \
+	echo -n "  $$((($$count * 100) / $(TOTAL_FILES)))% Compiling $$(basename $<)...\r"
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)
 
 bonus : $(OBJS_BONUS)
-		ar -rcs $(NAME) $(OBJS_BONUS)
+	@ar -rcs $(NAME) $(OBJS_BONUS)
 
 clean :
-	$(RM) $(OBJS) $(OBJS_BONUS)
-	rm -rf obj_o
+	@$(RM) $(OBJS) $(OBJS_BONUS)
+	@rm -rf obj_o
 
 fclean : clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re : fclean all
 
