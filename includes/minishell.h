@@ -85,10 +85,11 @@ void	init_export(t_data *data);
 char	*ft_keyinit(char *str);
 char	*ft_valueinit(char *str);
 char	*ft_export_str_init(char *key, char *value);
- char	**init_envp(char **envp);
+char * NewFunction(char * tmp_str);
+char **init_envp(char **envp);
 
 /*	free.c		*/
-void	free_arguments(char **args);
+void free_arguments(char **args);
 void	ft_free(t_data *data);
 
 /*	ft_export.c	*/

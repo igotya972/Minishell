@@ -34,7 +34,6 @@ void	export_add(t_data *data, char *key, char *value)
 	i = 0;
 	j = -1;
 	key_count = 0;
-	//printf("%s\n", key);
 	while (data->export[i].key)
 		i++;
 	tmp = malloc(sizeof(t_export) * (i + 2));
@@ -49,10 +48,6 @@ void	export_add(t_data *data, char *key, char *value)
 			if (ft_strcmp(data->export[i].key, key) == 0 && !value)
 				key_count++;
 		}
-		//  free(data->export[i].export_str);
-		//  free(data->export[i].value);
-		//  free(data->export[i].key);
-		// printf("%s, %s, %s\n", data->export[i].key, data->export[i].value, data->export[i].export_str);
 	}
 	if (!key_count || (key_count && value))
 	{
@@ -65,15 +60,17 @@ void	export_add(t_data *data, char *key, char *value)
 	tmp[j + 1].key = NULL;
 	tmp[j + 1].value = NULL;
 	tmp[j + 1].export_str = NULL;
-	// printf("%s, %s, %s\n", tmp[i - 1].key, tmp[i - 1].value, tmp[i - 1].export_str);
-	// i = -1;
-	// while (data->export[++i].key)
-	// {
-	// 	free(data->export[i].key);
-	// 	free(data->export[i].value);
-	// 	free(data->export[i].export_str);
-	// }
-	free(data->export);
+	if (data->export)
+	{
+		while (data->export[i].key)
+		{
+			free(data->export[i].key);
+			free(data->export[i].value);
+			free(data->export[i].export_str);
+			i++;
+		}
+		free(data->export);
+	}
 	data->export = tmp;
 }
 

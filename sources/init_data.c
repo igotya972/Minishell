@@ -51,31 +51,32 @@ void	init_export(t_data *data)
 char	*ft_export_str_init(char *key, char *value)
 {
 	char	*tmp_str;
-	//char	*tmp_str2;
+	char 	*tmp_str2;
 
-	tmp_str = ft_strjoin(ft_strjoin("declare -x ", key), "=");
-	//free(tmp_str);
+	tmp_str = ft_strjoin("declare -x ", key);
+	tmp_str2 = ft_strjoin(tmp_str, "=");
+	free(tmp_str);
 	if (value)
 	{
 		if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
 		{
-			tmp_str = ft_strjoin(tmp_str, value);
-			//free(tmp_str2);
+			tmp_str = ft_strjoin(tmp_str2, value);
+			free(tmp_str2);
 		}
 		else
 		{
-			//tmp_str = ft_strjoin(tmp_str, "\"");
-			//free(tmp_str2);
-			//tmp_str = ft_strjoin(ft_strjoin(tmp_str, "\""), value);
-			//free(tmp_str);
-			tmp_str = ft_strjoin(ft_strjoin(ft_strjoin(tmp_str, "\""), value), "\"");
-			//free(tmp_str2);
+			tmp_str = ft_strjoin(tmp_str2, "\"");
+			free(tmp_str2);
+			tmp_str2 = ft_strjoin(tmp_str, value);
+			free(tmp_str);
+			tmp_str = ft_strjoin(tmp_str2, "\"");
+			free(tmp_str2);
 		}
 	}
 	else
 	{
-		tmp_str = ft_strjoin(tmp_str, "\"\"");
-		//free(tmp_str2);
+		tmp_str = ft_strjoin(tmp_str2, "\"\"");
+		free(tmp_str2);
 	}
 	return (tmp_str);
 }
