@@ -2,7 +2,6 @@
 
 void	ft_cd(t_data *data, char **inputs, int i)
 {
-	(void)data;
 	if (inputs[i + 1] && inputs[i + 2])
 		printf("cd: too many arguments\n");
 	else if (inputs[i + 1])
@@ -33,8 +32,8 @@ void	ft_cd(t_data *data, char **inputs, int i)
 
 void	ft_chdir(t_data *data, char *path)
 {
-	// if (data->old_pwd)
-	//free(data->old_pwd);
+	if (data->old_pwd)
+		free(data->old_pwd);
 	data->old_pwd = getcwd(NULL, 0);
 	chdir(path);
 	data->oldpwd_status = 1;
@@ -89,5 +88,9 @@ char	**envp_modifier(t_data *data)
 			new_envp[i] = ft_strdup(data->envp[i]);
 	}
 	new_envp[i] = NULL;
+	i = -1;
+	while (data->envp[++i])
+		free(data->envp[i]);
+	free(data->envp);
 	return (new_envp);
 }

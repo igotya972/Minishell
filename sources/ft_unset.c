@@ -29,9 +29,6 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	{
 		if (ft_strncmp(inputs[i + 1], data->export[k].key, ft_strlen(data->export[k].key)))
 		{
-			// printf("%s, ", data->export[k].key);
-			// printf("%s                                                                                                                                                                                     ", data->export[k].value);
-			//printf("%s                                                                                                         ", data->export[k].export_str);
 			tmp[j].key = ft_strdup(data->export[k].key);
 			if (data->export[k].value)
 				tmp[j].value = ft_strdup(data->export[k].value);
@@ -64,6 +61,9 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 		if (ft_strncmp(inputs[i + 1], data->envp[j], ft_strlen(inputs[i + 1])))
 			new_envp[++k] = ft_strdup(data->envp[j]);
 	new_envp[k + 1] = NULL;
-	//free(data->envp);
+	i = -1;
+	while (data->envp[++i])
+		free(data->envp[i]);
+	free(data->envp);
 	data->envp = new_envp;
 }

@@ -41,6 +41,7 @@ struct	s_data
 	char		**envp;
 	char		*old_pwd;
 	int			oldpwd_status;
+	int		export_len;
 	t_export	*export;
 };
 
@@ -91,10 +92,11 @@ char **init_envp(char **envp);
 /*	free.c		*/
 void free_arguments(char **args);
 void	ft_free(t_data *data);
+void	ft_free_input_lexer(t_data *data);
 
 /*	ft_export.c	*/
 void	ft_export(t_data *data, char **inputs, int i, int flag);
-char	**envp_add(t_data *data, char *key, char *value);
+void	envp_add(t_data *data, char *key, char *value);
 void	ft_display_export(t_data *data);
 void	export_add(t_data *data, char *key, char *value);
 void	ft_sort_export(t_export *export);

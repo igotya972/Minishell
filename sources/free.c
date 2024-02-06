@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 03:03:07 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/31 11:53:20 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/06 17:21:47 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_free(t_data *data)
 	i = -1;
 	if (data->export[0].key)
 	{
-		while (data->export[++i].key)
+		while (++i < data->export_len)
 		{
 			free(data->export[i].key);
 			free(data->export[i].value);
@@ -42,13 +42,6 @@ void	ft_free(t_data *data)
 	}
 	if (data->input)
 		free(data->input);
-	if (data->lexer)
-	{
-		i = -1;
-		while (data->lexer[++i])
-			free(data->lexer[i]);
-		free(data->lexer);
-	}
 	if (data->envp[0])
 	{
 		i = -1;
@@ -59,4 +52,18 @@ void	ft_free(t_data *data)
 	if (data->old_pwd)
 		free(data->old_pwd);
 	free(data);
+}
+
+void	ft_free_input_lexer(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	if (data->lexer)
+	{
+		while (data->lexer[++i])
+			free(data->lexer[i]);
+		free(data->lexer);
+	}
+	free(data->input);
 }

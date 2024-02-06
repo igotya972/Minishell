@@ -35,13 +35,14 @@ void	init_export(t_data *data)
 	while (data->envp[i])
 		i++;
 	data->export = malloc(sizeof(t_export) * (i + 1));
+	data->export_len = 0;
 	i = -1;
 	while (data->envp[++i])
 	{
 		data->export[i].key = ft_keyinit(data->envp[i]);
 		data->export[i].value = ft_valueinit(data->envp[i]);
 		data->export[i].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
-		//printf("%s, %s, %s\n", data->export[i].key, data->export[i].value, data->export[i].export_str);
+		data->export_len += 1;
 	}
 	data->export[i].key = NULL;
 	data->export[i].value = NULL;
