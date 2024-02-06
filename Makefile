@@ -37,7 +37,6 @@ $(OBJ_DIR)/%.o: %.c
 $(NAME): $(OBJS)
 	@make -C libft --no-print-directory
 	@printf "\033[2K\r"
-	@echo -en "   \033[37;42;1mlibft created\033[0m\n"
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -lreadline -o $(NAME)
 	@echo -en "   \033[37;42;1m$(NAME) created\033[0m\n"
 	@tput cnorm

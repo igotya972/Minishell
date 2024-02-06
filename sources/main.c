@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/30 10:42:41 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/06 15:24:49 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,5 @@ int	main(int argc, char **argv, char **envp)
 	minishell_prompt(data);
 	return (0);
 }
+
+// to do : proteger les mallocs
