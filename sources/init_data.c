@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 12:59:06 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:47:54 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include 	"../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	init_data(t_data *data, char **envp)
 {
@@ -62,7 +62,7 @@ void	init_export(t_data *data)
 char	*ft_export_str_init(char *key, char *value)
 {
 	char	*tmp_str;
-	char 	*tmp_str2;
+	char	*tmp_str2;
 
 	tmp_str = ft_strjoin("declare -x ", key);
 	tmp_str2 = ft_strjoin(tmp_str, "=");

@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 10:15:07 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:47:03 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 
 void	signal_manager(int signum)
 {
-	//printf("%d\n", signum);
 	if (signum == SIGINT || signum == SIGTSTP)
 	{
-		// Ctrl-C, Z
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

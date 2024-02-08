@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:04:02 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:46:47 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_value_with_quotation_mark(char *value)
 
 void	ft_display_export(t_data *data)
 {
- 	int	i;
+	int	i;
 
 	ft_sort_export(data->export);
 	i = -1;
@@ -108,8 +108,8 @@ void	ft_display_export(t_data *data)
 
 void	ft_sort_export(t_export *export)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_export	tmp;
 
 	i = -1;

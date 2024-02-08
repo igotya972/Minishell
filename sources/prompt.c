@@ -6,13 +6,12 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 10:15:42 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:49:13 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-		// Affiche le prompt
 void	minishell_prompt(t_data *data)
 {
 	char	*prompt;

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:39:47 by dferjul           #+#    #+#             */
-/*   Updated: 2024/01/17 19:42:22 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/02/08 14:40:18 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 /*	ft_signal.c	*/
 void	signal_manager(int signum);

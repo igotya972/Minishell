@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:46 by dferjul           #+#    #+#             */
-/*   Updated: 2022/11/28 20:13:01 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/02/08 14:41:42 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_skip_first_word(char const *s1, char const *set)
 			j = 0;
 		}
 		else
-		j++;
+			j++;
 	}
 	return (i);
 }
@@ -69,7 +69,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (str);
 	}
 	else
-	str = malloc(sizeof(char) * (j - i + 2));
+		str = malloc(sizeof(char) * (j - i + 2));
 	if (!str)
 		return (0);
 	while (i <= j)
