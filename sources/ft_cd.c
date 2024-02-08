@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 11:00:55 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:03:42 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,37 +75,4 @@ void	export_modifier(t_data *data)
 	free(new_export[0]);
 	free(new_export[1]);
 	free(new_export);
-}
-
-char	**envp_modifier(t_data *data)
-{
-	char	**new_envp;
-	char	*tmp;
-	int		i;
-
-	data->env_path = getenv("PATH");
-	i = 0;
-	while (data->envp[i])
-		i++;
-	new_envp = malloc(sizeof(char *) * (i + 1));
-	i = -1;
-	while (data->envp[++i])
-	{
-		if (ft_strncmp(data->envp[i], "OLDPWD=", 7) == 0)
-			new_envp[i] = ft_strjoin("OLDPWD=", data->old_pwd);
-		else if (ft_strncmp(data->envp[i], "PWD=", 4) == 0)
-		{
-			tmp = getcwd(NULL, 0);
-			new_envp[i] = ft_strjoin("PWD=", tmp);
-			free(tmp);
-		}
-		else
-			new_envp[i] = ft_strdup(data->envp[i]);
-	}
-	new_envp[i] = NULL;
-	i = -1;
-	while (data->envp[++i])
-		free(data->envp[i]);
-	free(data->envp);
-	return (new_envp);
 }

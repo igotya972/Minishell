@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 12:33:16 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:04:02 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,37 +94,6 @@ char	*ft_value_with_quotation_mark(char *value)
 	tmp2 = ft_strjoin(tmp, "\"");
 	free(tmp);
 	return (tmp2);
-}
-
-void	envp_add(t_data *data, char *key, char *value)
-{
-	char	**new_envp;
-	int		i;
-	int		j;
-	char	*tmp;
-	char	*tmp2;
-
-	i = 0;
-	while (data->envp[i])
-		i++;
-	new_envp = malloc(sizeof(char *) * (i + 1));
-	i = -1;
-	j = -1;
-	while (data->envp[++i])
-	{
-		if (!ft_strcmp(data->envp[i], key) == 0)
-			new_envp[++j] = ft_strdup(data->envp[i]);
-		free(data->envp[i]);
-	}
-	free(data->envp);
-	tmp = ft_strjoin("", key);
-	tmp2 = ft_strjoin(tmp, "=");
-	free(tmp);
-	tmp = ft_strjoin(tmp2, value);
-	free(tmp2);
-	new_envp[j] = tmp;
-	new_envp[j + 1] = NULL;
-	data->envp = new_envp;
 }
 
 void	ft_display_export(t_data *data)

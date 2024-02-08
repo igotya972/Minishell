@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:48 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 11:13:30 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:03:10 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,4 @@ void	ft_pwd(void)
 	free(tmp);
 }
 
-void	ft_env(t_data *data)
-{
-	int			i;
 
-	i = -1;
-	while (data->envp[++i])
-		printf("%s\n", data->envp[i]);
-	if (data->oldpwd_status == 1)
-		printf("OLDPWD=%s\n", data->old_pwd);
-}

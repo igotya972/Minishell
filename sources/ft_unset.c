@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:44 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 11:26:28 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:04:51 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,4 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	}
 	free(data->export);
 	data->export = tmp;
-}
-
-void	ft_unset_env(t_data *data, char **inputs, int i)
-{
-	int		j;
-	int		k;
-	char	**new_envp;
-
-	j = 0;
-	while (data->envp[j])
-		j++;
-	new_envp = malloc(sizeof(char *) * (j + 1));
-	j = -1;
-	k = -1;
-	while (data->envp[++j])
-		if (ft_strcmp(inputs[i + 1], data->envp[j]))
-			new_envp[++k] = ft_strdup(data->envp[j]);
-	new_envp[k + 1] = NULL;
-	i = -1;
-	while (data->envp[++i])
-		free(data->envp[i]);
-	free(data->envp);
-	data->envp = new_envp;
 }

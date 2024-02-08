@@ -70,12 +70,10 @@ char	**lexer(t_data *data);
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
 void	launch_builtins(t_data *data, char **input);
-void	ft_env(t_data *data);
 void	ft_pwd(void);
 
 /*	ft_cd.c		*/
 void	ft_cd(t_data *data, char **inputs, int i);
-char	**envp_modifier(t_data *data);
 void	export_modifier(t_data *data);
 void	ft_chdir(t_data *data, char *path);
 
@@ -85,17 +83,15 @@ void	init_export(t_data *data);
 char	*ft_keyinit(char *str);
 char	*ft_valueinit(char *str);
 char	*ft_export_str_init(char *key, char *value);
-char * NewFunction(char * tmp_str);
-char **init_envp(char **envp);
+char	**init_envp(char **envp);
 
 /*	free.c		*/
-void free_arguments(char **args);
+void	free_arguments(char **args);
 void	ft_free(t_data *data);
 void	ft_free_input_lexer(t_data *data);
 
 /*	ft_export.c	*/
 void	ft_export(t_data *data, char **inputs, int i, int flag);
-void	envp_add(t_data *data, char *key, char *value);
 void	ft_display_export(t_data *data);
 void	export_add(t_data *data, char *key, char *value);
 void	ft_sort_export(t_export *export);
@@ -104,9 +100,14 @@ char	*ft_value_with_quotation_mark(char *value);
 /*	ft_unset.c	*/
 void	ft_unset(t_data *data, char **inputs, int i);
 void	ft_unset_export(t_data *data, char **inputs, int i);
-void	ft_unset_env(t_data *data, char **inputs, int i);
 
 /*	ft_utils.c */
 char	*ft_init_prompt(void);
+
+/*	ft_env.c	*/
+void	ft_unset_env(t_data *data, char **inputs, int i);
+void	envp_add(t_data *data, char *key, char *value);
+char	**envp_modifier(t_data *data);
+void	ft_env(t_data *data);
 
 #endif
