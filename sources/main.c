@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 11:04:25 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 13:09:47 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,4 @@ int	main(int argc, char **argv, char **envp)
 }
 
 // to do : proteger les mallocs
-// to do : unset plusieurs truc en meme temps
+// to do : leaks quand je fais export salut=salut

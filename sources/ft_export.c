@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 11:01:00 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 12:33:16 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	envp_add(t_data *data, char *key, char *value)
 	j = -1;
 	while (data->envp[++i])
 	{
-		if (!ft_strncmp(data->envp[i], key, ft_strlen(key)) == 0)
+		if (!ft_strcmp(data->envp[i], key) == 0)
 			new_envp[++j] = ft_strdup(data->envp[i]);
 		free(data->envp[i]);
 	}

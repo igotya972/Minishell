@@ -3,6 +3,8 @@
     "42header.email": "afont@student.42nice.fr",
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "minishell.h": "c"
-    }
+        "minishell.h": "c",
+        "wait.h": "c"
+    },
+    "cmake.sourceDirectory": "/mnt/c/Users/fonta/Documents/42/Minishell"
 }
