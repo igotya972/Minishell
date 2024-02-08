@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:44 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 11:03:55 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:26:28 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	k = -1;
 	while (data->export[++k].key)
 	{
-		if (ft_strncmp(inputs[i + 1], data->export[k].key, ft_strlen(data->export[k].key)))
+		if (ft_strcmp(inputs[i + 1], data->export[k].key))
 		{
 			tmp[++j].key = ft_strdup(data->export[k].key);
 			if (data->export[k].value)
@@ -76,7 +76,7 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	j = -1;
 	k = -1;
 	while (data->envp[++j])
-		if (ft_strncmp(inputs[i + 1], data->envp[j], ft_strlen(inputs[i + 1])))
+		if (ft_strcmp(inputs[i + 1], data->envp[j]))
 			new_envp[++k] = ft_strdup(data->envp[j]);
 	new_envp[k + 1] = NULL;
 	i = -1;
