@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 11:00:44 by afont             #+#    #+#             */
+/*   Updated: 2024/02/08 11:03:55 by afont            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include 	"../includes/minishell.h"
 
 void	ft_unset(t_data *data, char **inputs, int i)
@@ -20,7 +32,7 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	t_export	*tmp;
 
 	k = 0;
-	j = 0;
+	j = -1;
 	while (data->export[k].key)
 		k++;
 	tmp = malloc(sizeof(t_export) * (k + 1));
@@ -29,19 +41,25 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	{
 		if (ft_strncmp(inputs[i + 1], data->export[k].key, ft_strlen(data->export[k].key)))
 		{
-			tmp[j].key = ft_strdup(data->export[k].key);
+			tmp[++j].key = ft_strdup(data->export[k].key);
 			if (data->export[k].value)
 				tmp[j].value = ft_strdup(data->export[k].value);
 			else
 				tmp[j].value = NULL;
 			tmp[j].export_str = ft_strdup(data->export[k].export_str);
-			j++;
 		}
 	}
 	tmp[j + 1].key = NULL;
 	tmp[j + 1].value = NULL;
 	tmp[j + 1].export_str = NULL;
-	//free(data->export);
+	k = -1;
+	while (data->export[++k].key)
+	{
+		free(data->export[k].key);
+		free(data->export[k].value);
+		free(data->export[k].export_str);
+	}
+	free(data->export);
 	data->export = tmp;
 }
 

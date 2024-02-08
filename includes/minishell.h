@@ -41,7 +41,6 @@ struct	s_data
 	char		**envp;
 	char		*old_pwd;
 	int			oldpwd_status;
-	int		export_len;
 	t_export	*export;
 };
 
@@ -59,7 +58,7 @@ void	handle_ctrld(t_data *data);
 void	minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
-void	execute_ls(void);
+void	ft_ls(void);
 void	exec_cmd(char *command);
 
 /*	parser.c	*/

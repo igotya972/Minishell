@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
+/*   Updated: 2024/02/08 11:01:07 by afont            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include 	"../includes/minishell.h"
 
 void	init_data(t_data *data, char **envp)
@@ -11,8 +23,8 @@ void	init_data(t_data *data, char **envp)
 	init_export(data);
 }
 
- char	**init_envp(char **envp)
- {
+char	**init_envp(char **envp)
+{
 	int		i;
 	char	**tmp_envp;
 
@@ -25,7 +37,7 @@ void	init_data(t_data *data, char **envp)
 		tmp_envp[i] = ft_strdup(envp[i]);
 	tmp_envp[i] = NULL;
 	return (tmp_envp);
- }
+}
 
 void	init_export(t_data *data)
 {
@@ -35,14 +47,12 @@ void	init_export(t_data *data)
 	while (data->envp[i])
 		i++;
 	data->export = malloc(sizeof(t_export) * (i + 1));
-	data->export_len = 0;
 	i = -1;
 	while (data->envp[++i])
 	{
 		data->export[i].key = ft_keyinit(data->envp[i]);
 		data->export[i].value = ft_valueinit(data->envp[i]);
 		data->export[i].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
-		data->export_len += 1;
 	}
 	data->export[i].key = NULL;
 	data->export[i].value = NULL;

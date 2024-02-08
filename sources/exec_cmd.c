@@ -6,13 +6,13 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/06 10:19:23 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 10:09:10 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_ls(void)
+void	ft_ls(void)
 {
 	pid_t	pid;
 	char	**argv;

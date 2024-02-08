@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
+/*   Updated: 2024/02/08 11:00:55 by afont            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ft_cd(t_data *data, char **inputs, int i)
@@ -32,10 +44,13 @@ void	ft_cd(t_data *data, char **inputs, int i)
 
 void	ft_chdir(t_data *data, char *path)
 {
+	char	*tmp;
+
+	tmp = getcwd(NULL, 0);
+	chdir(path);
 	if (data->old_pwd)
 		free(data->old_pwd);
-	data->old_pwd = getcwd(NULL, 0);
-	chdir(path);
+	data->old_pwd = tmp;
 	data->oldpwd_status = 1;
 	data->envp = envp_modifier(data);
 	export_modifier(data);

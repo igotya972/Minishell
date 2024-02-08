@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 03:03:07 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/06 17:21:47 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 10:14:43 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_free(t_data *data)
 	i = -1;
 	if (data->export[0].key)
 	{
-		while (++i < data->export_len)
+		while (data->export[++i].key)
 		{
 			free(data->export[i].key);
 			free(data->export[i].value);
@@ -52,6 +52,7 @@ void	ft_free(t_data *data)
 	if (data->old_pwd)
 		free(data->old_pwd);
 	free(data);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_free_input_lexer(t_data *data)
