@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -19,9 +22,6 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <sys/wait.h>
-
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
 typedef struct s_data	t_data;
 typedef struct s_export	t_export;
@@ -49,7 +49,6 @@ typedef struct s_lexer
 	//char	*input
 }				t_lexer;
 
-
 /*	ft_signal.c	*/
 void	signal_manager(int signum);
 void	handle_ctrld(t_data *data);
@@ -71,6 +70,8 @@ char	**lexer(t_data *data);
 int		ft_echo(t_data *data, char **inputs, int i);
 void	launch_builtins(t_data *data, char **input);
 void	ft_pwd(void);
+void	launch_builtins2(t_data *data, char **inputs, int i);
+void	ft_echo2(t_data *data, char **inputs, int *i, int *add);
 
 /*	ft_cd.c		*/
 void	ft_cd(t_data *data, char **inputs, int i);

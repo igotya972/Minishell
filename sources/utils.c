@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 11:01:14 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:49:21 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ char	*ft_init_prompt(void)
 	char	*prompt2;
 	char	*pwd;
 
-	//  ft_strjoin("\033[32mminishell\033[0;0m:\033[34m ", getcwd(NULL, 0))
-	//  ft_strjoin(truc au dessus, "\033[0;0m$ ")
-	// ft_strjoin(ft_strjoin("• \033[32mminishell\033[0;0m:\033[34m", getcwd(NULL, 0)), "\033[0;0m$ ")
 	prompt = ft_strjoin("", "• \033[32mminishell\033[0;0m:\033[34m");
 	pwd = getcwd(NULL, 0);
 	prompt2 = ft_strjoin(prompt, pwd);

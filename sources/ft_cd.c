@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:03:42 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:45:36 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_cd(t_data *data, char **inputs, int i)
 	}
 	else
 		ft_chdir(data, getenv("HOME"));
-
 }
 
 void	ft_chdir(t_data *data, char *path)
