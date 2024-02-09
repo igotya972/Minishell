@@ -57,14 +57,15 @@ void	handle_ctrld(t_data *data);
 void	minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
-void	ft_ls(void);
+void	ft_ls(t_data *data, char **inputs, int i);
 void	exec_cmd(char *command);
+char	**ft_ls2(char *input);
 
 /*	parser.c	*/
 void	lexer_temporaire(t_data *data);
-int		count_tokens(t_data *data);
-char	*append_char_to_token(char **token, char c);
-char	**lexer(t_data *data);
+void	lexer(t_data *data);
+int		ft_count_guillemets(char *input);
+int		ft_count_lexer_words(char *input);
 
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
@@ -104,6 +105,7 @@ void	ft_unset_export(t_data *data, char **inputs, int i);
 
 /*	ft_utils.c */
 char	*ft_init_prompt(void);
+char	*ft_strjoin_carac(char const *s1, char const s2);
 
 /*	ft_env.c	*/
 void	ft_unset_env(t_data *data, char **inputs, int i);

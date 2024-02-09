@@ -6,13 +6,13 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 15:47:25 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/09 09:31:15 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_ls(void)
+void	ft_ls(t_data *data, char **inputs, int i)
 {
 	pid_t	pid;
 	char	**argv;
@@ -25,24 +25,33 @@ void	ft_ls(void)
 	}
 	if (pid == 0)
 	{
-		argv = malloc(sizeof(char *) * 3);
-		if (!argv)
-		{
-			perror("Error malloc");
-			exit(EXIT_FAILURE);
-		}
-		argv[0] = "/bin/ls";
-		argv[1] = "-l";
-		argv[2] = NULL;
+		argv = ft_ls2(inputs[i + 1]);
 		if (execve("/bin/ls", argv, NULL) == -1)
 		{
 			perror("Error exec ls");
 			free(argv);
-			exit(EXIT_FAILURE);
+			ft_free(data);
 		}
+		free(argv);
 	}
 	else
 		waitpid(pid, NULL, 0);
+}
+
+char	**ft_ls2(char *input)
+{
+	char	**tmp_argv;
+
+	tmp_argv = malloc(sizeof(char *) * 3);
+	if (!tmp_argv)
+	{
+		perror("Error malloc");
+		exit(EXIT_FAILURE);
+	}
+	tmp_argv[0] = "/bin/ls";
+	tmp_argv[1] = input;
+	tmp_argv[2] = NULL;
+	return (tmp_argv);
 }
 
 void	exec_cmd(char *command)

@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 14:48:49 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/09 11:17:53 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ int	main(int argc, char **argv, char **envp)
 
 // to do : proteger les mallocs
 // to do : leaks quand je fais export salut=salut
-// to do : faire en sorte de remplacer $COLORTERM par truecolor par exemple, dans le lexer
-// to de : ne pas split entre les guillemets ("salut                   s"), dans le lexer
+// to do : faire en sorte de remplacer vaar d'env ($COLORTERM par truecolor par exemple) dans le lexer
+// to do : ne pas split entre les guillemets ("salut                   s") dans le lexer
+// to do : prise en compte des pipes dans le lexer et ailleurs 
+

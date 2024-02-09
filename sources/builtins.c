@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:48 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 15:33:55 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/09 09:22:24 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	launch_builtins2(t_data *data, char **inputs, int i)
 				ft_unset(data, inputs, i++);
 	}
 	else if (ft_strcmp(inputs[i], "ls") == 0)
-		ft_ls();
+		ft_ls(data, inputs, i);
 }
 
 int	ft_echo(t_data *data, char **inputs, int i)
