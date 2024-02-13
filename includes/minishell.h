@@ -21,7 +21,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
+# include <fcntl.h>
+# include <errno.h>
+# include <stdbool.h>
+# include <stdarg.h>
+# include <stddef.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 
 typedef struct s_data	t_data;
 typedef struct s_export	t_export;
@@ -57,9 +63,7 @@ void	handle_ctrld(t_data *data);
 void	minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
-void	ft_ls(t_data *data, char **inputs, int i);
-void	exec_cmd(char *command);
-char	**ft_ls2(char *input);
+void	exec_cmd(t_data *data);
 
 /*	parser.c	*/
 void	lexer(t_data *data);
@@ -112,5 +116,16 @@ void	ft_unset_env(t_data *data, char **inputs, int i);
 void	envp_add(t_data *data, char *key, char *value);
 char	**envp_modifier(t_data *data);
 void	ft_env(t_data *data);
+
+/*	path.c	*/
+char	*path_cmd(char **path, char *cmd);
+
+/*	ft_exit.c	*/
+void	ft_error(char *str);
+void	ft_exit(t_data *data);
+
+/*	pipe.c	*/
+int 	child_process(int *fd, char **argv, char **env);
+int 	parent_process(int *fd, char **argv, char **env);
 
 #endif
