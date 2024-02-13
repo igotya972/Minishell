@@ -66,6 +66,12 @@ void	lexer(t_data *data);
 char	*ft_space_to_control(char *input);
 int		ft_is_in_quotes(char *input, int i);
 char	*ft_del_quote(char *input);
+void	lexer_temporaire(t_data *data);
+char	*ft_var_to_value(char *input, t_data *data);
+char	*ft_replace_var(char *input, int i, t_data *data, int *len_value);
+char	*ft_del_key(char *input, int i);
+char	*ft_add_to_str(char *input, char *value, int i, int len_key);
+char	*ft_get_value(char *key, t_data *data);
 
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
