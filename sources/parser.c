@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/13 16:16:50 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/13 16:20:49 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	lexer(t_data *data)
 	}
 	data->lexer = tmp2;
 	i = -1;
-	while (data->lexer[++i])
-		printf("%s\n", data->lexer[i]);
+	// while (data->lexer[++i])
+	// 	printf("%s\n", data->lexer[i]);
 }
 
 char	*ft_var_to_value(char *input, t_data *data)
