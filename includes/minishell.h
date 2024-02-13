@@ -62,10 +62,10 @@ void	exec_cmd(char *command);
 char	**ft_ls2(char *input);
 
 /*	parser.c	*/
-void	lexer_temporaire(t_data *data);
 void	lexer(t_data *data);
-int		ft_count_guillemets(char *input);
-int		ft_count_lexer_words(char *input);
+char	*ft_space_to_control(char *input);
+int		ft_is_in_quotes(char *input, int i);
+char	*ft_del_quote(char *input);
 
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
