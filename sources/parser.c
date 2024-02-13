@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/13 16:04:37 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/13 16:16:50 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_var_to_value(char *input, t_data *data)
 	result = ft_strdup(input);
 	while (result[i])
 	{
-		printf("%d, %c\n", i, result[i]);
+		// printf("%d, %c\n", i, result[i]);
 		if (result[i] == '$')
 		{
 			result = ft_replace_var(result, i, data, &i);
@@ -79,16 +79,16 @@ char	*ft_replace_var(char *input, int i, t_data *data, int *len_value)
 		i++;
 	key = malloc(i);
 	i = i_base;
-	while (input[i] && input[i] != ' ' && input[i] != '"')
+	while (input[i] && input[i] != ' ' && input[i] != '"' && input[i] != 17)
 		key[++j] = input[i++];
 	key[j + 1] = 0;
 	// printf("key + 1 = %s\n", key + 1);
-	write(1, "!", 1);
+	// write(1, "!", 1);
 	value = ft_get_value(key + 1, data);
-	write(1, "!", 1);
+	// write(1, "!", 1);
 	*len_value = ft_strlen(value) + i_base;
 	// printf("value = %s\n", value);
-	write(1, "!", 1);
+	// write(1, "!", 1);
 	result = ft_del_key(input, i_base);
 	// printf("result = %s\n", result);
 	result = ft_add_to_str(input, value, i_base, ft_strlen(key));

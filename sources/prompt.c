@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:13:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/13 16:10:37 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/13 16:14:57 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	minishell_prompt(t_data *data)
 		add_history(data->input);
 		lexer(data);
 		// lexer_temporaire(data);
-		exec_cmd(data);
+		// exec_cmd(data);
 		launch_builtins(data, data->lexer);
 		ft_free_input_lexer(data);
 	}
