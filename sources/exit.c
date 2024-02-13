@@ -21,6 +21,5 @@ void	ft_exit(t_data *data)
 void	ft_error(char *str)
 {
 	perror(str);
-	printf("PASS\n");
 	exit(EXIT_FAILURE);
 }
