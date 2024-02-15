@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:11:22 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:45:56 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/14 10:59:37 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,16 @@ void	envp_add(t_data *data, char *key, char *value)
 	i = 0;
 	while (data->envp[i])
 		i++;
-	new_envp = malloc(sizeof(char *) * (i + 1));
+	new_envp = malloc(sizeof(char *) * (i + 2));
 	i = -1;
 	j = -1;
 	while (data->envp[++i])
 	{
-		if (!ft_strcmp(data->envp[i], key) == 0)
+		tmp = ft_keyinit(data->envp[i]);
+		if (!ft_strcmp(tmp, key) == 0)
 			new_envp[++j] = ft_strdup(data->envp[i]);
 		free(data->envp[i]);
+		free(tmp);
 	}
 	free(data->envp);
 	tmp = ft_strjoin("", key);
@@ -82,8 +84,8 @@ void	envp_add(t_data *data, char *key, char *value)
 	free(tmp);
 	tmp = ft_strjoin(tmp2, value);
 	free(tmp2);
-	new_envp[j] = tmp;
-	new_envp[j + 1] = NULL;
+	new_envp[j + 1] = tmp;
+	new_envp[j + 2] = NULL;
 	data->envp = new_envp;
 }
 
@@ -92,6 +94,8 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	int		j;
 	int		k;
 	char	**new_envp;
+	char	*tmp;
+	
 
 	j = 0;
 	while (data->envp[j])
@@ -100,8 +104,12 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	j = -1;
 	k = -1;
 	while (data->envp[++j])
-		if (ft_strcmp(inputs[i + 1], data->envp[j]))
+	{
+		tmp = ft_keyinit(data->envp[j]);
+		if (ft_strcmp(inputs[i + 1], tmp))
 			new_envp[++k] = ft_strdup(data->envp[j]);
+		free(tmp);
+	}
 	new_envp[k + 1] = NULL;
 	i = -1;
 	while (data->envp[++i])

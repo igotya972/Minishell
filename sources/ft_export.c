@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:46:47 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/14 11:08:31 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,20 @@ void	ft_export(t_data *data, char **inputs, int i, int flag)
 	{
 		while (inputs[i + 1][++j])
 		{
-			if (inputs[i + 1][j] == '=')
+			if (ft_isalnum(inputs[i + 1][j]) == 1 || inputs[i + 1][j] == '_' || inputs[i + 1][j] == '=')
 			{
-				key = ft_keyinit(inputs[i + 1]);
-				if (flag == 0)
-					envp_add(data, key, inputs[i + 1] + j + 1);
-				export_add(data, key, inputs[i + 1] + j + 1);
+				if (inputs[i + 1][j] == '=')
+				{
+					key = ft_keyinit(inputs[i + 1]);
+					if (flag == 0)
+						envp_add(data, key, inputs[i + 1] + j + 1);
+					export_add(data, key, inputs[i + 1] + j + 1);
+					return ;
+				}
+			}
+			else
+			{
+				printf("export: not valid in this context: %s\n", inputs[i + 1]);
 				return ;
 			}
 		}

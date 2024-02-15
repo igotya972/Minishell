@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/13 16:23:04 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/15 09:53:07 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int	main(int argc, char **argv, char **envp)
 // to do : proteger les mallocs
 // to do : leaks quand je fais export salut=salut
 // to do : prise en compte des pipes dans le lexer et ailleurs 
-// to do : bug quand j'ajoute plusieurs var en meme temps avec (export salut=salut salut2=salut2), ca supprime les vars precedentes dans l'env
 // to do : prise en compte des simple quotes dans le lexer
 // to do : affiche double prompt quand tu fait wc -l

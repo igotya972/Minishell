@@ -50,11 +50,6 @@ struct	s_data
 	t_export	*export;
 };
 
-typedef struct s_lexer
-{
-	//char	*input
-}				t_lexer;
-
 /*	ft_signal.c	*/
 void	signal_manager(int signum);
 void	handle_ctrld(t_data *data);
@@ -115,7 +110,6 @@ void	ft_unset_export(t_data *data, char **inputs, int i);
 
 /*	ft_utils.c */
 char	*ft_init_prompt(void);
-char	*ft_strjoin_carac(char const *s1, char const s2);
 
 /*	ft_env.c	*/
 void	ft_unset_env(t_data *data, char **inputs, int i);
