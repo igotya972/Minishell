@@ -6,5 +6,9 @@
         "minishell.h": "c",
         "wait.h": "c"
     },
-    "cmake.sourceDirectory": "/mnt/c/Users/fonta/Documents/42/Minishell"
+    "cmake.sourceDirectory": "/mnt/c/Users/fonta/Documents/42/Minishell",
+    "cloudcode.duetAI.project": "bubbly-reducer-408213",
+    "cloudcode.duetAI.languages": [
+        "c"
+    ]
 }

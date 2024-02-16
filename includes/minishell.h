@@ -71,6 +71,7 @@ char	*ft_replace_var(char *input, int i, t_data *data, int *len_value);
 char	*ft_del_key(char *input, int i);
 char	*ft_add_to_str(char *input, char *value, int i, int len_key);
 char	*ft_get_value(char *key, t_data *data);
+int		ft_is_in_Squotes(char *input, int i);
 
 /*	builtins.c	*/
 int		ft_echo(t_data *data, char **inputs, int i);
