@@ -125,7 +125,7 @@ void	ft_error(char *str);
 void	ft_exit(t_data *data);
 
 /*	pipe.c	*/
-int 	child_process(int *fd, char **argv, char **env);
-int 	parent_process(int *fd, char **argv, char **env);
+int		child_process(int *fd, char **argv, char **env);
+int		parent_process(int *fd, char **argv, char **env);
 
 #endif

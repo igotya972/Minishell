@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:11:22 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:34:13 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 13:28:19 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	int		k;
 	char	**new_envp;
 	char	*tmp;
-	
 
 	j = 0;
 	while (data->envp[j])

@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:34:35 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 13:40:30 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_export(t_data *data, char **inputs, int i, int flag)
 	{
 		while (inputs[i + 1][++j])
 		{
-			if (ft_isalnum(inputs[i + 1][j]) == 1 || inputs[i + 1][j] == '_' || inputs[i + 1][j] == '=')
+			if (ft_isalnum(inputs[i + 1][j]) == 1 || \
+			inputs[i + 1][j] == '_' || inputs[i + 1][j] == '=')
 			{
 				if (inputs[i + 1][j] == '=')
 				{
@@ -35,7 +36,8 @@ void	ft_export(t_data *data, char **inputs, int i, int flag)
 			}
 			else
 			{
-				printf("export: not valid in this context: %s\n", inputs[i + 1]);
+				printf("export: not valid in this context: %s\n", \
+				inputs[i + 1]);
 				return ;
 			}
 		}
@@ -62,11 +64,13 @@ void	export_add(t_data *data, char *key, char *value)
 	i = -1;
 	while (data->export[++i].key)
 	{
-		if (!ft_strcmp(data->export[i].key, key) == 0 || (ft_strcmp(data->export[i].key, key) == 0 && !value))
+		if (!ft_strcmp(data->export[i].key, key) \
+		== 0 || (ft_strcmp(data->export[i].key, key) == 0 && !value))
 		{
 			tmp[++j].key = data->export[i].key;
 			tmp[j].value = data->export[i].value;
-			tmp[j].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
+			tmp[j].export_str = \
+			ft_export_str_init(data->export[i].key, data->export[i].value);
 			if (ft_strcmp(data->export[i].key, key) == 0 && !value)
 				key_count++;
 		}

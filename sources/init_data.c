@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:35:55 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 13:41:31 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	init_export(t_data *data)
 	{
 		data->export[i].key = ft_keyinit(data->envp[i]);
 		data->export[i].value = ft_valueinit(data->envp[i]);
-		data->export[i].export_str = ft_export_str_init(data->export[i].key, data->export[i].value);
+		data->export[i].export_str = \
+		ft_export_str_init(data->export[i].key, data->export[i].value);
 	}
 	data->export[i].key = NULL;
 	data->export[i].value = NULL;
