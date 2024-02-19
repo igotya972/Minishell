@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 00:23:59 by dferjul           #+#    #+#             */
-/*   Updated: 2022/11/23 22:12:36 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/02/19 12:48:23 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
+#include "libft.h"
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*c;
 
 	if (count > SIZE_MAX)
 		return (NULL);
-	c = malloc (count * size);
-	if (!c)
-		return (0);
-	ft_bzero (c, count * size);
+	c = malloc(count * size);
+	ft_protect_malloc(c);
+	ft_bzero(c, count * size);
 	return (c);
 }

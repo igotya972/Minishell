@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/14 11:08:31 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:34:35 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	export_add(t_data *data, char *key, char *value)
 	while (data->export[i].key)
 		i++;
 	tmp = malloc(sizeof(t_export) * (i + 2));
+	ft_protect_malloc(tmp);
 	i = -1;
 	while (data->export[++i].key)
 	{

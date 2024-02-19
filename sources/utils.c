@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/15 10:34:07 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:53:16 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,13 @@ char	*ft_init_prompt(void)
 	prompt = ft_strjoin(prompt2, "\033[0;0m$ ");
 	free(prompt2);
 	return (prompt);
+}
+
+void	ft_protect_malloc(void *ptr)
+{
+	if (!ptr)
+	{
+		perror("Erreur d'allocation de mémoire");
+		exit(EXIT_FAILURE);
+	}
 }

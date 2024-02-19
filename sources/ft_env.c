@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:11:22 by afont             #+#    #+#             */
-/*   Updated: 2024/02/14 10:59:37 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:34:13 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	**envp_modifier(t_data *data)
 	while (data->envp[i])
 		i++;
 	new_envp = malloc(sizeof(char *) * (i + 1));
+	ft_protect_malloc(new_envp);
 	i = -1;
 	while (data->envp[++i])
 	{
@@ -68,6 +69,7 @@ void	envp_add(t_data *data, char *key, char *value)
 	while (data->envp[i])
 		i++;
 	new_envp = malloc(sizeof(char *) * (i + 2));
+	ft_protect_malloc(new_envp);
 	i = -1;
 	j = -1;
 	while (data->envp[++i])
@@ -101,6 +103,7 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	while (data->envp[j])
 		j++;
 	new_envp = malloc(sizeof(char *) * (j + 1));
+	ft_protect_malloc(new_envp);
 	j = -1;
 	k = -1;
 	while (data->envp[++j])

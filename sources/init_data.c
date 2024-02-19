@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:47:54 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:35:55 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	**init_envp(char **envp)
 	while (envp[i])
 		i++;
 	tmp_envp = malloc(sizeof(char *) * (i + 1));
+	ft_protect_malloc(tmp_envp);
 	i = -1;
 	while (envp[++i])
 		tmp_envp[i] = ft_strdup(envp[i]);
@@ -47,6 +48,7 @@ void	init_export(t_data *data)
 	while (data->envp[i])
 		i++;
 	data->export = malloc(sizeof(t_export) * (i + 1));
+	ft_protect_malloc(data->export);
 	i = -1;
 	while (data->envp[++i])
 	{
@@ -103,6 +105,7 @@ char	*ft_keyinit(char *str)
 	while (str[++i] != '=')
 		j++;
 	tmp_key = malloc(sizeof(char) * (j + 1));
+	ft_protect_malloc(tmp_key);
 	i = -1;
 	while (++i < j)
 		tmp_key[i] = str[i];
@@ -123,6 +126,7 @@ char	*ft_valueinit(char *str)
 	if (str[j + 1] == '\0')
 		return (NULL);
 	tmp_value = malloc(sizeof(char) * (ft_strlen(str) - j + 3));
+	ft_protect_malloc(tmp_value);
 	i = -1;
 	tmp_value[++i] = '"';
 	while (str[++j])

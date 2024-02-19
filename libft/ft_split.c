@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 01:19:21 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/15 09:26:43 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:39:20 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*ft_strcpy_malloc(char const *s, char c)
 	if (!s)
 		return (0);
 	str = malloc(sizeof(char) * (i + 1));
+	ft_protect_malloc(str);
 	i = 0;
 	while (s[i] && s[i] != c)
 	{
@@ -65,8 +66,7 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	n = ft_count_word(s, c);
 	tab = malloc(sizeof(char *) * (n + 1));
-	if (!tab)
-		return (NULL);
+	ft_protect_malloc(tab);
 	while (s[i] && j < n)
 	{
 		if (s[i] != c)

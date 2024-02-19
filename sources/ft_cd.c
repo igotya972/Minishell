@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:45:36 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:33:40 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	export_modifier(t_data *data)
 	char	*tmp;
 
 	new_export = malloc(sizeof(char *) * 2);
+	ft_protect_malloc(new_export);
 	tmp = getcwd(NULL, 0);
 	new_export[0] = ft_strdup("export");
 	new_export[1] = ft_strjoin("PWD=", tmp);

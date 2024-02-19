@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/16 16:45:54 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:36:58 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*ft_replace_var(char *input, int i, t_data *data, int *len_value)
 	while (input[i] && input[i] != ' ' && input[i] != '"' && input[i] != 17 && input[i] != '\''  && input[i] != '$')
 		i++;
 	key = malloc(i + 1 - i_base);
+	ft_protect_malloc(key);
 	i = i_base;
 	while (input[++i] && input[i] != ' ' && input[i] != '"' && input[i] != 17 && input[i] != '\''  && input[i] != '$')
 	{
@@ -96,6 +97,7 @@ char	*ft_add_to_str(char *input, char *value, int i, int len_key)
 	char	*tmp3;
 	
 	tmp1 = malloc(i + 1);
+	ft_protect_malloc(tmp1);
 	ft_strlcpy(tmp1, input, i + 1);
 	tmp3 = ft_strdup(input + i + len_key + 1);
 	if (value)
@@ -138,6 +140,7 @@ char	*ft_get_value(char *key, t_data *data)
 			j = 0;
 			k = -1;
 			value = malloc(ft_strlen(data->export[i].value) + 1);
+			ft_protect_malloc(value);
 			while ((data->export[i].value)[++j + 1])
 				value[++k] = (data->export[i].value)[j];
 			value[k + 1] = 0;
@@ -156,6 +159,7 @@ char	*ft_del_quote(char *input)
 	i = -1;
 	j = -1;
 	result = malloc(ft_strlen(input) + 1);
+	ft_protect_malloc(result);
 	while (input[++i])
 	{
 		if ((input[i] != '"' && input[i] != '\'') || ft_is_in_quotes(input, i) != 0)
@@ -173,6 +177,7 @@ char	*ft_space_to_control(char *input)
 	
 	i = 0;
 	result = malloc(sizeof(char) * ft_strlen(input) + 1);
+	ft_protect_malloc(result);
 	while (input[i])
 	{
 		
