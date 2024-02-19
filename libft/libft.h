@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:31:28 by dferjul           #+#    #+#             */
-/*   Updated: 2023/11/14 11:09:10 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/02/19 12:38:07 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include "../includes/minishell.h"
 
 typedef struct s_list
 {

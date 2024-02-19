@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 00:04:37 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 14:40:28 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:38:51 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ char	*ft_itoa(int n)
 	if (c >= 0)
 	{
 		str = malloc(sizeof(char) * (i + 1));
-		if (!str)
-			return (NULL);
+		ft_protect_malloc(str);
 		str[i] = '\0';
 	}
 	else
 	{
 		str = malloc(sizeof(char) * (i + 2));
-		if (!str)
-			return (NULL);
+		ft_protect_malloc(str);
 		str[i + 1] = '\0';
 	}
 	str = ft_numeric(str, c);

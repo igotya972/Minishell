@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/15 09:53:07 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 11:42:50 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	data = malloc(sizeof(t_data));
-	if (!data)
-	{
-		perror("Erreur d'allocation de mémoire");
-		exit(EXIT_FAILURE);
-	}
+	ft_protect_malloc(data);
 	init_data(data, envp);
 	minishell_prompt(data);
 	return (0);

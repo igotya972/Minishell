@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:44 by afont             #+#    #+#             */
-/*   Updated: 2024/02/08 14:47:24 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:34:44 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	while (data->export[k].key)
 		k++;
 	tmp = malloc(sizeof(t_export) * (k + 1));
+	ft_protect_malloc(tmp);
 	k = -1;
 	while (data->export[++k].key)
 	{

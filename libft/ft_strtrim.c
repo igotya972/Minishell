@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 14:41:42 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 12:40:13 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (i > j || ft_strlen(s1) == 0)
 	{
 		str = malloc(sizeof(str) * (1));
+		ft_protect_malloc(str);
 		*str = '\0';
 		return (str);
 	}
 	else
 		str = malloc(sizeof(char) * (j - i + 2));
-	if (!str)
-		return (0);
+	ft_protect_malloc(str);
 	while (i <= j)
 		str[n++] = s1[i++];
 	str[n] = '\0';
