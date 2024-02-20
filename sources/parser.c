@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/19 12:36:58 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/19 13:44:56 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	lexer(t_data *data)
 	char	*tmp1;
 	char	*tmp2;
 	char	**tmp3;
-	int 	i;
+	int		i;
 	int		j;
 
 	tmp1 = ft_space_to_control(data->input);
@@ -48,7 +48,7 @@ char	*ft_var_to_value(char *input, t_data *data)
 {
 	int		i;
 	char	*result;
-	
+
 	i = 0;
 	result = ft_strdup(input);
 	while (i < (int)ft_strlen(result) && result[i])
@@ -67,16 +67,18 @@ char	*ft_replace_var(char *input, int i, t_data *data, int *len_value)
 	char	*key;
 	int		i_base;
 	int		j;
-	
+
 	j = -1;
 	i_base = i;
 	i++;
-	while (input[i] && input[i] != ' ' && input[i] != '"' && input[i] != 17 && input[i] != '\''  && input[i] != '$')
+	while (input[i] && input[i] != ' ' && input[i] != '"' \
+	&& input[i] != 17 && input[i] != '\'' && input[i] != '$')
 		i++;
 	key = malloc(i + 1 - i_base);
 	ft_protect_malloc(key);
 	i = i_base;
-	while (input[++i] && input[i] != ' ' && input[i] != '"' && input[i] != 17 && input[i] != '\''  && input[i] != '$')
+	while (input[++i] && input[i] != ' ' && input[i] != '"' \
+	&& input[i] != 17 && input[i] != '\'' && input[i] != '$')
 	{
 		key[++j] = input[i];
 	}
@@ -95,7 +97,7 @@ char	*ft_add_to_str(char *input, char *value, int i, int len_key)
 	char	*tmp1;
 	char	*tmp2;
 	char	*tmp3;
-	
+
 	tmp1 = malloc(i + 1);
 	ft_protect_malloc(tmp1);
 	ft_strlcpy(tmp1, input, i + 1);
@@ -124,9 +126,8 @@ char	*ft_get_value(char *key, t_data *data)
 	int		j;
 	int		k;
 	char	*value;
-	
+
 	i = -1;
-	
 	value = NULL;
 	while (data->export[++i].key)
 	{
@@ -135,7 +136,7 @@ char	*ft_get_value(char *key, t_data *data)
 			if (!data->export[i].value)
 			{
 				value = ft_strdup("");
-				break;
+				break ;
 			}
 			j = 0;
 			k = -1;
@@ -144,7 +145,7 @@ char	*ft_get_value(char *key, t_data *data)
 			while ((data->export[i].value)[++j + 1])
 				value[++k] = (data->export[i].value)[j];
 			value[k + 1] = 0;
-			break;
+			break ;
 		}
 	}
 	return (value);
@@ -162,7 +163,8 @@ char	*ft_del_quote(char *input)
 	ft_protect_malloc(result);
 	while (input[++i])
 	{
-		if ((input[i] != '"' && input[i] != '\'') || ft_is_in_quotes(input, i) != 0)
+		if ((input[i] != '"' && input[i] != '\'') \
+		|| ft_is_in_quotes(input, i) != 0)
 			result[++j] = input[i];
 	}
 	result[j + 1] = 0;
@@ -174,13 +176,12 @@ char	*ft_space_to_control(char *input)
 {
 	char	*result;
 	int		i;
-	
+
 	i = 0;
 	result = malloc(sizeof(char) * ft_strlen(input) + 1);
 	ft_protect_malloc(result);
 	while (input[i])
 	{
-		
 		if (input[i] == ' ' && ft_is_in_quotes(input, i) != 0)
 			result[i] = 17;
 		else
@@ -191,7 +192,7 @@ char	*ft_space_to_control(char *input)
 	return (result);
 }
 
-int		ft_is_in_quotes(char *input, int i)
+int	ft_is_in_quotes(char *input, int i)
 {
 	int		j;
 	int		flag;

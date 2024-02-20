@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:11:22 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:34:13 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/20 10:51:25 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	ft_env(t_data *data)
 	i = -1;
 	while (data->envp[++i])
 		printf("%s\n", data->envp[i]);
-	if (data->oldpwd_status == 1)
-		printf("OLDPWD=%s\n", data->old_pwd);
 }
 
 char	**envp_modifier(t_data *data)
@@ -97,7 +95,6 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	int		k;
 	char	**new_envp;
 	char	*tmp;
-	
 
 	j = 0;
 	while (data->envp[j])
@@ -109,6 +106,8 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 	while (data->envp[++j])
 	{
 		tmp = ft_keyinit(data->envp[j]);
+		if (ft_strncmp(inputs[i + 1], "OLDPWD", 6) == 0)
+			data->oldpwd_status = 0;
 		if (ft_strcmp(inputs[i + 1], tmp))
 			new_envp[++k] = ft_strdup(data->envp[j]);
 		free(tmp);
