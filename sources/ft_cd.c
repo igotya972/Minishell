@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:33:40 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/20 10:42:17 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_chdir(t_data *data, char *path)
 		free(data->old_pwd);
 	data->old_pwd = tmp;
 	data->oldpwd_status = 1;
+	envp_add(data, "OLDPWD", data->old_pwd);
 	data->envp = envp_modifier(data);
 	export_modifier(data);
 }

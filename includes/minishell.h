@@ -95,6 +95,7 @@ char	**init_envp(char **envp);
 void	free_arguments(char **args);
 void	ft_free(t_data *data);
 void	ft_free_input_lexer(t_data *data);
+void	ft_free2(t_data *data);
 
 /*	ft_export.c	*/
 void	ft_export(t_data *data, char **inputs, int i, int flag);

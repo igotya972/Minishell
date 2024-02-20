@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 03:03:07 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/08 14:45:25 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/20 09:04:54 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ void	ft_free(t_data *data)
 	}
 	if (data->input)
 		free(data->input);
+	ft_free2(data);
+}
+
+void	ft_free2(t_data *data)
+{
+	int	i;
+
 	if (data->envp[0])
 	{
 		i = -1;
