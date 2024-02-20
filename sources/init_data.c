@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 13:41:31 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/20 09:46:54 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_data(t_data *data, char **envp)
 char	**init_envp(char **envp)
 {
 	int		i;
+	int		j;
 	char	**tmp_envp;
 
 	i = 0;
@@ -34,9 +35,13 @@ char	**init_envp(char **envp)
 	tmp_envp = malloc(sizeof(char *) * (i + 1));
 	ft_protect_malloc(tmp_envp);
 	i = -1;
+	j = -1;
 	while (envp[++i])
-		tmp_envp[i] = ft_strdup(envp[i]);
-	tmp_envp[i] = NULL;
+	{
+		if (ft_strncmp(envp[i], "OLDPWD=", 4) != 0)
+			tmp_envp[++j] = ft_strdup(envp[i]);
+	}
+	tmp_envp[j + 1] = NULL;
 	return (tmp_envp);
 }
 
