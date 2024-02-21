@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
-/*   Updated: 2024/02/20 09:46:54 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/21 15:22:06 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**init_envp(char **envp)
 	j = -1;
 	while (envp[++i])
 	{
-		if (ft_strncmp(envp[i], "OLDPWD=", 4) != 0)
+		if (ft_strncmp(envp[i], "OLDPWD=", 7) != 0)
 			tmp_envp[++j] = ft_strdup(envp[i]);
 	}
 	tmp_envp[j + 1] = NULL;
@@ -65,39 +65,6 @@ void	init_export(t_data *data)
 	data->export[i].key = NULL;
 	data->export[i].value = NULL;
 	data->export[i].export_str = NULL;
-}
-
-char	*ft_export_str_init(char *key, char *value)
-{
-	char	*tmp_str;
-	char	*tmp_str2;
-
-	tmp_str = ft_strjoin("declare -x ", key);
-	tmp_str2 = ft_strjoin(tmp_str, "=");
-	free(tmp_str);
-	if (value)
-	{
-		if (value[0] == '"' && value[ft_strlen(value) - 1] == '"')
-		{
-			tmp_str = ft_strjoin(tmp_str2, value);
-			free(tmp_str2);
-		}
-		else
-		{
-			tmp_str = ft_strjoin(tmp_str2, "\"");
-			free(tmp_str2);
-			tmp_str2 = ft_strjoin(tmp_str, value);
-			free(tmp_str);
-			tmp_str = ft_strjoin(tmp_str2, "\"");
-			free(tmp_str2);
-		}
-	}
-	else
-	{
-		tmp_str = ft_strjoin(tmp_str2, "\"\"");
-		free(tmp_str2);
-	}
-	return (tmp_str);
 }
 
 char	*ft_keyinit(char *str)

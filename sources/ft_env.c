@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:11:22 by afont             #+#    #+#             */
-/*   Updated: 2024/02/20 10:51:25 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/21 08:45:02 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,25 @@ void	ft_env(t_data *data)
 char	**envp_modifier(t_data *data)
 {
 	char	**new_envp;
-	char	*tmp;
 	int		i;
 
 	data->env_path = getenv("PATH");
 	i = 0;
 	while (data->envp[i])
 		i++;
+	new_envp = envp_modifier2(data, i);
+	i = -1;
+	while (data->envp[++i])
+		free(data->envp[i]);
+	free(data->envp);
+	return (new_envp);
+}
+
+char	**envp_modifier2(t_data *data, int i)
+{
+	char	*tmp;
+	char	**new_envp;
+
 	new_envp = malloc(sizeof(char *) * (i + 1));
 	ft_protect_malloc(new_envp);
 	i = -1;
@@ -48,10 +60,6 @@ char	**envp_modifier(t_data *data)
 			new_envp[i] = ft_strdup(data->envp[i]);
 	}
 	new_envp[i] = NULL;
-	i = -1;
-	while (data->envp[++i])
-		free(data->envp[i]);
-	free(data->envp);
 	return (new_envp);
 }
 
@@ -61,7 +69,6 @@ void	envp_add(t_data *data, char *key, char *value)
 	int		i;
 	int		j;
 	char	*tmp;
-	char	*tmp2;
 
 	i = 0;
 	while (data->envp[i])
@@ -78,15 +85,8 @@ void	envp_add(t_data *data, char *key, char *value)
 		free(data->envp[i]);
 		free(tmp);
 	}
-	free(data->envp);
-	tmp = ft_strjoin("", key);
-	tmp2 = ft_strjoin(tmp, "=");
-	free(tmp);
-	tmp = ft_strjoin(tmp2, value);
-	free(tmp2);
-	new_envp[j + 1] = tmp;
-	new_envp[j + 2] = NULL;
-	data->envp = new_envp;
+	tmp = envp_add2(data, key, value);
+	envp_add3(data, new_envp, tmp, j);
 }
 
 void	ft_unset_env(t_data *data, char **inputs, int i)
@@ -112,10 +112,5 @@ void	ft_unset_env(t_data *data, char **inputs, int i)
 			new_envp[++k] = ft_strdup(data->envp[j]);
 		free(tmp);
 	}
-	new_envp[k + 1] = NULL;
-	i = -1;
-	while (data->envp[++i])
-		free(data->envp[i]);
-	free(data->envp);
-	data->envp = new_envp;
+	ft_unset_env2(data, new_envp, k);
 }

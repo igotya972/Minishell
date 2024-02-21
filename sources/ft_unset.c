@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:44 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:34:44 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/21 15:13:50 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,8 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 	int			j;
 	t_export	*tmp;
 
-	k = 0;
+	tmp = ft_unset3(data);
 	j = -1;
-	while (data->export[k].key)
-		k++;
-	tmp = malloc(sizeof(t_export) * (k + 1));
-	ft_protect_malloc(tmp);
 	k = -1;
 	while (data->export[++k].key)
 	{
@@ -50,16 +46,5 @@ void	ft_unset_export(t_data *data, char **inputs, int i)
 			tmp[j].export_str = ft_strdup(data->export[k].export_str);
 		}
 	}
-	tmp[j + 1].key = NULL;
-	tmp[j + 1].value = NULL;
-	tmp[j + 1].export_str = NULL;
-	k = -1;
-	while (data->export[++k].key)
-	{
-		free(data->export[k].key);
-		free(data->export[k].value);
-		free(data->export[k].export_str);
-	}
-	free(data->export);
-	data->export = tmp;
+	ft_unset2(data, tmp, j);
 }
