@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 13:40:30 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/21 15:00:48 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,8 @@
 
 void	ft_export(t_data *data, char **inputs, int i, int flag)
 {
-	int		j;
-	char	*key;
-
-	j = -1;
 	if (ft_isalpha(inputs[i + 1][0]) != 0 || inputs[i + 1][0] == '_')
-	{
-		while (inputs[i + 1][++j])
-		{
-			if (ft_isalnum(inputs[i + 1][j]) == 1 || \
-			inputs[i + 1][j] == '_' || inputs[i + 1][j] == '=')
-			{
-				if (inputs[i + 1][j] == '=')
-				{
-					key = ft_keyinit(inputs[i + 1]);
-					if (flag == 0)
-						envp_add(data, key, inputs[i + 1] + j + 1);
-					export_add(data, key, inputs[i + 1] + j + 1);
-					return ;
-				}
-			}
-			else
-			{
-				printf("export: not valid in this context: %s\n", \
-				inputs[i + 1]);
-				return ;
-			}
-		}
-		export_add(data, inputs[i + 1], NULL);
-	}
+		ft_export2(data, inputs, i, flag);
 	else
 		printf("export: %s: not a valid identifier\n", inputs[i + 1]);
 }
@@ -54,48 +27,25 @@ void	export_add(t_data *data, char *key, char *value)
 	int			key_count;
 	t_export	*tmp;
 
-	i = 0;
-	j = -1;
-	key_count = 0;
-	while (data->export[i].key)
-		i++;
-	tmp = malloc(sizeof(t_export) * (i + 2));
-	ft_protect_malloc(tmp);
-	i = -1;
+	tmp = ft_export_add3(data);
+	ft_export_add5(&key_count, &j, &i);
 	while (data->export[++i].key)
 	{
 		if (!ft_strcmp(data->export[i].key, key) \
 		== 0 || (ft_strcmp(data->export[i].key, key) == 0 && !value))
 		{
-			tmp[++j].key = data->export[i].key;
-			tmp[j].value = data->export[i].value;
-			tmp[j].export_str = \
-			ft_export_str_init(data->export[i].key, data->export[i].value);
+			tmp = ft_export_add7(data, tmp, &j, &i);
 			if (ft_strcmp(data->export[i].key, key) == 0 && !value)
 				key_count++;
 		}
 		else
-		{
-			free(data->export[i].key);
-			free(data->export[i].value);
-		}
+			ft_export_add4(data, i);
 	}
 	if (!key_count || (key_count && value))
-	{
-		tmp[++j].key = ft_strdup(key);
-		tmp[j].value = ft_value_with_quotation_mark(value);
-		tmp[j].export_str = ft_export_str_init(key, value);
-	}
+		tmp = ft_export_add6(tmp, value, key, &j);
 	if (value)
 		free(key);
-	tmp[j + 1].key = NULL;
-	tmp[j + 1].value = NULL;
-	tmp[j + 1].export_str = NULL;
-	i = -1;
-	while (data->export[++i].export_str)
-		free(data->export[i].export_str);
-	free(data->export);
-	data->export = tmp;
+	ft_export_add2(data, tmp, j);
 }
 
 char	*ft_value_with_quotation_mark(char *value)
