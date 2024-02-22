@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:11:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 14:59:23 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 11:05:32 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_export_add2(t_data *data, t_export *tmp, int j)
 {
@@ -28,7 +28,7 @@ void	ft_export_add2(t_data *data, t_export *tmp, int j)
 
 t_export	*ft_export_add6(t_export *tmp, char *value, char *key, int *j)
 {
-	tmp[*(++j)].key = ft_strdup(key);
+	tmp[++(*j)].key = ft_strdup(key);
 	tmp[*j].value = ft_value_with_quotation_mark(value);
 	tmp[*j].export_str = ft_export_str_init(key, value);
 	return (tmp);

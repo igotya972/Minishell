@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:13:16 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 16:13:17 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:27:15 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_add_to_str(char *input, char *value, int i, int len_key)
 {

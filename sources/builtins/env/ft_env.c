@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:11:22 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 08:45:02 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:26:05 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_env(t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:39:43 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 08:45:43 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:26:13 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 char	*envp_add2(t_data *data, char *key, char *value)
 {
