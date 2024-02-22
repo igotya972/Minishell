@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:14:59 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 15:15:27 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:26:43 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_unset2(t_data *data, t_export *tmp, int j)
 {

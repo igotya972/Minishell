@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:48 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 13:03:29 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:30:27 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	launch_builtins(t_data *data, char **inputs)
 {

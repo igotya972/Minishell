@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
-/*   Updated: 2024/02/20 10:42:17 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:25:55 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_cd(t_data *data, char **inputs, int i)
 {

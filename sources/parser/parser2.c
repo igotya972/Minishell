@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:11:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 16:11:40 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 10:27:13 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_get_value(char *key, t_data *data)
 {

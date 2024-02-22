@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 08:53:18 by afont             #+#    #+#             */
-/*   Updated: 2024/02/21 11:11:45 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/22 11:05:42 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_export2(t_data *data, char **inputs, int i, int flag)
 {
