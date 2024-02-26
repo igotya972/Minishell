@@ -50,6 +50,12 @@ struct	s_data
 	t_export	*export;
 };
 
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	**args;
+}	t_cmd;
+
 /*	ft_signal.c	*/
 void		signal_manager(int signum);
 void		handle_ctrld(t_data *data);
@@ -59,6 +65,9 @@ void		minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
 void		exec_cmd(t_data *data);
+
+/*	exec.pipe.c	*/
+void		exec_pipe(t_data *data);
 
 /*	parser.c	*/
 void		lexer(t_data *data);
