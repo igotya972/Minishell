@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:11:56 by afont             #+#    #+#             */
-/*   Updated: 2024/02/27 13:38:05 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/27 13:38:38 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_export_add2(t_data *data, t_export *tmp, int j)
 	int	i;
 
 	tmp[j + 1].key = NULL;
-	
 	tmp[j + 1].value = NULL;
 	tmp[j + 1].export_str = NULL;
 	i = -1;
