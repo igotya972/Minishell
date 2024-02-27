@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/26 19:11:28 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/02/27 17:24:40 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	exec_cmd(t_data *data)
 {
 	pid_t	pid;
 	char	*path;
+	int 	i;
 
+	i = 0;	
 	if (ft_strchr(data->input, '|') != 0)
 	{
 		//printf("%s\n", data->input);
@@ -24,19 +26,33 @@ void	exec_cmd(t_data *data)
 		//free(data);
 		return;
 	}
-	path = path_cmd(data->envp, data->lexer[0]);
-	pid = fork();
-	if (pid == -1)
-		ft_error("Erreur fork");
-	if (pid == 0)
+	while (data->lexer[i])
 	{
-		if (execve(path, data->lexer, data->envp) == -1)
+		if (is_builtins(data->lexer[i]) == 1)
 		{
-			ft_putstr_fd(data->lexer[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
-			exit(1);
+			// printf("%s, %d\n", data->lexer[i], i);
+			launch_builtins(data, data->lexer, i);
+			i = until_limiteur(data->lexer, i);
+			// printf("%s, %d\n", data->lexer[i], i);
 		}
+		else
+		{
+			path = path_cmd(data->envp, data->lexer[i]);
+			pid = fork();
+			if (pid == -1)
+				ft_error("Erreur fork");
+			if (pid == 0)
+			{
+				if (execve(path, data->lexer, data->envp) == -1)
+				{
+					ft_putstr_fd(data->lexer[i], 2);
+					ft_putstr_fd(": command not found\n", 2);
+					exit(1);
+				}
+			}
+			else
+				wait(NULL);
+		}
+		i++;
 	}
-	else
-		wait(NULL);
 }

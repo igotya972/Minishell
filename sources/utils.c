@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/19 12:53:16 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/27 17:22:11 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,45 @@ void	ft_protect_malloc(void *ptr)
 		perror("Erreur d'allocation de mémoire");
 		exit(EXIT_FAILURE);
 	}
+}
+
+int	is_builtins(char *lexer_i)
+{
+	if (ft_strcmp(lexer_i, "echo") == 0)
+		return (1);
+	if (ft_strcmp(lexer_i, "cd") == 0)
+		return (1);
+	if (ft_strcmp(lexer_i, "pwd") == 0)
+		return (1);
+	if (ft_strcmp(lexer_i, "export") == 0)
+		return (1);
+	if (ft_strcmp(lexer_i, "unset") == 0)
+		return (1);
+	if (ft_strcmp(lexer_i, "env") == 0)
+		return (1);
+	if (ft_strcmp(lexer_i, "exit") == 0)
+		return (1);
+	return (0); 
+}
+
+int	until_limiteur(char **str, int i)
+{
+	while (str[i])
+	{
+		if (!ft_is_in_quotes(str[i], i))
+		{
+			if (strcmp(str[i], "|") == 0)
+				return (i);
+			if (strcmp(str[i], ">") == 0)
+				return (i);
+			if (strcmp(str[i], "<") == 0)
+				return (i);
+			if (strcmp(str[i], ">>") == 0)
+				return (i);
+			if (strcmp(str[i], "<<") == 0)
+				return (i);
+		}
+		i++;
+	}
+	return (i - 1);
 }

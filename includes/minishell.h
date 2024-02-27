@@ -90,7 +90,7 @@ char		*ft_var_to_value(char *input, t_data *data);
 
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
-void		launch_builtins(t_data *data, char **input);
+void		launch_builtins(t_data *data, char **input, int i);
 void		ft_pwd(void);
 void		launch_builtins2(t_data *data, char **inputs, int i);
 void		ft_echo2(t_data *data, char **inputs, int *i, int *add);
@@ -148,6 +148,8 @@ t_export	*ft_unset3(t_data *data);
 /*	ft_utils.c */
 char		*ft_init_prompt(void);
 void		ft_protect_malloc(void *ptr);
+int			is_builtins(char *lexer_i);
+int			until_limiteur(char **str, int i);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

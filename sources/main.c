@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/19 13:29:12 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/27 17:23:21 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,4 @@ int	main(int argc, char **argv, char **envp)
 // to do : affiche double prompt quand tu fait wc -l
 // to do : gerer leaks dans l'exec
 // to do : utiliser le lexer dans l'exec
-// to do : clear marche pas
+// to do : faire en sorte que toutes les fonctions s'arettent quand on croise un delimiteur (echo asd> asd)

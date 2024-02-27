@@ -6,17 +6,15 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:48 by afont             #+#    #+#             */
-/*   Updated: 2024/02/22 10:30:27 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/27 15:46:07 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	launch_builtins(t_data *data, char **inputs)
+void	launch_builtins(t_data *data, char **inputs, int i)
 {
-	int	i;
-
-	i = -1;
+	i--;
 	while (inputs[++i])
 	{
 		if (ft_strcmp(inputs[i], "exit") == 0)
