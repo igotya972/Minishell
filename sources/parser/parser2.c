@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:11:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/22 10:27:13 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/28 11:42:44 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,12 @@ char	*ft_key_to_replace(char *input, int i, int *i_base)
 	j = -1;
 	*i_base = i;
 	i++;
-	while (input[i] && input[i] != ' ' && input[i] != '"' \
-	&& input[i] != 17 && input[i] != '\'' && input[i] != '$')
+	while (input[i] && is_value_delimiteur(input[i]) == 0)
 		i++;
 	key = malloc(i + 1 - *i_base);
 	ft_protect_malloc(key);
 	i = *i_base;
-	while (input[++i] && input[i] != ' ' && input[i] != '"' \
-	&& input[i] != 17 && input[i] != '\'' && input[i] != '$')
+	while (input[++i] && is_value_delimiteur(input[i]) == 0)
 		key[++j] = input[i];
 	key[j + 1] = 0;
 	return (key);

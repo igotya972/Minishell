@@ -6,16 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:28:46 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/22 10:27:10 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/29 10:25:14 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	lexer_temporaire(t_data *data)
-{
-	data->lexer = ft_split(data->input, ' ');
-}
 
 void	lexer(t_data *data)
 {
@@ -26,11 +21,13 @@ void	lexer(t_data *data)
 	int		j;
 
 	tmp1 = ft_space_to_control(data->input);
-	tmp2 = ft_var_to_value(tmp1, data);
+	tmp2 = ft_delimiteur(tmp1);
 	free(tmp1);
-	tmp1 = ft_del_quote(tmp2);
-	tmp3 = ft_split(tmp1, ' ');
-	free(tmp1);
+	tmp1 = ft_var_to_value(tmp2, data);
+	free(tmp2);
+	tmp2 = ft_del_quote(tmp1);
+	tmp3 = ft_split(tmp2, ' ');
+	free(tmp2);
 	i = -1;
 	while (tmp3[++i])
 	{

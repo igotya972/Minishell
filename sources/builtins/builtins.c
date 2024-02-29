@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:48 by afont             #+#    #+#             */
-/*   Updated: 2024/02/27 15:46:07 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/29 13:53:40 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	launch_builtins(t_data *data, char **inputs, int i)
 {
-	i--;
-	while (inputs[++i])
-	{
 		if (ft_strcmp(inputs[i], "exit") == 0)
 			ft_free(data);
 		else if (ft_strcmp(inputs[i], "echo") == 0)
@@ -29,7 +26,6 @@ void	launch_builtins(t_data *data, char **inputs, int i)
 			ft_cd(data, inputs, i);
 		else
 			launch_builtins2(data, inputs, i);
-	}
 }
 
 void	launch_builtins2(t_data *data, char **inputs, int i)
@@ -39,13 +35,13 @@ void	launch_builtins2(t_data *data, char **inputs, int i)
 		if (!inputs[i + 1])
 			ft_display_export(data);
 		else
-			while (inputs[i + 1])
+			while (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1)
 				ft_export(data, inputs, i++, 0);
 	}
 	else if (ft_strcmp(inputs[i], "unset") == 0)
 	{
 		if (inputs[i + 1])
-			while (inputs[i + 1])
+			while (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1)
 				ft_unset(data, inputs, i++);
 	}
 }
@@ -58,12 +54,10 @@ int	ft_echo(t_data *data, char **inputs, int i)
 	if (inputs[i + 1])
 	{
 		if (ft_strcmp(inputs[i + 1], "-n") == 0)
-		{
 			ft_echo2(data, inputs, &i, &add);
-		}
 		else
 		{
-			while (inputs[++i])
+			while (inputs[++i] && is_exec_delimiteur(inputs[i]) != 1)
 			{
 				add++;
 				printf("%s ", inputs[i]);
@@ -80,12 +74,12 @@ void	ft_echo2(t_data *data, char **inputs, int *i, int *add)
 {
 	*add += 1;
 	if (inputs[*i + 2])
-	{
-		while (inputs[++(*i) + 1])
+	{ 
+		while (inputs[++(*i) + 1] && is_exec_delimiteur(inputs[*i + 1]) != 1)
 		{
 			*add += 1;
 			printf("%s", inputs[*i + 1]);
-			if (inputs[*i + 2])
+			if (inputs[*i + 2] && is_exec_delimiteur(inputs[*i + 2]) != 1)
 				printf(" ");
 		}
 	}

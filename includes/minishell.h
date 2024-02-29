@@ -74,7 +74,6 @@ void		lexer(t_data *data);
 char		*ft_space_to_control(char *input);
 int			ft_is_in_quotes(char *input, int i);
 char		*ft_del_quote(char *input);
-void		lexer_temporaire(t_data *data);
 
 /*	parser2.c	*/
 char		*ft_get_value(char *key, t_data *data);
@@ -87,6 +86,7 @@ void		ft_flag_squote(int *flag, int *anti_start_quote);
 char		*ft_add_to_str(char *input, char *value, int i, int len_key);
 char		*ft_replace_var(char *input, int i, t_data *data, int *len_value);
 char		*ft_var_to_value(char *input, t_data *data);
+char		*ft_delimiteur(char *input);
 
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
@@ -150,6 +150,12 @@ char		*ft_init_prompt(void);
 void		ft_protect_malloc(void *ptr);
 int			is_builtins(char *lexer_i);
 int			until_limiteur(char **str, int i);
+int			is_value_delimiteur(char c);
+
+/*	ft_utils2.c	*/
+int			is_parser_delimiteur(char c);
+int 		nbr_parser_delimiteur(char *str);
+int			is_exec_delimiteur(char *str);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);
