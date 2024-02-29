@@ -6,11 +6,11 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/27 17:22:11 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/29 13:36:09 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_init_prompt(void)
 {
@@ -76,4 +76,19 @@ int	until_limiteur(char **str, int i)
 		i++;
 	}
 	return (i - 1);
+}
+
+int	is_value_delimiteur(char c)
+{
+	char delimiteur[8] = {'|', '>', '<', '"', ' ', '$', '\'', 17};
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if (c == delimiteur[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

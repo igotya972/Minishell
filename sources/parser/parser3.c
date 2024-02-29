@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:13:16 by afont             #+#    #+#             */
-/*   Updated: 2024/02/22 10:27:15 by afont            ###   ########.fr       */
+/*   Updated: 2024/02/29 10:35:59 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,33 @@ char	*ft_var_to_value(char *input, t_data *data)
 		if (result[i] == '$' && ft_is_in_quotes(result, i) != 2)
 			result = ft_replace_var(result, i, data, &i);
 	return (result);
+}
+
+char	*ft_delimiteur(char *input)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+
+	tmp = malloc((nbr_parser_delimiteur(input) * 2) + ft_strlen(input) + 1);
+	ft_protect_malloc(tmp);
+	i = -1;
+	j = -1;
+	while (input[++i])
+	{	
+		if (is_parser_delimiteur(input[i]) && ft_is_in_quotes(input, i) == 0)
+		{
+			if (i != 0 && input[i - 1] != ' ')
+				tmp[++j] = ' ';
+			tmp[++j] = input[i];
+			if (input[i + 1] && input[i + 1] == input[i])
+				tmp[++j] = input[++i];
+			if (input[i + 1] && input[i + 1] != ' ')
+				tmp[++j] = ' ';
+		}
+		else
+			tmp[++j] = input[i];
+	}
+	tmp[j + 1] = 0;
+	return (tmp);
 }
