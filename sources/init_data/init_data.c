@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:06 by afont             #+#    #+#             */
-/*   Updated: 2024/02/22 10:26:55 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/01 09:29:31 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_data(t_data *data, char **envp)
 	data->envp = init_envp(envp);
 	data->old_pwd = NULL;
 	data->oldpwd_status = 0;
+	data->path = init_path(envp);
 	init_export(data);
 }
 
@@ -37,10 +38,8 @@ char	**init_envp(char **envp)
 	i = -1;
 	j = -1;
 	while (envp[++i])
-	{
 		if (ft_strncmp(envp[i], "OLDPWD=", 7) != 0)
 			tmp_envp[++j] = ft_strdup(envp[i]);
-	}
 	tmp_envp[j + 1] = NULL;
 	return (tmp_envp);
 }

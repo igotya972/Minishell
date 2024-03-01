@@ -12,60 +12,76 @@
 
 #include "../includes/minishell.h"
 
-static char	**get_path(char **env)
+char	**init_path(char **envp)
 {
 	int		i;
 	char	**path;
 
 	i = -1;
-	while (env[++i])
+	while (envp[++i])
 	{
-		if (strncmp(env[i], "PATH=", 5) == 0)
+		if (strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			if (ft_strlen(env[i]) < 6)
-				ft_error("Path is empty");
-			path = ft_split(&env[i][5], ':');
-			if (!path)
-				ft_error("failed try again");
+			if (ft_strlen(envp[i]) < 6)
+			{
+				printf("Path is empty\n");
+				return (NULL);
+			}
+			path = ft_split(&envp[i][5], ':');
+			ft_protect_malloc(path);
 			return (path);
 		}
 	}
-	ft_error("Error get path");
+	printf("Error get path\n");
 	return (NULL);
 }
 
 static char	**add_slash(char **path)
 {
-	int	i;
+	int		i;
+	char	**path_slash;
 
-	i = -1;
-	path = get_path(path);
+	i = 0;
 	if (!path)
-		ft_error("error path");
+		return (NULL);
+	while (path[i])
+		i++;
+	path_slash = malloc(sizeof(char *) * (i + 1));
+	ft_protect_malloc(path_slash);
+	i = -1;
 	while (path[++i])
-	{
-		path[i] = ft_strjoin(path[i], "/");
-	}
-	return (path);
+		path_slash[i] = ft_strjoin(path[i], "/");
+	path_slash[i] = NULL;
+	return (path_slash);
 }
 
 char	*path_cmd(char **path, char *cmd)
 {
-	int		i;
+	char	**path_slash;
 	char	*cmd_path;
+	int		i;
 
 	i = 0;
 	cmd_path = NULL;
-	path = add_slash(path);
-	while (path[i])
+	path_slash = add_slash(path);
+	while (path_slash[i])
 	{
-		cmd_path = ft_strjoin(path[i], cmd);
+		cmd_path = ft_strjoin(path_slash[i], cmd);
 		if (access(cmd_path, F_OK) == 0)
 		{
+			i = -1;
+			while (path_slash[++i])
+				free(path_slash[i]);
+			free(path_slash);
 			return (cmd_path);
 		}
+		free(cmd_path);
 		i++;
 	}
 	//ft_error("Command not found");
-	return (0);
+	i = -1;
+	while (path_slash[++i])
+		free(path_slash[i]);
+	free(path_slash);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 11:40:45 by afont             #+#    #+#             */
-/*   Updated: 2024/02/29 14:25:44 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/01 09:03:36 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ int is_exec_delimiteur(char *str)
 
     i = -1;
     while (++i < 6)
-    {
         if (ft_strcmp(str, delimiteur[i]) == 0)
             return (1);
-    }
     return (0);
 }

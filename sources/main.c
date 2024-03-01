@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/29 13:52:32 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/01 15:53:18 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **envp)
 
 // to do : prise en compte des pipes dans le lexer et ailleurs 
 // to do : affiche double prompt quand tu fait wc -l
-// to do : gerer leaks dans l'exec
-// to do : utiliser le lexer dans l'exec
 // to do : faire en sorte que toutes les fonctions s'arettent quand on croise un delimiteur (echo asd> asd)
 // to do : salut ca va > > asd (parse error near `>')
+// to do : arreter l'exec des la premiere mauvaise command

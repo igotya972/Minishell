@@ -41,10 +41,11 @@ struct	s_export
 
 struct	s_data
 {
-	char		*input;
+	char		**path;
 	char		**lexer;
-	char		*env_path;
 	char		**envp;
+	char		*input;
+	char		*env_path;
 	char		*old_pwd;
 	int			oldpwd_status;
 	t_export	*export;
@@ -65,6 +66,7 @@ void		minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
 void		exec_cmd(t_data *data);
+void		no_command(t_data *data, char *path, int i);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
@@ -171,6 +173,7 @@ void		envp_add3(t_data *data, char **new_envp, char *tmp, int j);
 
 /*	path.c	*/
 char		*path_cmd(char **path, char *cmd);
+char		**init_path(char **envp);
 
 /*	ft_exit.c	*/
 void		ft_error(char *str);
