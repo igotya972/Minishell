@@ -45,6 +45,7 @@ struct	s_data
 	char		**lexer;
 	char		**envp;
 	char		*input;
+	
 	char		*env_path;
 	char		*old_pwd;
 	int			oldpwd_status;

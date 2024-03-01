@@ -2,6 +2,8 @@ SHELL := /bin/bash
 
 SRCS = $(shell find ./sources -name '*.c')
 
+HEADER = $(shell find ./includes -name '*.h')
+
 OBJ_DIR = Objects
 
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
@@ -18,7 +20,7 @@ TOTAL_FILES = $(words $(SRCS))
 
 all: $(NAME)
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c $(HEADER)
 	@tput civis
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -34,12 +36,15 @@ $(OBJ_DIR)/%.o: %.c
 	done; \
 	echo -en "  $$((($$count * 100) / $(TOTAL_FILES)))% Compiling $$(basename $<)...\r"
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) includes/minishell.h
 	@make -C libft --no-print-directory
 	@printf "\033[2K\r"
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -lreadline -o $(NAME)
 	@echo -en "   \033[37;42;1m$(NAME) created\033[0m\n"
 	@tput cnorm
+
+run: $(NAME)
+	./$(NAME)
 
 clean:
 	@make clean -C libft --no-print-directory
@@ -54,4 +59,4 @@ fclean: clean
 re: fclean all
 
 .SILENT:
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re run 
