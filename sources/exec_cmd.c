@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/01 16:11:41 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/02 02:42:35 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	exec_cmd(t_data *data)
 		//printf("%s\n", data->input);
 		exec_pipe(data);
 		//free(data);
+		//printf("pipe\n");
 		return;
 	}
 	while (data->lexer[i])
