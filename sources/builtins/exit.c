@@ -18,8 +18,9 @@ void	ft_exit(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_error(char *str)
+void	ft_error(char *str, t_data *data)
 {
 	perror(str);
+	ft_free(data);
 	exit(EXIT_FAILURE);
 }

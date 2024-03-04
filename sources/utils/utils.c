@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/29 13:36:09 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/04 11:51:24 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	is_builtins(char *lexer_i)
 	return (0); 
 }
 
-int	until_limiteur(char **str, int i)
+int	until_delimiteur(char **str, int i)
 {
 	while (str[i])
 	{

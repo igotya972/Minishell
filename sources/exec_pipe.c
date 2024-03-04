@@ -21,10 +21,7 @@ static void	exec_cmd_from_pipe(char **cmd, t_data *data, int i)
 	//printf("args[i] = %s\n", args[i]);
 	path = path_cmd(data->path, args[0]);
 	if (execve(path, args, data->envp) == -1)
-	{
-		perror("Exec failed");
-		exit(EXIT_FAILURE);
-	}
+		ft_error("Exec Failed", data);
 }
 
 void	exec_pipe(t_data *data)
@@ -38,17 +35,13 @@ void	exec_pipe(t_data *data)
 	i = 0;
 	fd_in = 0;
 	cmds = ft_split(data->input, '|');
-	if (cmds == NULL)
-		return ;
+	ft_protect_malloc(cmds);
 	while (cmds[i])
 	{
 		pipe(fd);
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("Erreur fork");
-			exit(EXIT_FAILURE);
-		}
+			ft_error("Fork failed", data);
 		if (pid == 0)
 		{
 			close(fd[0]);

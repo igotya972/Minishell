@@ -78,7 +78,6 @@ char	*path_cmd(char **path, char *cmd)
 		free(cmd_path);
 		i++;
 	}
-	//ft_error("Command not found");
 	i = -1;
 	while (path_slash[++i])
 		free(path_slash[i]);
