@@ -45,7 +45,6 @@ struct	s_data
 	char		**lexer;
 	char		**envp;
 	char		*input;
-	
 	char		*env_path;
 	char		*old_pwd;
 	int			oldpwd_status;
@@ -66,7 +65,8 @@ void		handle_ctrld(t_data *data);
 void		minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
-void		exec_cmd(t_data *data);
+void		launch_exec(t_data *data);
+int			exec_cmd(t_data *data, int i);
 void		no_command(t_data *data, char *path, int i);
 
 /*	exec.pipe.c	*/
@@ -152,13 +152,15 @@ t_export	*ft_unset3(t_data *data);
 char		*ft_init_prompt(void);
 void		ft_protect_malloc(void *ptr);
 int			is_builtins(char *lexer_i);
-int			until_limiteur(char **str, int i);
+int			until_delimiteur(char **str, int i);
 int			is_value_delimiteur(char c);
 
 /*	ft_utils2.c	*/
 int			is_parser_delimiteur(char c);
 int 		nbr_parser_delimiteur(char *str);
 int			is_exec_delimiteur(char *str);
+void		debug_tab(char **tab);
+char		**cmd_until_delimiteur(char **lexer, int i);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);
@@ -177,11 +179,7 @@ char		*path_cmd(char **path, char *cmd);
 char		**init_path(char **envp);
 
 /*	ft_exit.c	*/
-void		ft_error(char *str);
+void		ft_error(char *str, t_data *data);
 void		ft_exit(t_data *data);
-
-/*	pipe.c	*/
-int			child_process(int *fd, char **argv, char **env);
-int			parent_process(int *fd, char **argv, char **env);
 
 #endif

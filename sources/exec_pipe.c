@@ -12,56 +12,60 @@
 
 #include "../includes/minishell.h"
 
-static void exec_cmd_from_pipe(char *cmd, t_data *data)
+static void	exec_cmd_from_pipe(char **cmd, t_data *data, int i)
 {
-	char **args;
-	char *path;
+	char	**args;
+	char	*path;
 
-	args = ft_split(cmd, ' ');
-	path = path_cmd(data->envp , args[0]);
+	args = ft_split(cmd[i], ' ');
+	//printf("args[i] = %s\n", args[i]);
+	path = path_cmd(data->path, args[0]);
 	if (execve(path, args, data->envp) == -1)
-	{
-		perror("Exec failed");
-		//exit(EXIT_FAILURE);
-	}
+		ft_error("Exec Failed", data);
 }
 
 void	exec_pipe(t_data *data)
 {
 	int		fd[2];
+	int		fd_in;
 	pid_t	pid;
 	char	**cmds;
 	int		i;
-	int 	in_fd;
 
 	i = 0;
+	fd_in = 0;
 	cmds = ft_split(data->input, '|');
-	if (cmds == NULL)
-		return ;
-	in_fd = open(cmds[1], O_RDONLY);
-	while (cmds[i] != NULL && cmds[i + 1] != NULL)
+	ft_protect_malloc(cmds);
+	while (cmds[i])
 	{
 		pipe(fd);
 		pid = fork();
 		if (pid == -1)
-			ft_error("Erreur fork");
+			ft_error("Fork failed", data);
 		if (pid == 0)
 		{
-			dup2(fd[1], STDOUT_FILENO);
+			close(fd[0]);
+			if (fd_in != 0)
+			{
+				dup2(fd_in, 0);
+				close(fd_in);
+			}
+			if (cmds[i + 1] != NULL)
+				dup2(fd[1], 1);
 			close(fd[1]);
-			dup2(in_fd, STDIN_FILENO);
-			close(in_fd);
-			exec_cmd_from_pipe(cmds[i], data);
-			//exit(EXIT_FAILURE);
+			exec_cmd_from_pipe(cmds, data, i);
+			exit(EXIT_FAILURE);
 		}
-		waitpid(pid, NULL, 0);
-		close(fd[1]);
-		in_fd = fd[0];
-		i++;
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		dup2(in_fd, STDOUT_FILENO);
-		close(in_fd);
-		exec_cmd_from_pipe(cmds[i], data);
+		else
+		{
+			waitpid(pid, NULL, 0);
+			close(fd[1]);
+			if (fd_in != 0)
+				close(fd_in);
+			fd_in = fd[0];
+			i++;
+		}
 	}
+	if (fd_in != 0)
+		close(fd_in);
 }
