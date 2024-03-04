@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/03/04 11:51:24 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/04 17:35:35 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,9 @@ int	is_value_delimiteur(char c)
 	char delimiteur[8] = {'|', '>', '<', '"', ' ', '$', '\'', 17};
 	int	i;
 
-	i = 0;
-	while (i < 8)
-	{
+	i = -1;
+	while (++i < 8)
 		if (c == delimiteur[i])
 			return (1);
-		i++;
-	}
 	return (0);
 }
