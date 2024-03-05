@@ -99,3 +99,31 @@ char	*ft_delimiteur(char *input)
 	tmp[j + 1] = 0;
 	return (tmp);
 }
+
+int	check_parse_error(char **input, t_data *data)
+{
+	int		i;
+	int		j;
+	char	delimiteur[4][3] = {{">>"}, {"<<"}, {">"}, {"<"}};
+
+	(void)data;
+	i = -1;
+	while (input[++i])
+	{
+		j = -1;
+		while (++j < 4)
+		{
+			if (ft_strcmp(input[i], delimiteur[j]) == 0 && !input[i + 1])
+			{
+				printf("Minishell: parse error near `%s'\n", input[i]);
+				return (1);
+			}
+			if (ft_strcmp(input[i], delimiteur[j]) == 0 && input[i + 1] && ft_strcmp(input[i + 1], delimiteur[j]) == 0)
+			{
+				printf("Minishell: parse error near `%s'\n", input[i + 1]);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}

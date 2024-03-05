@@ -32,7 +32,8 @@ void	minishell_prompt(t_data *data)
 		// while (data->lexer[++i])
 		// 	printf("%s\n", data->lexer[i]);
 		// printf("--------------------------------------------\n");
-		launch_exec(data);
+		if (!check_parse_error(data->lexer, data))
+			launch_exec(data);
 		ft_free_input_lexer(data);
 	}
 }

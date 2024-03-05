@@ -30,3 +30,4 @@ int	main(int argc, char **argv, char **envp)
 // to do : faire en sorte que toutes les fonctions s'arettent quand on croise un delimiteur (echo asd> asd)
 // to do : salut ca va > > asd (parse error near `>')
 // to do : arreter l'exec des la premiere mauvaise command
+// to do : ne pas prendre ne compte les delimieteur dans les guillemts (echo salut ">" echo salut)

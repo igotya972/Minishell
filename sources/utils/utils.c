@@ -60,19 +60,16 @@ int	until_delimiteur(char **str, int i)
 {
 	while (str[i])
 	{
-		if (!ft_is_in_quotes(str[i], i))
-		{
-			if (strcmp(str[i], "|") == 0)
-				return (i);
-			if (strcmp(str[i], ">") == 0)
-				return (i);
-			if (strcmp(str[i], "<") == 0)
-				return (i);
-			if (strcmp(str[i], ">>") == 0)
-				return (i);
-			if (strcmp(str[i], "<<") == 0)
-				return (i);
-		}
+		if (strcmp(str[i], "|") == 0)
+			return (i);
+		if (strcmp(str[i], ">") == 0)
+			return (i);
+		if (strcmp(str[i], "<") == 0)
+			return (i);
+		if (strcmp(str[i], ">>") == 0)
+			return (i);
+		if (strcmp(str[i], "<<") == 0)
+			return (i);
 		i++;
 	}
 	return (i - 1);
