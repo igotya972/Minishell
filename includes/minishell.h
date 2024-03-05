@@ -90,6 +90,7 @@ char		*ft_add_to_str(char *input, char *value, int i, int len_key);
 char		*ft_replace_var(char *input, int i, t_data *data, int *len_value);
 char		*ft_var_to_value(char *input, t_data *data);
 char		*ft_delimiteur(char *input);
+int			check_parse_error(char **input, t_data *data);
 
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
