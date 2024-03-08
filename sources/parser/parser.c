@@ -36,6 +36,7 @@ void	lexer(t_data *data)
 			if (tmp3[i][j] == 17)
 				tmp3[i][j] = ' ';
 	}
+	debug_tab(tmp3);
 	data->lexer = tmp3;
 }
 

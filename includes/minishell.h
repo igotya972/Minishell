@@ -67,7 +67,7 @@ void		minishell_prompt(t_data *data);
 /*	exec_cmd.c	*/
 void		launch_exec(t_data *data);
 int			exec_cmd(t_data *data, int i);
-void		no_command(t_data *data, char *path, int i);
+int			no_command(char *str, char *path, char **cmd, int flag);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
