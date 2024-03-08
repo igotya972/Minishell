@@ -25,8 +25,14 @@ void	launch_exec(t_data *data)
 		//printf("pipe\n");
 	}
 	else
+	{
 		while (data->lexer[++i])
+		{
 			i = exec_cmd(data, i);
+			if (i == -1)
+				return ;
+		}
+	}
 }
 
 int	exec_cmd(t_data *data, int i)
@@ -36,10 +42,7 @@ int	exec_cmd(t_data *data, int i)
 	char		**cmd;
 
 	if (is_builtins(data->lexer[i]) == 1)
-	{
 		launch_builtins(data, data->lexer, i);
-		i = until_delimiteur(data->lexer, i);
-	}
 	else
 	{
 		if (!data->path)
@@ -48,26 +51,31 @@ int	exec_cmd(t_data *data, int i)
 			return (i);
 		}
 		cmd = cmd_until_delimiteur(data->lexer, i);
-		// debug_tab(cmd);
 		path = path_cmd(data->path, data->lexer[i]);
-		i = until_delimiteur(data->lexer, i);
+		if (!path)
+			return (no_command(data->lexer[i], path, cmd, 0));
 		pid = fork();
 		if (pid == -1)
 			ft_error("Erreur fork", data);
 		else if (pid == 0 && execve(path, cmd, data->envp) == -1)
-			no_command(data, path, i);
+			no_command(data->lexer[i], path, cmd, 1);
 		else
 			wait(NULL);
 		free(path);
 		free_arguments(cmd);
 	}
+	i = until_delimiteur(data->lexer, i);
 	return (i);
 }
 
-void	no_command(t_data *data, char *path, int i)
+int	no_command(char *str, char *path, char **cmd, int flag)
 {
-	ft_putstr_fd(data->lexer[i], 2);
+	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	free(path);
-	exit(1);
+	free_arguments(cmd);
+	if (flag)
+		exit(1);
+	else
+		return (-1);
 }
