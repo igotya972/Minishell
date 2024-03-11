@@ -92,6 +92,10 @@ char		*ft_var_to_value(char *input, t_data *data);
 char		*ft_delimiteur(char *input);
 int			check_parse_error(char **input, t_data *data);
 
+/*	parser4.c	*/
+char	*ft_delimiteur_to_control(char *str);
+char	*ft_addcontrol(char *str, int j, int flag);
+
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
 void		launch_builtins(t_data *data, char **input, int i);
@@ -162,6 +166,10 @@ int 		nbr_parser_delimiteur(char *str);
 int			is_exec_delimiteur(char *str);
 void		debug_tab(char **tab);
 char		**cmd_until_delimiteur(char **lexer, int i);
+
+/*	ft_utils3.c	*/
+char		**ft_remove_control_tab(char **str);
+char		*ft_remove_control(char *str);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

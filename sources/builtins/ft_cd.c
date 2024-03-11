@@ -32,10 +32,10 @@ void	ft_cd(t_data *data, char **inputs, int i)
 			ft_chdir(data, "/");
 		else if (ft_strcmp(inputs[i + 1], "~") == 0)
 			ft_chdir(data, getenv("HOME"));
-		else if (access(inputs[i + 1], F_OK) == -1)
+		else if (access(ft_remove_control(inputs[i + 1]), F_OK) == -1)
 			printf("cd: %s: No such file or directory\n", inputs[i + 1]);
 		else
-			ft_chdir(data, inputs[i + 1]);
+			ft_chdir(data, ft_remove_control(inputs[i + 1]));
 	}
 	else
 		ft_chdir(data, getenv("HOME"));

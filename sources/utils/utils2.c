@@ -63,16 +63,29 @@ char	**cmd_until_delimiteur(char **lexer, int i)
 	while (lexer[i] && !is_exec_delimiteur(lexer[i]))
 		str[++j] = ft_strdup(lexer[i++]);
 	str[j + 1] = NULL;
+	str = ft_remove_control_tab(str);
 	return (str);
 }
 
 void	debug_tab(char **tab)
 {
 	int	i;
+	int j;
 
 	i = -1;
 	printf("\nDEBUG_TAB\n");
 	while (tab[++i])
-		printf("tab[%d] = %s\n", i, tab[i]);
+	{
+		printf("tab[%d] = ", i);
+		j = -1;
+		while (tab[i][++j])
+		{
+			if (tab[i][j] == 18)
+				printf("18");
+			else
+				printf("%c", tab[i][j]);
+		}
+		printf("\n");
+	}
 	printf("DEBUG_DONE\n\n");
 }

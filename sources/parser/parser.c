@@ -22,12 +22,12 @@ void	lexer(t_data *data)
 
 	tmp1 = ft_space_to_control(data->input);
 	tmp2 = ft_delimiteur(tmp1);
-	free(tmp1);
 	tmp1 = ft_var_to_value(tmp2, data);
-	free(tmp2);
-	tmp2 = ft_del_quote(tmp1);
-	tmp3 = ft_split(tmp2, ' ');
-	free(tmp2);
+	tmp2 = ft_delimiteur_to_control(tmp1);
+	tmp1 = ft_del_quote(tmp2);
+	tmp3 = ft_split(tmp1, ' ');
+	free(tmp1);
+	debug_tab(tmp3);
 	i = -1;
 	while (tmp3[++i])
 	{
@@ -36,7 +36,6 @@ void	lexer(t_data *data)
 			if (tmp3[i][j] == 17)
 				tmp3[i][j] = ' ';
 	}
-	debug_tab(tmp3);
 	data->lexer = tmp3;
 }
 
