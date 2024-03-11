@@ -27,7 +27,6 @@ void	lexer(t_data *data)
 	tmp1 = ft_del_quote(tmp2);
 	tmp3 = ft_split(tmp1, ' ');
 	free(tmp1);
-	debug_tab(tmp3);
 	i = -1;
 	while (tmp3[++i])
 	{

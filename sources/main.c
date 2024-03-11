@@ -27,3 +27,4 @@ int	main(int argc, char **argv, char **envp)
 
 // to do : prise en compte des pipes dans le lexer et ailleurs 
 // to do : affiche double prompt quand tu fait wc -l
+// to do : arreter l'exec quand la commande echoue (code erreur?)
