@@ -62,7 +62,7 @@ int	exec_cmd(t_data *data, int i)
 		else
 			wait(NULL);
 		free(path);
-		free_arguments(cmd);
+		ft_free_tab(cmd);
 	}
 	i = until_delimiteur(data->lexer, i);
 	return (i);
@@ -73,7 +73,7 @@ int	no_command(char *str, char *path, char **cmd, int flag)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	free(path);
-	free_arguments(cmd);
+	ft_free_tab(cmd);
 	if (flag)
 		exit(1);
 	else

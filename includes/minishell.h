@@ -104,7 +104,7 @@ void		launch_builtins2(t_data *data, char **inputs, int i);
 void		ft_echo2(t_data *data, char **inputs, int *i, int *add);
 
 /*	ft_cd.c		*/
-void		ft_cd(t_data *data, char **inputs, int i);
+void		ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm);
 void		export_modifier(t_data *data);
 void		ft_chdir(t_data *data, char *path);
 
@@ -120,10 +120,9 @@ char		*ft_export_str_init(char *key, char *value);
 char		*ft_export_str_init2(char *tmp_str2, char *value);
 
 /*	free.c		*/
-void		free_arguments(char **args);
 void		ft_free(t_data *data);
-void		ft_free_input_lexer(t_data *data);
 void		ft_free2(t_data *data);
+void		ft_free_tab(char **tab);
 
 /*	ft_export.c	*/
 void		ft_export(t_data *data, char **inputs, int i, int flag);

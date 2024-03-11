@@ -25,7 +25,7 @@ char	**ft_remove_control_tab(char **str)
 		tmp[i][++k] = '\0';	
 	}
 	tmp[i] = NULL;
-	free(str);
+	ft_free_tab(str);
 	return (tmp);
 }
 

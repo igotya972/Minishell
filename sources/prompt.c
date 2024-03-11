@@ -34,6 +34,7 @@ void	minishell_prompt(t_data *data)
 		// printf("--------------------------------------------\n");
 		if (!check_parse_error(data->lexer, data))
 			launch_exec(data);
-		ft_free_input_lexer(data);
+		ft_free_tab(data->lexer);
+		free(data->input);
 	}
 }

@@ -68,6 +68,7 @@ char	*ft_var_to_value(char *input, t_data *data)
 	while (++i < (int)ft_strlen(result) && result[i])
 		if (result[i] == '$' && ft_is_in_quotes(result, i) != 2)
 			result = ft_replace_var(result, i, data, &i);
+	free(input);
 	return (result);
 }
 
@@ -97,6 +98,7 @@ char	*ft_delimiteur(char *input)
 			tmp[++j] = input[i];
 	}
 	tmp[j + 1] = 0;
+	free(input);
 	return (tmp);
 }
 

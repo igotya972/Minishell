@@ -12,19 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	free_arguments(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i] != NULL)
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
-}
-
 void	ft_free(t_data *data)
 {
 	int	i;
@@ -69,16 +56,13 @@ void	ft_free2(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_free_input_lexer(t_data *data)
+
+void	ft_free_tab(char **tab)
 {
 	int	i;
 
 	i = -1;
-	if (data->lexer)
-	{
-		while (data->lexer[++i])
-			free(data->lexer[i]);
-		free(data->lexer);
-	}
-	free(data->input);
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
 }
