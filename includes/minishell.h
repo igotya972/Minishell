@@ -71,6 +71,9 @@ void		no_command(t_data *data, char *path, int i);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
+pid_t		ft_fork();
+void		dup_and_close(int in_fd, int out_fd);
+void		child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in);
 
 /*	parser.c	*/
 void		lexer(t_data *data);
@@ -179,9 +182,5 @@ char		**init_path(char **envp);
 /*	ft_exit.c	*/
 void		ft_error(char *str);
 void		ft_exit(t_data *data);
-
-/*	pipe.c	*/
-int			child_process(int *fd, char **argv, char **env);
-int			parent_process(int *fd, char **argv, char **env);
 
 #endif

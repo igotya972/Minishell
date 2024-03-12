@@ -12,26 +12,44 @@
 
 #include "../includes/minishell.h"
 
-static void	exec_cmd_from_pipe(char **cmd, t_data *data, int i)
+static void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 {
-	char	**args;
-	char	*path;
-
-	args = ft_split(cmd[i], ' ');
-	//printf("args[i] = %s\n", args[i]);
-	path = path_cmd(data->path, args[0]);
-	if (execve(path, args, data->envp) == -1)
+	if (execve(path, cmd, data->envp) == -1)
 	{
 		perror("Exec failed");
 		exit(EXIT_FAILURE);
 	}
 }
 
+static void prepare_and_exec_cmd(char *cmd, t_data *data)
+{
+	char **args;
+	char *path;
+
+	args = ft_split(cmd, ' ');
+	path = path_cmd(data->path, args[0]);
+	exec_simple_cmd(data, path, args);
+	free(path);
+}
+
+void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
+{
+	close(fd[0]);
+	if (fd_in != 0)
+		dup_and_close(fd_in, STDIN_FILENO); 
+	if (cmds[i + 1] != NULL)
+		dup_and_close(fd[1], 1);
+	else
+		close(fd[1]);
+	prepare_and_exec_cmd(cmds[i], data);
+	//exec_cmd_from_pipe(cmds, data, i);
+	exit(EXIT_FAILURE);
+}
+
 void	exec_pipe(t_data *data)
 {
 	int		fd[2];
 	int		fd_in;
-	pid_t	pid;
 	char	**cmds;
 	int		i;
 
@@ -43,29 +61,11 @@ void	exec_pipe(t_data *data)
 	while (cmds[i])
 	{
 		pipe(fd);
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("Erreur fork");
-			exit(EXIT_FAILURE);
-		}
-		if (pid == 0)
-		{
-			close(fd[0]);
-			if (fd_in != 0)
-			{
-				dup2(fd_in, 0);
-				close(fd_in);
-			}
-			if (cmds[i + 1] != NULL)
-				dup2(fd[1], 1);
-			close(fd[1]);
-			exec_cmd_from_pipe(cmds, data, i);
-			exit(EXIT_FAILURE);
-		}
+		if (ft_fork() == 0)
+			child_process(cmds, i, data, fd, fd_in);
 		else
 		{
-			waitpid(pid, NULL, 0);
+			wait(NULL);
 			close(fd[1]);
 			if (fd_in != 0)
 				close(fd_in);
@@ -75,4 +75,30 @@ void	exec_pipe(t_data *data)
 	}
 	if (fd_in != 0)
 		close(fd_in);
+}
+
+pid_t	ft_fork()
+{
+	pid_t pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("Erreur fork");
+		exit(EXIT_FAILURE);
+	}
+	return (pid);
+}
+
+void	dup_and_close(int in_fd, int out_fd)
+{
+	if (dup2(in_fd, out_fd) == -1)
+	{
+		perror("dup2 failed");
+		exit(EXIT_FAILURE);
+	}
+	if (in_fd != out_fd)
+	{
+		close(in_fd);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/02 02:42:35 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/12 03:43:00 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	exec_cmd(t_data *data)
 			}
 			path = path_cmd(data->path, data->lexer[i]);
 			pid = fork();
+			//printf("data.lexer = %s\n", data->lexer[i]);
 			if (pid == -1)
 				ft_error("Erreur fork");
 			else if (pid == 0 && execve(path, data->lexer, data->envp) == -1)
