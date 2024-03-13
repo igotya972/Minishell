@@ -19,6 +19,7 @@ void	launch_exec(t_data *data)
 	i = -1;	
 	if (ft_strchr(data->input, '|') != 0)
 	{
+		// signal(SIGINT, child_signal);
 		//printf("%s\n", data->input);
 		exec_pipe(data);
 		//free(data);
@@ -28,6 +29,7 @@ void	launch_exec(t_data *data)
 	{
 		while (data->lexer[++i])
 		{
+			signal(SIGINT, child_signal);
 			i = exec_cmd(data, i);
 			if (i == -1)
 				return ;
@@ -48,7 +50,7 @@ int	exec_cmd(t_data *data, int i)
 		if (!data->path)
 		{
 			printf("%s: No such file or directory\n", data->lexer[i]);
-			return (i);
+			return (-1);
 		}
 		cmd = cmd_until_delimiteur(data->lexer, i);
 		path = path_cmd(data->path, data->lexer[i]);
@@ -57,8 +59,11 @@ int	exec_cmd(t_data *data, int i)
 		pid = fork();
 		if (pid == -1)
 			ft_error("Erreur fork", data);
-		else if (pid == 0 && execve(path, cmd, data->envp) == -1)
-			no_command(data->lexer[i], path, cmd, 1);
+		else if (pid == 0)
+		{
+			if (execve(path, cmd, data->envp) == -1)
+				no_command(data->lexer[i], path, cmd, 1);
+		}
 		else
 			wait(NULL);
 		free(path);

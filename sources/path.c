@@ -63,11 +63,13 @@ char	*path_cmd(char **path, char *cmd)
 
 	i = 0;
 	cmd_path = NULL;
+	if (access(cmd, F_OK | X_OK) == 0)
+		return(ft_strdup(cmd));
 	path_slash = add_slash(path);
 	while (path_slash[i])
 	{
 		cmd_path = ft_strjoin(path_slash[i], cmd);
-		if (access(cmd_path, F_OK) == 0)
+		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
 			i = -1;
 			while (path_slash[++i])
