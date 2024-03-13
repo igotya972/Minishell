@@ -51,6 +51,8 @@ struct	s_data
 	t_export	*export;
 };
 
+extern int	pid_child;
+
 typedef struct s_cmd
 {
 	char	*cmd;
@@ -60,6 +62,7 @@ typedef struct s_cmd
 /*	ft_signal.c	*/
 void		signal_manager(int signum);
 void		handle_ctrld(t_data *data);
+void		child_signal(int signum);
 
 /*	minishell.c	*/
 void		minishell_prompt(t_data *data);

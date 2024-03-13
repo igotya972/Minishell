@@ -33,3 +33,13 @@ void	handle_ctrld(t_data *data)
 		ft_free(data);
 	}
 }
+
+void	child_signal(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		// exit(130);
+		// kill(getpid(), SIGKILL);
+	}
+}
