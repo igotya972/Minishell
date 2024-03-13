@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_cd(t_data *data, char **inputs, int i)
+void	ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm)
 {
 	if (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1 && inputs[i + 2] && is_exec_delimiteur(inputs[i + 2]) != 1)
 		printf("cd: too many arguments\n");
@@ -32,10 +32,10 @@ void	ft_cd(t_data *data, char **inputs, int i)
 			ft_chdir(data, "/");
 		else if (ft_strcmp(inputs[i + 1], "~") == 0)
 			ft_chdir(data, getenv("HOME"));
-		else if (access(inputs[i + 1], F_OK) == -1)
+		else if (access(ctrl_rm, F_OK) == -1)
 			printf("cd: %s: No such file or directory\n", inputs[i + 1]);
 		else
-			ft_chdir(data, inputs[i + 1]);
+			ft_chdir(data, ctrl_rm);
 	}
 	else
 		ft_chdir(data, getenv("HOME"));

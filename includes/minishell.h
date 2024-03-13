@@ -45,12 +45,13 @@ struct	s_data
 	char		**lexer;
 	char		**envp;
 	char		*input;
-	
 	char		*env_path;
 	char		*old_pwd;
 	int			oldpwd_status;
 	t_export	*export;
 };
+
+extern int	pid_child;
 
 typedef struct s_cmd
 {
@@ -61,13 +62,15 @@ typedef struct s_cmd
 /*	ft_signal.c	*/
 void		signal_manager(int signum);
 void		handle_ctrld(t_data *data);
+void		child_signal(int signum);
 
 /*	minishell.c	*/
 void		minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
-void		exec_cmd(t_data *data);
-void		no_command(t_data *data, char *path, int i);
+void		launch_exec(t_data *data);
+int			exec_cmd(t_data *data, int i);
+int			no_command(char *str, char *path, char **cmd, int flag);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
@@ -93,6 +96,11 @@ char		*ft_add_to_str(char *input, char *value, int i, int len_key);
 char		*ft_replace_var(char *input, int i, t_data *data, int *len_value);
 char		*ft_var_to_value(char *input, t_data *data);
 char		*ft_delimiteur(char *input);
+int			check_parse_error(char **input, t_data *data);
+
+/*	parser4.c	*/
+char	*ft_delimiteur_to_control(char *str);
+char	*ft_addcontrol(char *str, int j, int flag);
 
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
@@ -102,7 +110,7 @@ void		launch_builtins2(t_data *data, char **inputs, int i);
 void		ft_echo2(t_data *data, char **inputs, int *i, int *add);
 
 /*	ft_cd.c		*/
-void		ft_cd(t_data *data, char **inputs, int i);
+void		ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm);
 void		export_modifier(t_data *data);
 void		ft_chdir(t_data *data, char *path);
 
@@ -118,10 +126,9 @@ char		*ft_export_str_init(char *key, char *value);
 char		*ft_export_str_init2(char *tmp_str2, char *value);
 
 /*	free.c		*/
-void		free_arguments(char **args);
 void		ft_free(t_data *data);
-void		ft_free_input_lexer(t_data *data);
 void		ft_free2(t_data *data);
+void		ft_free_tab(char **tab);
 
 /*	ft_export.c	*/
 void		ft_export(t_data *data, char **inputs, int i, int flag);
@@ -155,13 +162,19 @@ t_export	*ft_unset3(t_data *data);
 char		*ft_init_prompt(void);
 void		ft_protect_malloc(void *ptr);
 int			is_builtins(char *lexer_i);
-int			until_limiteur(char **str, int i);
+int			until_delimiteur(char **str, int i);
 int			is_value_delimiteur(char c);
 
 /*	ft_utils2.c	*/
 int			is_parser_delimiteur(char c);
 int 		nbr_parser_delimiteur(char *str);
 int			is_exec_delimiteur(char *str);
+void		debug_tab(char **tab);
+char		**cmd_until_delimiteur(char **lexer, int i);
+
+/*	ft_utils3.c	*/
+char		**ft_remove_control_tab(char **str);
+char		*ft_remove_control(char *str);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);
@@ -180,7 +193,7 @@ char		*path_cmd(char **path, char *cmd);
 char		**init_path(char **envp);
 
 /*	ft_exit.c	*/
-void		ft_error(char *str);
+void		ft_error(char *str, t_data *data);
 void		ft_exit(t_data *data);
 
 #endif

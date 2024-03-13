@@ -14,18 +14,24 @@
 
 void	launch_builtins(t_data *data, char **inputs, int i)
 {
-		if (ft_strcmp(inputs[i], "exit") == 0)
-			ft_free(data);
-		else if (ft_strcmp(inputs[i], "echo") == 0)
-			i += ft_echo(data, inputs, i);
-		else if (ft_strcmp(inputs[i], "pwd") == 0)
-			ft_pwd();
-		else if (ft_strcmp(inputs[i], "env") == 0)
-			ft_env(data);
-		else if (ft_strcmp(inputs[i], "cd") == 0)
-			ft_cd(data, inputs, i);
-		else
-			launch_builtins2(data, inputs, i);
+	char	*tmp;
+
+	if (ft_strcmp(inputs[i], "exit") == 0)
+		ft_free(data);
+	else if (ft_strcmp(inputs[i], "echo") == 0)
+		i += ft_echo(data, inputs, i);
+	else if (ft_strcmp(inputs[i], "pwd") == 0)
+		ft_pwd();
+	else if (ft_strcmp(inputs[i], "env") == 0)
+		ft_env(data);
+	else if (ft_strcmp(inputs[i], "cd") == 0)
+	{
+		tmp = ft_remove_control(inputs[i + 1]);
+		ft_cd(data, inputs, i, tmp);
+		free(tmp);
+	}
+	else
+		launch_builtins2(data, inputs, i);
 }
 
 void	launch_builtins2(t_data *data, char **inputs, int i)

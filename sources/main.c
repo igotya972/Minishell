@@ -26,7 +26,4 @@ int	main(int argc, char **argv, char **envp)
 }
 
 // to do : prise en compte des pipes dans le lexer et ailleurs 
-// to do : affiche double prompt quand tu fait wc -l
-// to do : faire en sorte que toutes les fonctions s'arettent quand on croise un delimiteur (echo asd> asd)
-// to do : salut ca va > > asd (parse error near `>')
-// to do : arreter l'exec des la premiere mauvaise command
+// to do : arreter l'exec quand la commande echoue (code erreur?, cd asdjhfag > ls)

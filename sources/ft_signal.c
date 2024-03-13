@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 04:21:34 by dferjul           #+#    #+#             */
-/*   Updated: 2024/02/27 16:53:43 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/04 17:51:46 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,15 @@ void	handle_ctrld(t_data *data)
 	{
 		printf("exit\n");
 		ft_free(data);
+	}
+}
+
+void	child_signal(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		// exit(130);
+		// kill(getpid(), SIGKILL);
 	}
 }

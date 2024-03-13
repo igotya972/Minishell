@@ -56,8 +56,7 @@ void	exec_pipe(t_data *data)
 	i = 0;
 	fd_in = 0;
 	cmds = ft_split(data->input, '|');
-	if (cmds == NULL)
-		return ;
+	ft_protect_malloc(cmds);
 	while (cmds[i])
 	{
 		pipe(fd);

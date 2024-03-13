@@ -3,69 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/12 03:43:00 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/13 22:17:46 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	exec_cmd(t_data *data)
+void	launch_exec(t_data *data)
 {
-	pid_t		pid;
-	char		*path;
-	int 		i;
+	int	i;
 
-	i = 0;	
+	i = -1;	
 	if (ft_strchr(data->input, '|') != 0)
 	{
+		// signal(SIGINT, child_signal);
 		//printf("%s\n", data->input);
 		exec_pipe(data);
 		//free(data);
 		//printf("pipe\n");
-		return;
 	}
-	while (data->lexer[i])
+	else
 	{
-		if (i == -1)
-			return ;
-		if (is_builtins(data->lexer[i]) == 1)
+		while (data->lexer[++i])
 		{
-			launch_builtins(data, data->lexer, i);
-			i = until_limiteur(data->lexer, i);
-		}
-		else
-		{
-			if (!data->path)
-			{
-				printf("%s: No such file or directory\n", data->lexer[i]);
+			signal(SIGINT, child_signal);
+			i = exec_cmd(data, i);
+			if (i == -1)
 				return ;
-			}
-			path = path_cmd(data->path, data->lexer[i]);
-			pid = fork();
-			//printf("data.lexer = %s\n", data->lexer[i]);
-			if (pid == -1)
-				ft_error("Erreur fork");
-			else if (pid == 0 && execve(path, data->lexer, data->envp) == -1)
-			{
-				no_command(data, path, i);
-				// return ;
-			}
-			else
-				wait(NULL);
-			free(path);
 		}
-		i++;
 	}
 }
 
-void	no_command(t_data *data, char *path, int i)
+int	exec_cmd(t_data *data, int i)
 {
-	ft_putstr_fd(data->lexer[i], 2);
+	pid_t		pid;
+	char		*path;
+	char		**cmd;
+
+	if (is_builtins(data->lexer[i]) == 1)
+		launch_builtins(data, data->lexer, i);
+	else
+	{
+		if (!data->path)
+		{
+			printf("%s: No such file or directory\n", data->lexer[i]);
+			return (-1);
+		}
+		cmd = cmd_until_delimiteur(data->lexer, i);
+		path = path_cmd(data->path, data->lexer[i]);
+		if (!path)
+			return (no_command(data->lexer[i], path, cmd, 0));
+		pid = fork();
+		if (pid == -1)
+			ft_error("Erreur fork", data);
+		else if (pid == 0)
+		{
+			if (execve(path, cmd, data->envp) == -1)
+				no_command(data->lexer[i], path, cmd, 1);
+		}
+		else
+			wait(NULL);
+		free(path);
+		ft_free_tab(cmd);
+	}
+	i = until_delimiteur(data->lexer, i);
+	return (i);
+}
+
+int	no_command(char *str, char *path, char **cmd, int flag)
+{
+	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	free(path);
-	exit(1);
-	// return ;
+	ft_free_tab(cmd);
+	if (flag)
+		exit(1);
+	else
+		return (-1);
 }

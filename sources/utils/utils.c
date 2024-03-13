@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/02/29 13:36:09 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/04 17:35:35 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,20 @@ int	is_builtins(char *lexer_i)
 	return (0); 
 }
 
-int	until_limiteur(char **str, int i)
+int	until_delimiteur(char **str, int i)
 {
 	while (str[i])
 	{
-		if (!ft_is_in_quotes(str[i], i))
-		{
-			if (strcmp(str[i], "|") == 0)
-				return (i);
-			if (strcmp(str[i], ">") == 0)
-				return (i);
-			if (strcmp(str[i], "<") == 0)
-				return (i);
-			if (strcmp(str[i], ">>") == 0)
-				return (i);
-			if (strcmp(str[i], "<<") == 0)
-				return (i);
-		}
+		if (strcmp(str[i], "|") == 0)
+			return (i);
+		if (strcmp(str[i], ">") == 0)
+			return (i);
+		if (strcmp(str[i], "<") == 0)
+			return (i);
+		if (strcmp(str[i], ">>") == 0)
+			return (i);
+		if (strcmp(str[i], "<<") == 0)
+			return (i);
 		i++;
 	}
 	return (i - 1);
@@ -83,12 +80,9 @@ int	is_value_delimiteur(char c)
 	char delimiteur[8] = {'|', '>', '<', '"', ' ', '$', '\'', 17};
 	int	i;
 
-	i = 0;
-	while (i < 8)
-	{
+	i = -1;
+	while (++i < 8)
 		if (c == delimiteur[i])
 			return (1);
-		i++;
-	}
 	return (0);
 }
