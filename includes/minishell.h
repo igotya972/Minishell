@@ -74,6 +74,9 @@ int			no_command(char *str, char *path, char **cmd, int flag);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
+pid_t		ft_fork();
+void		dup_and_close(int in_fd, int out_fd);
+void		child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in);
 
 /*	parser.c	*/
 void		lexer(t_data *data);
