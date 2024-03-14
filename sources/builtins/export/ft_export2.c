@@ -29,18 +29,21 @@ void	ft_export2(t_data *data, char **inputs, int i, int flag)
 				if (flag == 0)
 					envp_add(data, key, inputs[i + 1] + j + 1);
 				export_add(data, key, inputs[i + 1] + j + 1);
+				g_error = 0;
 				return ;
 			}
 		}
 		else
 			return (ft_export3(inputs[i + 1]));
 	}
+	g_error = 0;
 	export_add(data, inputs[i + 1], NULL);
 }
 
 void	ft_export3(char *str)
 {
 	printf("export: not valid in this context: %s\n", str);
+	g_error = 1;
 	return ;
 }
 

@@ -53,7 +53,6 @@ void	ft_free2(t_data *data)
 		free(data->path);
 	}
 	free(data);
-	exit(EXIT_SUCCESS);
 }
 
 

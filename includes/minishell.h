@@ -29,6 +29,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 
+extern int	g_error;
+
 typedef struct s_data	t_data;
 typedef struct s_export	t_export;
 
@@ -112,7 +114,8 @@ void		ft_echo2(t_data *data, char **inputs, int *i, int *add);
 /*	ft_cd.c		*/
 void		ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm);
 void		export_modifier(t_data *data);
-void		ft_chdir(t_data *data, char *path);
+int			ft_chdir(t_data *data, char *path);
+void		ft_cd_minus(t_data *data);
 
 /*	init_data.c	*/
 void		init_data(t_data *data, char **envp);
@@ -175,6 +178,7 @@ char		**cmd_until_delimiteur(char **lexer, int i);
 /*	ft_utils3.c	*/
 char		**ft_remove_control_tab(char **str);
 char		*ft_remove_control(char *str);
+int			ft_atoi_simple(char *str);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);
@@ -194,6 +198,6 @@ char		**init_path(char **envp);
 
 /*	ft_exit.c	*/
 void		ft_error(char *str, t_data *data);
-void		ft_exit(t_data *data);
+void		ft_exit(t_data *data, int i);
 
 #endif

@@ -17,7 +17,10 @@ void	ft_export(t_data *data, char **inputs, int i, int flag)
 	if (ft_isalpha(inputs[i + 1][0]) != 0 || inputs[i + 1][0] == '_')
 		ft_export2(data, inputs, i, flag);
 	else
+	{
 		printf("export: %s: not a valid identifier\n", inputs[i + 1]);
+		g_error = 1;
+	}
 }
 
 void	export_add(t_data *data, char *key, char *value)

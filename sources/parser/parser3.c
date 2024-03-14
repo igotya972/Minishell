@@ -66,7 +66,10 @@ char	*ft_var_to_value(char *input, t_data *data)
 	i = -1;
 	result = ft_strdup(input);
 	while (++i < (int)ft_strlen(result) && result[i])
-		if (result[i] == '$' && ft_is_in_quotes(result, i) != 2)
+		if (result[i] == '$' && ft_is_in_quotes(result, i) != 2 && \
+		!is_parser_delimiteur(result[i]) && result[i + 1] && \
+		result[i + 1] != ' ' && result[i + 1] != '\"' && \
+		result[i + 1] != '\'')
 			result = ft_replace_var(result, i, data, &i);
 	free(input);
 	return (result);
@@ -83,7 +86,7 @@ char	*ft_delimiteur(char *input)
 	i = -1;
 	j = -1;
 	while (input[++i])
-	{	
+	{
 		if (is_parser_delimiteur(input[i]) && ft_is_in_quotes(input, i) == 0)
 		{
 			if (i != 0 && input[i - 1] != ' ')

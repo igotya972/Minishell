@@ -38,9 +38,32 @@ char	*ft_remove_control(char *str)
 	tmp = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	i = -1;
 	j = -1;
+	if (!str)
+		return (tmp);
 	while (str[++i])
 		if (str[i] != 18)
 			tmp[++j] = str[i];
 	tmp[++j] = '\0';
 	return (tmp);
+}
+
+int	ft_atoi_simple(char *str)
+{
+	int	i;
+	int	result;
+
+	i = 0;
+	result = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+	{
+		result += (str[i] - 48);
+		i++;
+		if (!(str[i] < '0' || str[i] > '9'))
+			result *= 10;
+	}
+	if (str[i] && str[i] >= '0' && str[i] <= '9')
+		return (-1);
+	return (result);
 }

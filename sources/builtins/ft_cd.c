@@ -15,36 +15,39 @@
 void	ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm)
 {
 	if (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1 && inputs[i + 2] && is_exec_delimiteur(inputs[i + 2]) != 1)
+	{
 		printf("cd: too many arguments\n");
+		g_error = 1;
+	}
 	else if (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1)
 	{
 		if (ft_strcmp(inputs[i + 1], "-") == 0)
-		{
-			if (data->oldpwd_status == 0)
-				printf("cd: OLDPWD not set\n");
-			else
-			{
-				ft_chdir(data, data->old_pwd);
-				ft_pwd();
-			}
-		}
+			ft_cd_minus(data);
 		else if (ft_strcmp(inputs[i + 1], "/") == 0)
-			ft_chdir(data, "/");
+			g_error = ft_chdir(data, "/");
 		else if (ft_strcmp(inputs[i + 1], "~") == 0)
-			ft_chdir(data, getenv("HOME"));
+			g_error = ft_chdir(data, getenv("HOME"));
 		else if (access(ctrl_rm, F_OK) == -1)
+		{
 			printf("cd: %s: No such file or directory\n", inputs[i + 1]);
+			g_error = 1;
+		}
 		else
-			ft_chdir(data, ctrl_rm);
+			g_error = ft_chdir(data, ctrl_rm);
 	}
 	else
-		ft_chdir(data, getenv("HOME"));
+		g_error = ft_chdir(data, getenv("HOME"));
 }
 
-void	ft_chdir(t_data *data, char *path)
+int	ft_chdir(t_data *data, char *path)
 {
 	char	*tmp;
 
+	if (!path)
+	{
+		printf("minishell: cd: HOME not set\n");
+		return (1);
+	}
 	tmp = getcwd(NULL, 0);
 	chdir(path);
 	if (data->old_pwd)
@@ -54,6 +57,7 @@ void	ft_chdir(t_data *data, char *path)
 	envp_add(data, "OLDPWD", data->old_pwd);
 	data->envp = envp_modifier(data);
 	export_modifier(data);
+	return (0);
 }
 
 void	export_modifier(t_data *data)
@@ -76,4 +80,18 @@ void	export_modifier(t_data *data)
 	free(new_export[0]);
 	free(new_export[1]);
 	free(new_export);
+}
+
+void	ft_cd_minus(t_data *data)
+{
+	if (data->oldpwd_status == 0)
+	{
+		printf("cd: OLDPWD not set\n");
+		g_error = 1;
+	}
+	else
+	{
+		g_error = ft_chdir(data, data->old_pwd);
+		ft_pwd();
+	}
 }
