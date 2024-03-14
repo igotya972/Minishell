@@ -18,10 +18,8 @@ char	**ft_remove_control_tab(char **str)
 		k = -1;
 		tmp[i] = malloc(sizeof(char) * (ft_strlen(str[i]) + 1));
 		while (str[i][++j])
-		{
 			if (str[i][j] != 18)
 				tmp[i][++k] = str[i][j];
-		}
 		tmp[i][++k] = '\0';	
 	}
 	tmp[i] = NULL;
