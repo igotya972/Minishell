@@ -30,6 +30,7 @@ void	launch_exec(t_data *data)
 		while (data->lexer[++i])
 		{
 			signal(SIGINT, child_signal);
+			signal(SIGQUIT, child_signal);
 			i = exec_cmd(data, i);
 			if (i == -1)
 				return ;
@@ -40,6 +41,7 @@ void	launch_exec(t_data *data)
 int	exec_cmd(t_data *data, int i)
 {
 	pid_t		pid;
+	int			status;
 	char		*path;
 	char		**cmd;
 
@@ -47,9 +49,11 @@ int	exec_cmd(t_data *data, int i)
 		launch_builtins(data, data->lexer, i);
 	else
 	{
+		g_error = 0;
 		if (!data->path)
 		{
 			printf("%s: No such file or directory\n", data->lexer[i]);
+			g_error = 127;
 			return (-1);
 		}
 		cmd = cmd_until_delimiteur(data->lexer, i);
@@ -65,9 +69,12 @@ int	exec_cmd(t_data *data, int i)
 				no_command(data->lexer[i], path, cmd, 1);
 		}
 		else
-			wait(NULL);
+			wait(&status);
 		free(path);
 		ft_free_tab(cmd);
+		if (g_error != 130 && g_error != 131)
+			g_error = WEXITSTATUS(status);
+		printf("%d\n", g_error);
 	}
 	i = until_delimiteur(data->lexer, i);
 	return (i);
@@ -77,6 +84,7 @@ int	no_command(char *str, char *path, char **cmd, int flag)
 {
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
+	g_error = 127;
 	free(path);
 	ft_free_tab(cmd);
 	if (flag)

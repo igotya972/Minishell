@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-//to do : quitte une boucle infini
-
 void	signal_manager(int signum)
 {
 	if (signum == SIGINT || signum == SIGTSTP)
@@ -22,6 +20,7 @@ void	signal_manager(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_error = 130;
 	}
 }
 
@@ -31,6 +30,7 @@ void	handle_ctrld(t_data *data)
 	{
 		printf("exit\n");
 		ft_free(data);
+		exit(0);
 	}
 }
 
@@ -39,7 +39,13 @@ void	child_signal(int signum)
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
+		g_error = 130;
 		// exit(130);
 		// kill(getpid(), SIGKILL);
+	}
+	if (signum == SIGQUIT)
+	{
+		write(1, "\n", 1);
+		g_error = 131;
 	}
 }

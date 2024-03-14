@@ -19,6 +19,7 @@ void	ft_env(t_data *data)
 	i = -1;
 	while (data->envp[++i])
 		printf("%s\n", data->envp[i]);
+	g_error = 0;
 }
 
 char	**envp_modifier(t_data *data)

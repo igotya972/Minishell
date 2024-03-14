@@ -17,7 +17,7 @@ void	launch_builtins(t_data *data, char **inputs, int i)
 	char	*tmp;
 
 	if (ft_strcmp(inputs[i], "exit") == 0)
-		ft_free(data);
+		ft_exit(data, i);
 	else if (ft_strcmp(inputs[i], "echo") == 0)
 		i += ft_echo(data, inputs, i);
 	else if (ft_strcmp(inputs[i], "pwd") == 0)
@@ -39,13 +39,17 @@ void	launch_builtins2(t_data *data, char **inputs, int i)
 	if (ft_strcmp(inputs[i], "export") == 0)
 	{
 		if (!inputs[i + 1])
+		{
+			g_error = 0;
 			ft_display_export(data);
+		}
 		else
 			while (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1)
 				ft_export(data, inputs, i++, 0);
 	}
 	else if (ft_strcmp(inputs[i], "unset") == 0)
 	{
+		g_error = 0;
 		if (inputs[i + 1])
 			while (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1)
 				ft_unset(data, inputs, i++);
@@ -73,6 +77,7 @@ int	ft_echo(t_data *data, char **inputs, int i)
 	}
 	else
 		printf("\n");
+	g_error = 0;
 	return (add);
 }
 
@@ -100,4 +105,5 @@ void	ft_pwd(void)
 	tmp = getcwd(NULL, 0);
 	printf("%s\n", tmp);
 	free(tmp);
+	g_error = 0;
 }
