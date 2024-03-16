@@ -74,7 +74,7 @@ int	exec_cmd(t_data *data, int i)
 		ft_free_tab(cmd);
 		if (g_error != 130 && g_error != 131)
 			g_error = WEXITSTATUS(status);
-		printf("%d\n", g_error);
+		// printf("%d\n", g_error);
 	}
 	i = until_delimiteur(data->lexer, i);
 	return (i);

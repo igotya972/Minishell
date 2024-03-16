@@ -38,11 +38,12 @@ void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 	close(fd[0]);
 	if (fd_in != 0)
 		dup_and_close(fd_in, STDIN_FILENO); 
-	if (cmds[i + 1] != NULL)
+	// printf("i = %d, lexer[i + 1] = %s\n", until_delimiteur(data->lexer, i), data->lexer[until_delimiteur(data->lexer, i) + 1]);
+	if (data->lexer[until_delimiteur(data->lexer, i) + 1])
 		dup_and_close(fd[1], 1);
 	else
 		close(fd[1]);
-	debug_tab(cmds);
+	// debug_tab(cmds);
 	prepare_and_exec_cmd(cmds, data);
 	//exec_cmd_from_pipe(cmds, data, i);
 	// exit(EXIT_FAILURE);
@@ -64,10 +65,10 @@ void	exec_pipe(t_data *data)
 	{
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
 		debug_tab(delimiteur);
+		printf("test %d\n", data->lexer[until_delimiteur(data->lexer, i) + 1] != NULL);
 		pipe(fd);
 		if (ft_fork() == 0)
 		{
-			printf("test %d\n", delimiteur[i + 1] != NULL);
 			child_process(delimiteur, i, data, fd, fd_in);
 			i = until_delimiteur(data->lexer, i);
 		}

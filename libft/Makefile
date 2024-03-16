@@ -51,7 +51,7 @@ $(OBJ_DIR)/%.o: %.c
 		echo -n "══"; \
 		i=$$((i + 1)); \
 	done; \
-	echo -n "  $$((($$count * 100) / $(TOTAL_FILES)))% Compiling $$(basename $<)...\r"
+	echo -en "  $$((($$count * 100) / $(TOTAL_FILES)))% Compiling $$(basename $<)...\r"
 
 all : $(NAME)
 
