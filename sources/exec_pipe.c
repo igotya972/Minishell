@@ -23,49 +23,36 @@ static void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 
 static void prepare_and_exec_cmd(char **cmd, t_data *data)
 {
-	// char **args;
 	char *path;
 
-	// args = ft_split(cmd, ' ');
 	path = path_cmd(data->path, cmd[0]);
 	exec_simple_cmd(data, path, cmd);
-	// free(path);
 }
 
 void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 {
-	// (void)i;
 	close(fd[0]);
 	if (fd_in != 0)
 		dup_and_close(fd_in, STDIN_FILENO); 
-	// printf("i = %d, lexer[i + 1] = %s\n", until_delimiteur(data->lexer, i), data->lexer[until_delimiteur(data->lexer, i) + 1]);
 	if (data->lexer[until_delimiteur(data->lexer, i) + 1])
 		dup_and_close(fd[1], 1);
 	else
 		close(fd[1]);
-	// debug_tab(cmds);
 	prepare_and_exec_cmd(cmds, data);
-	//exec_cmd_from_pipe(cmds, data, i);
-	// exit(EXIT_FAILURE);
 }
 
 void	exec_pipe(t_data *data)
 {
 	int		fd[2];
 	int		fd_in;
-	// char	**cmds;
 	char	**delimiteur;
 	int		i;
 
 	i = -1;
 	fd_in = 0;
-	// cmds = ft_split(data->input, '|');
-	// ft_protect_malloc(cmds);
 	while (data->lexer[++i])
 	{
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
-		debug_tab(delimiteur);
-		printf("test %d\n", data->lexer[until_delimiteur(data->lexer, i) + 1] != NULL);
 		pipe(fd);
 		if (ft_fork() == 0)
 		{
@@ -79,7 +66,6 @@ void	exec_pipe(t_data *data)
 			if (fd_in != 0)
 				close(fd_in);
 			fd_in = fd[0];
-			// i++;
 			i = until_delimiteur(data->lexer, i);
 		}
 	}

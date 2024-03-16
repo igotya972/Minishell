@@ -88,7 +88,7 @@ char		*ft_del_quote(char *input);
 
 /*	parser2.c	*/
 char		*ft_get_value(char *key, t_data *data);
-char		*ft_key_to_replace(char *input, int i, int *i_base);
+char		*ft_key_to_replace(char *input, int i, int i_base);
 char		*ft_copy_value(t_data *data, int i);
 void		ft_flag_dquote(int *flag, int *anti_start_quote);
 void		ft_flag_squote(int *flag, int *anti_start_quote);
