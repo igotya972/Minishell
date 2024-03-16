@@ -69,11 +69,12 @@ char	**cmd_until_delimiteur(char **lexer, int i)
 
 void	debug_tab(char **tab)
 {
-	int	i;
-	int j;
+	int			i;
+	int			j;
+	static int	nb_debug;
 
 	i = -1;
-	printf("\nDEBUG_TAB\n");
+	printf("\nDEBUG_TAB no%d\n", nb_debug++);
 	while (tab[++i])
 	{
 		printf("tab[%d] = ", i);

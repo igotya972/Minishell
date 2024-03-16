@@ -17,24 +17,23 @@ void	launch_exec(t_data *data)
 	int	i;
 
 	i = -1;	
-	if (ft_strchr(data->input, '|') != 0)
+	while (data->lexer[++i])
 	{
-		// signal(SIGINT, child_signal);
-		//printf("%s\n", data->input);
-		exec_pipe(data);
-		//free(data);
-		//printf("pipe\n");
-	}
-	else
-	{
-		while (data->lexer[++i])
+		if (ft_strcmp(data->lexer[i], "|") == 0)
 		{
-			signal(SIGINT, child_signal);
-			signal(SIGQUIT, child_signal);
-			i = exec_cmd(data, i);
-			if (i == -1)
-				return ;
+			// signal(SIGINT, child_signal);
+			exec_pipe(data);
+			return ;
 		}
+	}
+	i = -1;
+	while (data->lexer[++i])
+	{
+		signal(SIGINT, child_signal);
+		signal(SIGQUIT, child_signal);
+		i = exec_cmd(data, i);
+		if (i == -1)
+			return ;
 	}
 }
 
@@ -74,7 +73,6 @@ int	exec_cmd(t_data *data, int i)
 		ft_free_tab(cmd);
 		if (g_error != 130 && g_error != 131)
 			g_error = WEXITSTATUS(status);
-		printf("%d\n", g_error);
 	}
 	i = until_delimiteur(data->lexer, i);
 	return (i);

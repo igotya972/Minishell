@@ -19,6 +19,11 @@ char	*ft_get_value(char *key, t_data *data)
 
 	i = -1;
 	value = NULL;
+	if (key[0] == '?' && key[1] == 0)
+	{
+		value = ft_itoa(g_error);
+		return (value);
+	}
 	while (data->export[++i].key)
 	{
 		if (ft_strcmp(data->export[i].key, key) == 0)
@@ -35,19 +40,27 @@ char	*ft_get_value(char *key, t_data *data)
 	return (value);
 }
 
-char	*ft_key_to_replace(char *input, int i, int *i_base)
+char	*ft_key_to_replace(char *input, int i, int i_base)
 {
 	char	*key;
 	int		j;
 
 	j = -1;
-	*i_base = i;
+	i_base = i;
 	i++;
+	if (input[i] == '?')
+	{
+		key = malloc(2);
+		ft_protect_malloc(key);
+		key[0] = '?';
+		key[1] = 0;
+		return (key);
+	}
 	while (input[i] && is_value_delimiteur(input[i]) == 0)
 		i++;
-	key = malloc(i + 1 - *i_base);
+	key = malloc(i + 1 - i_base);
 	ft_protect_malloc(key);
-	i = *i_base;
+	i = i_base;
 	while (input[++i] && is_value_delimiteur(input[i]) == 0)
 		key[++j] = input[i];
 	key[j + 1] = 0;
