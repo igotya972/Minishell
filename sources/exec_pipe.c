@@ -17,6 +17,7 @@ static void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 	if (execve(path, cmd, data->envp) == -1)
 	{
 		perror("Exec failed");
+		g_error = 127;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -47,11 +48,13 @@ void	exec_pipe(t_data *data)
 	int		fd_in;
 	char	**delimiteur;
 	int		i;
+	int		status;
 
 	i = -1;
 	fd_in = 0;
 	while (data->lexer[++i])
 	{
+		g_error = 0;
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
 		pipe(fd);
 		if (ft_fork() == 0)
@@ -61,7 +64,9 @@ void	exec_pipe(t_data *data)
 		}
 		else
 		{
-			wait(NULL);
+			wait(&status);
+			if (g_error != 130 && g_error != 131)
+				g_error = WEXITSTATUS(status);
 			close(fd[1]);
 			if (fd_in != 0)
 				close(fd_in);

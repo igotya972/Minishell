@@ -49,9 +49,7 @@ char	*ft_replace_var(char *input, int i, t_data *data, int *len_value)
 
 	i_base = i;
 	key = ft_key_to_replace(input, i, i_base);
-	printf("key = %s\n", key);
 	value = ft_get_value(key, data);
-	printf("value = %s\n", value);
 	*len_value = ft_strlen(value) + i_base - 1;
 	result = ft_add_to_str(input, value, i_base, ft_strlen(key));
 	free(key);
@@ -123,11 +121,13 @@ int	check_parse_error(char **input, t_data *data)
 			if (ft_strcmp(input[i], delimiteur[j]) == 0 && !input[i + 1])
 			{
 				printf("Minishell: parse error near `%s'\n", input[i]);
+				g_error = 2;
 				return (1);
 			}
 			if (ft_strcmp(input[i], delimiteur[j]) == 0 && input[i + 1] && ft_strcmp(input[i + 1], delimiteur[j]) == 0)
 			{
 				printf("Minishell: parse error near `%s'\n", input[i + 1]);
+				g_error = 2;
 				return (1);
 			}
 		}

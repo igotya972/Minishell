@@ -15,7 +15,6 @@
 void	minishell_prompt(t_data *data)
 {
 	char	*prompt;
-	// int i;
 
 	while (1)
 	{
@@ -28,10 +27,6 @@ void	minishell_prompt(t_data *data)
 		handle_ctrld(data);
 		add_history(data->input);
 		lexer(data);
-		// i = -1;
-		// while (data->lexer[++i])
-		// 	printf("%s\n", data->lexer[i]);
-		// printf("--------------------------------------------\n");
 		if (!check_parse_error(data->lexer, data))
 			launch_exec(data);
 		ft_free_tab(data->lexer);
