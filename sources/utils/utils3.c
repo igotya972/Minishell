@@ -1,4 +1,16 @@
-#include 	"../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/18 20:59:19 by dferjul           #+#    #+#             */
+/*   Updated: 2024/03/18 21:02:05 by dferjul          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
 
 char	**ft_remove_control_tab(char **str)
 {
@@ -20,7 +32,7 @@ char	**ft_remove_control_tab(char **str)
 		while (str[i][++j])
 			if (str[i][j] != 18)
 				tmp[i][++k] = str[i][j];
-		tmp[i][++k] = '\0';	
+		tmp[i][++k] = '\0';
 	}
 	tmp[i] = NULL;
 	ft_free_tab(str);

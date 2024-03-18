@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:48 by afont             #+#    #+#             */
-/*   Updated: 2024/02/29 13:53:40 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/18 20:55:51 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_echo2(t_data *data, char **inputs, int *i, int *add)
 {
 	*add += 1;
 	if (inputs[*i + 2])
-	{ 
+	{
 		while (inputs[++(*i) + 1] && is_exec_delimiteur(inputs[*i + 1]) != 1)
 		{
 			*add += 1;

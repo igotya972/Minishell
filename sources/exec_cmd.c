@@ -6,7 +6,7 @@
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/13 22:17:46 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/18 21:08:48 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	launch_exec(t_data *data)
 
 int	exec_cmd(t_data *data, int i)
 {
-	//pid_t		pid;
 	int			status;
 	char		*path;
 	char		**cmd;

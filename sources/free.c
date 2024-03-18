@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 03:03:07 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/01 11:01:38 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/18 20:52:13 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_free2(t_data *data)
 	}
 	free(data);
 }
-
 
 void	ft_free_tab(char **tab)
 {

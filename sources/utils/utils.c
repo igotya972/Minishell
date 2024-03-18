@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:01:13 by afont             #+#    #+#             */
-/*   Updated: 2024/03/04 17:35:35 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/18 21:22:24 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	is_builtins(char *lexer_i)
 		return (1);
 	if (ft_strcmp(lexer_i, "exit") == 0)
 		return (1);
-	return (0); 
+	return (0);
 }
 
 int	until_delimiteur(char **str, int i)
@@ -77,9 +77,8 @@ int	until_delimiteur(char **str, int i)
 
 int	is_value_delimiteur(char c)
 {
-	char delimiteur[8] = {'|', '>', '<', '"', ' ', '$', '\'', 17};
-	int	i;
-
+	char	delimiteur[8] = {'|', '>', '<', '"', ' ', '$', '\'', 17};
+	int		i;
 	i = -1;
 	while (++i < 8)
 		if (c == delimiteur[i])

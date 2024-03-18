@@ -64,7 +64,7 @@ char	*path_cmd(char **path, char *cmd)
 	i = 0;
 	cmd_path = NULL;
 	if (access(cmd, F_OK | X_OK) == 0)
-		return(ft_strdup(cmd));
+		return (ft_strdup(cmd));
 	path_slash = add_slash(path);
 	while (path_slash[i])
 	{

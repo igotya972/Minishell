@@ -75,7 +75,7 @@ int			no_command(char *str, char *path, char **cmd, int flag);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data, char *path);
-pid_t		ft_fork();
+pid_t		ft_fork(void);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		dup_and_close(int in_fd, int out_fd);
 void		child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in);

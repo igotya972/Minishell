@@ -18,9 +18,10 @@ void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 		no_command(cmd[0], path, cmd, 1);
 }
 
-static void prepare_and_exec_cmd(char **cmd, t_data *data)
+static void	prepare_and_exec_cmd(char **cmd, t_data *data)
 {
-	char *path;
+	char	*path;
+
 	if (is_builtins(cmd[0]))
 	{
 		launch_builtins(data, cmd, 0);
@@ -33,7 +34,7 @@ static void prepare_and_exec_cmd(char **cmd, t_data *data)
 	}
 }
 
-void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
+void	child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 {
 	close(fd[0]);
 	if (fd_in != 0)
@@ -66,7 +67,7 @@ void	exec_pipe(t_data *data, char *path)
 				no_command(delimiteur[0], path, delimiteur, 0);
 		}
 		pipe(fd);
-		data->pid = ft_fork();;
+		data->pid = ft_fork();
 		child_signal(data->pid);
 		if (data->pid == 0)
 		{
@@ -89,9 +90,9 @@ void	exec_pipe(t_data *data, char *path)
 		close(fd_in);
 }
 
-pid_t	ft_fork()
+pid_t	ft_fork(void)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
