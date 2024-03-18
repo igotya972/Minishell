@@ -42,11 +42,9 @@ void	child_signal(int signum)
 {
 	static int	pid;
 
-	// printf("signum = %d\n", signum);
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
-		// printf("3 : %d\n", pid);
 		if (pid)
 			kill(pid, SIGKILL);
 		pid = 0;
@@ -57,13 +55,6 @@ void	child_signal(int signum)
 		write(1, "\n", 1);
 		g_error = 131;
 	}
-	else
-	{
-		// printf("1 : %d\n", pid);
-		if (pid == 0)
-		{
-			pid = signum;
-			// printf("2 : %d\n", pid);
-		}
-	}
+	else if (pid == 0)
+		pid = signum;
 }
