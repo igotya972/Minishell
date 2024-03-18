@@ -14,20 +14,24 @@
 
 void	signal_manager(int signum)
 {
-	if (signum == SIGINT || signum == SIGTSTP)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_error = 130;
-	}
+	(void)signum;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_error = 130;
 }
 
 void	handle_ctrld(t_data *data)
 {
 	if (!data->input)
 	{
+		// if (data->pid)
+		// {
+		// 	printf("ctrlD %d\n", data->pid);
+		// 	kill(data->pid, SIGKILL);
+		// 	data->pid = 0;
+		// }
 		printf("exit\n");
 		ft_free(data);
 		exit(0);
@@ -36,16 +40,30 @@ void	handle_ctrld(t_data *data)
 
 void	child_signal(int signum)
 {
+	static int	pid;
+
+	// printf("signum = %d\n", signum);
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
+		// printf("3 : %d\n", pid);
+		if (pid)
+			kill(pid, SIGKILL);
+		pid = 0;
 		g_error = 130;
-		// exit(130);
-		// kill(getpid(), SIGKILL);
 	}
-	if (signum == SIGQUIT)
+	else if (signum == SIGQUIT)
 	{
 		write(1, "\n", 1);
 		g_error = 131;
+	}
+	else
+	{
+		// printf("1 : %d\n", pid);
+		if (pid == 0)
+		{
+			pid = signum;
+			// printf("2 : %d\n", pid);
+		}
 	}
 }

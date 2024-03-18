@@ -61,7 +61,7 @@ int	ft_atoi_simple(char *str)
 		if (!(str[i] < '0' || str[i] > '9'))
 			result *= 10;
 	}
-	if (str[i] && str[i] >= '0' && str[i] <= '9')
+	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
 	return (result);
 }
