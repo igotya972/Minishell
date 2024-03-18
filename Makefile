@@ -27,11 +27,11 @@ $(OBJ_DIR)/%.o: %.c $(HEADER)
 	@count=$$(find $(OBJ_DIR) -name '*.o' | wc -l); \
 	i=1; \
 	while [ $$i -le $$count ]; do \
-		echo -n "▰ "; \
+		echo -n "▰"; \
 		i=$$((i + 1)); \
 	done; \
 	while [ $$i -le $(TOTAL_FILES) ]; do \
-		echo -n "══"; \
+		echo -n "═"; \
 		i=$$((i + 1)); \
 	done; \
 	echo -en "  $$((($$count * 100) / $(TOTAL_FILES)))% Compiling $$(basename $<)...\r"

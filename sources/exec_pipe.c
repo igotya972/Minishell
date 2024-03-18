@@ -34,7 +34,7 @@ void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 {
 	close(fd[0]);
 	if (fd_in != 0)
-		dup_and_close(fd_in, STDIN_FILENO); 
+		dup_and_close(fd_in, STDIN_FILENO);
 	if (data->lexer[until_delimiteur(data->lexer, i) + 1])
 		dup_and_close(fd[1], 1);
 	else
@@ -42,13 +42,14 @@ void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 	prepare_and_exec_cmd(cmds, data);
 }
 
-void	exec_pipe(t_data *data)
+void	exec_pipe(t_data *data, char *path)
 {
 	int		fd[2];
 	int		fd_in;
 	char	**delimiteur;
 	int		i;
 	int		status;
+	pid_t pid;
 
 	i = -1;
 	fd_in = 0;
@@ -56,8 +57,14 @@ void	exec_pipe(t_data *data)
 	{
 		g_error = 0;
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
+		path = path_cmd(data->path, delimiteur[0]);
+		if (!path)
+			no_command(delimiteur[0], path, delimiteur, 0);
 		pipe(fd);
-		if (ft_fork() == 0)
+		pid = ft_fork();
+		data->pid = pid;
+		child_signal(pid);
+		if (pid == 0)
 		{
 			child_process(delimiteur, i, data, fd, fd_in);
 			i = until_delimiteur(data->lexer, i);
@@ -65,7 +72,7 @@ void	exec_pipe(t_data *data)
 		else
 		{
 			wait(&status);
-			if (g_error != 130 && g_error != 131)
+			if (g_error != 130 && g_error != 131 && g_error != 127)
 				g_error = WEXITSTATUS(status);
 			close(fd[1]);
 			if (fd_in != 0)

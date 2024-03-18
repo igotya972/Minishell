@@ -14,15 +14,17 @@
 
 void	launch_exec(t_data *data)
 {
-	int	i;
+	int		i;
+	char	*path;
 
-	i = -1;	
+	i = -1;
+	path = NULL;
 	while (data->lexer[++i])
 	{
 		if (ft_strcmp(data->lexer[i], "|") == 0)
 		{
-			// signal(SIGINT, child_signal);
-			exec_pipe(data);
+			signal(SIGINT, child_signal);
+			exec_pipe(data, path);
 			return ;
 		}
 	}

@@ -50,10 +50,9 @@ struct	s_data
 	char		*env_path;
 	char		*old_pwd;
 	int			oldpwd_status;
+	int			pid;
 	t_export	*export;
 };
-
-extern int	pid_child;
 
 typedef struct s_cmd
 {
@@ -75,7 +74,7 @@ int			exec_cmd(t_data *data, int i);
 int			no_command(char *str, char *path, char **cmd, int flag);
 
 /*	exec.pipe.c	*/
-void		exec_pipe(t_data *data);
+void		exec_pipe(t_data *data, char *path);
 pid_t		ft_fork();
 void		dup_and_close(int in_fd, int out_fd);
 void		child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in);

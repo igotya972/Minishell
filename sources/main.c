@@ -29,4 +29,4 @@ int	main(int argc, char **argv, char **envp)
 
 // to do : prise en compte des pipes dans le lexer et ailleurs 
 // to do : arreter l'exec quand la commande echoue (code erreur?, cd asdjhfag > ls)
-// to do : code erreur cmd pas bonne
+// to do : builtins dans les pipes

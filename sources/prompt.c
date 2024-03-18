@@ -19,7 +19,6 @@ void	minishell_prompt(t_data *data)
 	while (1)
 	{
 		signal(SIGINT, &signal_manager);
-		signal(SIGTSTP, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
 		prompt = ft_init_prompt();
 		data->input = readline(prompt);
