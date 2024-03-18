@@ -41,7 +41,7 @@ void	launch_exec(t_data *data)
 
 int	exec_cmd(t_data *data, int i)
 {
-	pid_t		pid;
+	//pid_t		pid;
 	int			status;
 	char		*path;
 	char		**cmd;
@@ -61,14 +61,12 @@ int	exec_cmd(t_data *data, int i)
 		path = path_cmd(data->path, data->lexer[i]);
 		if (!path)
 			return (no_command(data->lexer[i], path, cmd, 0));
-		pid = fork();
-		if (pid == -1)
+		data->pid = ft_fork();
+		child_signal(data->pid);
+		if (data->pid == -1)
 			ft_error("Erreur fork", data);
-		else if (pid == 0)
-		{
-			if (execve(path, cmd, data->envp) == -1)
-				no_command(data->lexer[i], path, cmd, 1);
-		}
+		else if (data->pid == 0)
+			exec_simple_cmd(data, path, cmd);
 		else
 			wait(&status);
 		free(path);

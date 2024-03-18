@@ -12,22 +12,25 @@
 
 #include "../includes/minishell.h"
 
-static void	exec_simple_cmd(t_data *data, char *path, char **cmd)
+void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 {
 	if (execve(path, cmd, data->envp) == -1)
-	{
-		perror("Exec failed");
-		g_error = 127;
-		exit(EXIT_FAILURE);
-	}
+		no_command(cmd[0], path, cmd, 1);
 }
 
 static void prepare_and_exec_cmd(char **cmd, t_data *data)
 {
 	char *path;
-
-	path = path_cmd(data->path, cmd[0]);
-	exec_simple_cmd(data, path, cmd);
+	if (is_builtins(cmd[0]))
+	{
+		launch_builtins(data, cmd, 0);
+		exit(0);
+	}
+	else
+	{
+		path = path_cmd(data->path, cmd[0]);
+		exec_simple_cmd(data, path, cmd);
+	}
 }
 
 void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
@@ -49,7 +52,6 @@ void	exec_pipe(t_data *data, char *path)
 	char	**delimiteur;
 	int		i;
 	int		status;
-	pid_t pid;
 
 	i = -1;
 	fd_in = 0;
@@ -57,14 +59,16 @@ void	exec_pipe(t_data *data, char *path)
 	{
 		g_error = 0;
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
-		path = path_cmd(data->path, delimiteur[0]);
-		if (!path)
-			no_command(delimiteur[0], path, delimiteur, 0);
+		if (!is_builtins(delimiteur[0]))
+		{
+			path = path_cmd(data->path, delimiteur[0]);
+			if (!path)
+				no_command(delimiteur[0], path, delimiteur, 0);
+		}
 		pipe(fd);
-		pid = ft_fork();
-		data->pid = pid;
-		child_signal(pid);
-		if (pid == 0)
+		data->pid = ft_fork();;
+		child_signal(data->pid);
+		if (data->pid == 0)
 		{
 			child_process(delimiteur, i, data, fd, fd_in);
 			i = until_delimiteur(data->lexer, i);
