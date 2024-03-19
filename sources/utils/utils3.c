@@ -1,4 +1,16 @@
-#include 	"../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/19 13:17:24 by afont             #+#    #+#             */
+/*   Updated: 2024/03/19 13:17:55 by afont            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
 
 char	**ft_remove_control_tab(char **str)
 {
@@ -20,7 +32,7 @@ char	**ft_remove_control_tab(char **str)
 		while (str[i][++j])
 			if (str[i][j] != 18)
 				tmp[i][++k] = str[i][j];
-		tmp[i][++k] = '\0';	
+		tmp[i][++k] = '\0';
 	}
 	tmp[i] = NULL;
 	ft_free_tab(str);
@@ -64,4 +76,15 @@ int	ft_atoi_simple(char *str)
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
 	return (result);
+}
+
+int	is_pipe(char **lexer)
+{
+	int	i;
+
+	i = -1;
+	while (lexer[++i])
+		if (ft_strcmp(lexer[i], "|") == 0)
+			return (1);
+	return (0);
 }

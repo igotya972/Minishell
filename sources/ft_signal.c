@@ -26,12 +26,6 @@ void	handle_ctrld(t_data *data)
 {
 	if (!data->input)
 	{
-		// if (data->pid)
-		// {
-		// 	printf("ctrlD %d\n", data->pid);
-		// 	kill(data->pid, SIGKILL);
-		// 	data->pid = 0;
-		// }
 		printf("exit\n");
 		ft_free(data);
 		exit(0);

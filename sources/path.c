@@ -61,28 +61,21 @@ char	*path_cmd(char **path, char *cmd)
 	char	*cmd_path;
 	int		i;
 
-	i = 0;
+	i = -1;
 	cmd_path = NULL;
 	if (access(cmd, F_OK | X_OK) == 0)
-		return(ft_strdup(cmd));
+		return (ft_strdup(cmd));
 	path_slash = add_slash(path);
-	while (path_slash[i])
+	while (path_slash[++i])
 	{
 		cmd_path = ft_strjoin(path_slash[i], cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			i = -1;
-			while (path_slash[++i])
-				free(path_slash[i]);
-			free(path_slash);
+			ft_free_tab(path_slash);
 			return (cmd_path);
 		}
 		free(cmd_path);
-		i++;
 	}
-	i = -1;
-	while (path_slash[++i])
-		free(path_slash[i]);
-	free(path_slash);
+	ft_free_tab(path_slash);
 	return (NULL);
 }

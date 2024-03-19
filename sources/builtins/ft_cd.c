@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:00:54 by afont             #+#    #+#             */
-/*   Updated: 2024/02/29 14:26:02 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/19 13:12:42 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm)
 {
-	if (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1 && inputs[i + 2] && is_exec_delimiteur(inputs[i + 2]) != 1)
+	if (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) \
+	!= 1 && inputs[i + 2] && is_exec_delimiteur(inputs[i + 2]) != 1)
 	{
 		printf("cd: too many arguments\n");
 		g_error = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/13 22:17:46 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:20:37 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,32 @@
 void	launch_exec(t_data *data)
 {
 	int		i;
-	char	*path;
 
 	i = -1;
-	path = NULL;
-	while (data->lexer[++i])
-	{
-		if (ft_strcmp(data->lexer[i], "|") == 0)
-		{
-			signal(SIGINT, child_signal);
-			exec_pipe(data, path);
-			return ;
-		}
-	}
-	i = -1;
-	while (data->lexer[++i])
+	if (is_pipe(data->lexer))
 	{
 		signal(SIGINT, child_signal);
-		signal(SIGQUIT, child_signal);
-		i = exec_cmd(data, i);
-		if (i == -1)
-			return ;
+		signal(SIGQUIT, SIG_IGN);
+		exec_pipe(data);
+	}
+	else
+	{
+		while (i != -2 && data->lexer[++i])
+		{
+			signal(SIGINT, child_signal);
+			signal(SIGQUIT, child_signal);
+			i = exec_cmd(data, i);
+		}
 	}
 }
 
 int	exec_cmd(t_data *data, int i)
 {
-	//pid_t		pid;
 	int			status;
 	char		*path;
 	char		**cmd;
 
-	if (is_builtins(data->lexer[i]) == 1)
+	if (is_builtins(data->lexer[i]))
 		launch_builtins(data, data->lexer, i);
 	else
 	{
@@ -55,7 +49,7 @@ int	exec_cmd(t_data *data, int i)
 		{
 			printf("%s: No such file or directory\n", data->lexer[i]);
 			g_error = 127;
-			return (-1);
+			return (-2);
 		}
 		cmd = cmd_until_delimiteur(data->lexer, i);
 		path = path_cmd(data->path, data->lexer[i]);
@@ -63,9 +57,7 @@ int	exec_cmd(t_data *data, int i)
 			return (no_command(data->lexer[i], path, cmd, 0));
 		data->pid = ft_fork();
 		child_signal(data->pid);
-		if (data->pid == -1)
-			ft_error("Erreur fork", data);
-		else if (data->pid == 0)
+		if (data->pid == 0)
 			exec_simple_cmd(data, path, cmd);
 		else
 			wait(&status);
@@ -88,5 +80,5 @@ int	no_command(char *str, char *path, char **cmd, int flag)
 	if (flag)
 		exit(1);
 	else
-		return (-1);
+		return (-2);
 }
