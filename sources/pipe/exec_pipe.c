@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 {
@@ -34,24 +34,12 @@ static void	prepare_and_exec_cmd(char **cmd, t_data *data)
 	}
 }
 
-void	child_process(t_data *data, int i, int fd[2], int fd_in)
-{
-	close(fd[0]);
-	if (fd_in != 0)
-		dup_and_close(fd_in, STDIN_FILENO);
-	if (data->lexer[until_delimiteur(data->lexer, i) + 1])
-		dup_and_close(fd[1], 1);
-	else
-		close(fd[1]);
-}
-
 void	exec_pipe(t_data *data)
 {
 	int		fd[2];
 	int		fd_in;
 	char	**delimiteur;
 	int		i;
-	int		status;
 
 	i = -1;
 	fd_in = 0;
@@ -68,16 +56,7 @@ void	exec_pipe(t_data *data)
 			prepare_and_exec_cmd(delimiteur, data);
 		}
 		else
-		{
-			wait(&status);
-			if (g_error != 130 && g_error != 131 && g_error != 127)
-				g_error = WEXITSTATUS(status);
-			close(fd[1]);
-			if (fd_in != 0)
-				close(fd_in);
-			fd_in = fd[0];
-			i = until_delimiteur(data->lexer, i);
-		}
+			i = parent_process(&fd_in, fd, i, data);
 		ft_free_tab(delimiteur);
 	}
 	if (fd_in != 0)
@@ -95,17 +74,4 @@ pid_t	ft_fork(void)
 		exit(EXIT_FAILURE);
 	}
 	return (pid);
-}
-
-void	dup_and_close(int in_fd, int out_fd)
-{
-	if (dup2(in_fd, out_fd) == -1)
-	{
-		perror("dup2 failed");
-		exit(EXIT_FAILURE);
-	}
-	if (in_fd != out_fd)
-	{
-		close(in_fd);
-	}
 }

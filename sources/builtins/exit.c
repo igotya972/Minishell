@@ -16,13 +16,12 @@ void	ft_exit(t_data *data, int i)
 {
 	int	status;
 
-	if (data->lexer[i + 1] && data->lexer[i + 2] && \
-	!is_exec_delimiteur(data->lexer[i + 2]))
+	if (data->lexer[i + 1] && !is_exec_delimiteur(data->lexer[i + 1]) && data->lexer[i + 2] && !is_exec_delimiteur(data->lexer[i + 2]))
 	{
 		printf("exit: too many arguments\n");
 		exit(1);
 	}
-	if (data->lexer[i + 1])
+	if (data->lexer[i + 1] && !is_exec_delimiteur(data->lexer[i + 1]))
 	{
 		status = ft_atoi_simple(data->lexer[i + 1]);
 		ft_free(data);
