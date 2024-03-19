@@ -34,20 +34,6 @@ static void	prepare_and_exec_cmd(char **cmd, t_data *data)
 	}
 }
 
-<<<<<<< HEAD:sources/exec_pipe.c
-void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
-{
-	close(fd[0]);
-	if (fd_in != 0)
-		dup_and_close(fd_in, STDIN_FILENO);
-	if (data->lexer[until_delimiteur(data->lexer, i) + 1])
-		dup_and_close(fd[1], 1);
-	else
-		close(fd[1]);
-}
-
-=======
->>>>>>> afont:sources/pipe/exec_pipe.c
 void	exec_pipe(t_data *data)
 {
 	int		fd[2];
