@@ -29,7 +29,7 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 
-extern int	g_error;
+extern int				g_error;
 
 typedef struct s_data	t_data;
 typedef struct s_export	t_export;
@@ -74,11 +74,11 @@ int			exec_cmd(t_data *data, int i);
 int			no_command(char *str, char *path, char **cmd, int flag);
 
 /*	exec.pipe.c	*/
-void		exec_pipe(t_data *data, char *path);
+void		exec_pipe(t_data *data);
 pid_t		ft_fork(void);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		dup_and_close(int in_fd, int out_fd);
-void		child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in);
+void		child_process(t_data *data, int i, int fd[2], int fd_in);
 
 /*	parser.c	*/
 void		lexer(t_data *data);
@@ -101,8 +101,8 @@ char		*ft_delimiteur(char *input);
 int			check_parse_error(char **input, t_data *data);
 
 /*	parser4.c	*/
-char	*ft_delimiteur_to_control(char *str);
-char	*ft_addcontrol(char *str, int j, int flag);
+char		*ft_delimiteur_to_control(char *str);
+char		*ft_addcontrol(char *str, int j, int flag);
 
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
@@ -170,7 +170,7 @@ int			is_value_delimiteur(char c);
 
 /*	ft_utils2.c	*/
 int			is_parser_delimiteur(char c);
-int 		nbr_parser_delimiteur(char *str);
+int			nbr_parser_delimiteur(char *str);
 int			is_exec_delimiteur(char *str);
 void		debug_tab(char **tab);
 char		**cmd_until_delimiteur(char **lexer, int i);
@@ -179,6 +179,7 @@ char		**cmd_until_delimiteur(char **lexer, int i);
 char		**ft_remove_control_tab(char **str);
 char		*ft_remove_control(char *str);
 int			ft_atoi_simple(char *str);
+int			is_pipe(char **lexer);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

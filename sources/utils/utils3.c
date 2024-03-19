@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 20:59:19 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/18 21:02:05 by dferjul          ###   ########.fr       */
+/*   Created: 2024/03/19 13:17:24 by afont             #+#    #+#             */
+/*   Updated: 2024/03/19 14:18:37 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,15 @@ int	ft_atoi_simple(char *str)
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
 	return (result);
+}
+
+int	is_pipe(char **lexer)
+{
+	int	i;
+
+	i = -1;
+	while (lexer[++i])
+		if (ft_strcmp(lexer[i], "|") == 0)
+			return (1);
+	return (0);
 }

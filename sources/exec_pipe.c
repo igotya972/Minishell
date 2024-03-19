@@ -34,7 +34,7 @@ static void	prepare_and_exec_cmd(char **cmd, t_data *data)
 	}
 }
 
-void	child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
+void child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 {
 	close(fd[0]);
 	if (fd_in != 0)
@@ -43,10 +43,9 @@ void	child_process(char **cmds, int i, t_data *data, int fd[2], int fd_in)
 		dup_and_close(fd[1], 1);
 	else
 		close(fd[1]);
-	prepare_and_exec_cmd(cmds, data);
 }
 
-void	exec_pipe(t_data *data, char *path)
+void	exec_pipe(t_data *data)
 {
 	int		fd[2];
 	int		fd_in;
@@ -56,23 +55,17 @@ void	exec_pipe(t_data *data, char *path)
 
 	i = -1;
 	fd_in = 0;
-	while (data->lexer[++i])
+	g_error = 0;
+	while (data->lexer[++i] && g_error != 130)
 	{
-		g_error = 0;
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
-		if (!is_builtins(delimiteur[0]))
-		{
-			path = path_cmd(data->path, delimiteur[0]);
-			if (!path)
-				no_command(delimiteur[0], path, delimiteur, 0);
-		}
 		pipe(fd);
 		data->pid = ft_fork();
 		child_signal(data->pid);
 		if (data->pid == 0)
 		{
-			child_process(delimiteur, i, data, fd, fd_in);
-			i = until_delimiteur(data->lexer, i);
+			child_process(data, i, fd, fd_in);
+			prepare_and_exec_cmd(delimiteur, data);
 		}
 		else
 		{
@@ -85,6 +78,7 @@ void	exec_pipe(t_data *data, char *path)
 			fd_in = fd[0];
 			i = until_delimiteur(data->lexer, i);
 		}
+		ft_free_tab(delimiteur);
 	}
 	if (fd_in != 0)
 		close(fd_in);
