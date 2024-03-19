@@ -77,8 +77,11 @@ int			no_command(char *str, char *path, char **cmd, int flag);
 void		exec_pipe(t_data *data);
 pid_t		ft_fork(void);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
-void		dup_and_close(int in_fd, int out_fd);
+
+/*	utils_pipe.c	*/
+int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
 void		child_process(t_data *data, int i, int fd[2], int fd_in);
+void		dup_and_close(int in_fd, int out_fd);
 
 /*	parser.c	*/
 void		lexer(t_data *data);
@@ -98,11 +101,12 @@ char		*ft_add_to_str(char *input, char *value, int i, int len_key);
 char		*ft_replace_var(char *input, int i, t_data *data, int *len_value);
 char		*ft_var_to_value(char *input, t_data *data);
 char		*ft_delimiteur(char *input);
-int			check_parse_error(char **input, t_data *data);
+int			check_parse_error(char **input);
 
 /*	parser4.c	*/
 char		*ft_delimiteur_to_control(char *str);
 char		*ft_addcontrol(char *str, int j, int flag);
+char		*add_control_preli(char *tmp, char *s, int *j, int flag);
 
 /*	builtins.c	*/
 int			ft_echo(t_data *data, char **inputs, int i);
@@ -161,25 +165,30 @@ t_export	*ft_export_add3(t_data *data);
 void		ft_unset2(t_data *data, t_export *tmp, int j);
 t_export	*ft_unset3(t_data *data);
 
-/*	ft_utils.c */
+/*	utils.c */
 char		*ft_init_prompt(void);
 void		ft_protect_malloc(void *ptr);
 int			is_builtins(char *lexer_i);
 int			until_delimiteur(char **str, int i);
 int			is_value_delimiteur(char c);
 
-/*	ft_utils2.c	*/
+/*	utils2.c	*/
 int			is_parser_delimiteur(char c);
 int			nbr_parser_delimiteur(char *str);
 int			is_exec_delimiteur(char *str);
 void		debug_tab(char **tab);
 char		**cmd_until_delimiteur(char **lexer, int i);
 
-/*	ft_utils3.c	*/
+/*	utils3.c	*/
 char		**ft_remove_control_tab(char **str);
 char		*ft_remove_control(char *str);
 int			ft_atoi_simple(char *str);
 int			is_pipe(char **lexer);
+int			no_path(char *str);
+
+/*	utils4.c	*/
+void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);
+int			check_parse_error2(char **input, char **delimiteur, int i, int j);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

@@ -6,11 +6,16 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:13:16 by afont             #+#    #+#             */
-/*   Updated: 2024/03/19 13:14:57 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/19 16:38:16 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+#define D1 ">>"
+#define D2 "<<"
+#define D3 ">"
+#define D4 "<"
 
 char	*ft_add_to_str(char *input, char *value, int i, int len_key)
 {
@@ -88,15 +93,7 @@ char	*ft_delimiteur(char *input)
 	while (input[++i])
 	{
 		if (is_parser_delimiteur(input[i]) && ft_is_in_quotes(input, i) == 0)
-		{
-			if (i != 0 && input[i - 1] != ' ')
-				tmp[++j] = ' ';
-			tmp[++j] = input[i];
-			if (input[i + 1] && input[i + 1] == input[i])
-				tmp[++j] = input[++i];
-			if (input[i + 1] && input[i + 1] != ' ')
-				tmp[++j] = ' ';
-		}
+			delimiteur_modifier(tmp, input, &i, &j);
 		else
 			tmp[++j] = input[i];
 	}
@@ -105,32 +102,23 @@ char	*ft_delimiteur(char *input)
 	return (tmp);
 }
 
-int	check_parse_error(char **input, t_data *data)
+int	check_parse_error(char **input)
 {
 	int		i;
 	int		j;
-	char	delimiteur[4][3] = {{">>"}, {"<<"}, {">"}, {"<"}};
+	char	*delimiteur[4];
 
-	(void)data;
+	delimiteur[0] = D1;
+	delimiteur[1] = D2;
+	delimiteur[2] = D3;
+	delimiteur[3] = D4;
 	i = -1;
 	while (input[++i])
 	{
 		j = -1;
 		while (++j < 4)
-		{
-			if (ft_strcmp(input[i], delimiteur[j]) == 0 && !input[i + 1])
-			{
-				printf("Minishell: parse error near `%s'\n", input[i]);
-				g_error = 2;
+			if (check_parse_error2(input, delimiteur, i, j))
 				return (1);
-			}
-			if (ft_strcmp(input[i], delimiteur[j]) == 0 && input[i + 1] && ft_strcmp(input[i + 1], delimiteur[j]) == 0)
-			{
-				printf("Minishell: parse error near `%s'\n", input[i + 1]);
-				g_error = 2;
-				return (1);
-			}
-		}
 	}
 	return (0);
 }

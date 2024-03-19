@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:17:24 by afont             #+#    #+#             */
-/*   Updated: 2024/03/19 14:18:37 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/19 15:29:03 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,11 @@ int	is_pipe(char **lexer)
 		if (ft_strcmp(lexer[i], "|") == 0)
 			return (1);
 	return (0);
+}
+
+int	no_path(char *str)
+{
+	printf("%s: No such file or directory\n", str);
+	g_error = 127;
+	return (-2);
 }

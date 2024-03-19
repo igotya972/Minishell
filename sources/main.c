@@ -6,7 +6,7 @@
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/01 15:53:18 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/19 17:50:30 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,5 @@ int	main(int argc, char **argv, char **envp)
 
 // to do : arreter l'exec quand la commande echoue (code erreur?, cd asdjhfag > ls)
 // to do : here doc
+// to do : qwe | asd
+// to do : exit 3 | exit
