@@ -30,7 +30,7 @@ int	check_parse_error2(char **input, char **delimiteur, int i, int j)
 
 void	ft_add_history(char *input)
 {
-	static char 	*old_input;
+	static char	*old_input;
 
 	if (!old_input)
 	{

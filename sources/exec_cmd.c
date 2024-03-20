@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/19 17:43:40 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/20 18:11:56 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	launch_exec(t_data *data)
 
 int	exec_cmd(t_data *data, int i)
 {
+	int			fd;
 	char		*path;
 	char		**cmd;
 
@@ -57,8 +58,18 @@ int	exec_cmd(t_data *data, int i)
 			return (no_command(data->lexer[i], path, cmd, 0));
 		data->pid = ft_fork();
 		child_signal(data->pid);
+		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]))
+		{
+			fd = create_file();
+		}
 		if (data->pid == 0)
 			exec_simple_cmd(data, path, cmd);
+		if (fd)
+		{
+			dup2(fd, 1);
+			close(fd);
+			fd = 0;
+		}
 		free(path);
 		ft_free_tab(cmd);
 	}

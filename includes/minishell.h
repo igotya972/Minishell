@@ -78,6 +78,11 @@ void		exec_pipe(t_data *data);
 pid_t		ft_fork(void);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 
+/*	heredoc.c	*/
+int			is_redirection(char *str);
+int			create_file();
+int			dup_and_truc(int fd);
+
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
 void		child_process(t_data *data, int i, int fd[2], int fd_in);
