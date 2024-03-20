@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/19 17:50:30 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/20 18:48:42 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,5 @@ int	main(int argc, char **argv, char **envp)
 // to do : here doc
 // to do : qwe | asd
 // to do : exit 3 | exit
+// to do : ls > qwe -la (probleme)
+// to do : la > asd (asd: command not found)
