@@ -47,17 +47,25 @@ void	exec_pipe(t_data *data)
 	while (data->lexer[++i] && g_error != 130)
 	{
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
-		pipe(fd);
-		data->pid = ft_fork();
-		child_signal(data->pid);
-		if (data->pid == 0)
+		if (!data->path && !is_builtins(delimiteur[0]))
 		{
-			child_process(data, i, fd, fd_in);
-			prepare_and_exec_cmd(delimiteur, data);
+			no_path(delimiteur[0]);
+			i = until_delimiteur(data->lexer, i);
 		}
 		else
-			i = parent_process(&fd_in, fd, i, data);
-		ft_free_tab(delimiteur);
+		{
+			pipe(fd);
+			data->pid = ft_fork();
+			child_signal(data->pid);
+			if (data->pid == 0)
+			{
+				child_process(data, i, fd, fd_in);
+				prepare_and_exec_cmd(delimiteur, data);
+			}
+			else
+				i = parent_process(&fd_in, fd, i, data);
+			ft_free_tab(delimiteur);
+		}
 	}
 	if (fd_in != 0)
 		close(fd_in);

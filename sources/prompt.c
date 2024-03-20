@@ -24,7 +24,7 @@ void	minishell_prompt(t_data *data)
 		data->input = readline(prompt);
 		free(prompt);
 		handle_ctrld(data);
-		add_history(data->input);
+		ft_add_history(data->input);
 		lexer(data);
 		if (!check_parse_error(data->lexer))
 			launch_exec(data);
