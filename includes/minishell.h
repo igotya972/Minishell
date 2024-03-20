@@ -189,6 +189,7 @@ int			no_path(char *str);
 /*	utils4.c	*/
 void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);
 int			check_parse_error2(char **input, char **delimiteur, int i, int j);
+void		ft_add_history(char *input);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

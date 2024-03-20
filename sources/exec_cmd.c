@@ -74,7 +74,7 @@ int	no_command(char *str, char *path, char **cmd, int flag)
 	free(path);
 	ft_free_tab(cmd);
 	if (flag)
-		exit(1);
+		exit(127);
 	else
 		return (-2);
 }
