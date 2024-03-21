@@ -6,28 +6,21 @@
 /*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:37:38 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/20 18:11:05 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/21 01:19:35 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// void    read_heredoc(t_cmd *cmd)
-// {
-	
-// }
-
-// void    create_fd(int fd)
-// {
-//     fd = open("/")  
-// }
-
-int    is_redirection(char *str)
+int	is_redirection(char *str)
 {
 	if (ft_strcmp(str, ">") == 0)
 		return (1);
 	if (ft_strcmp(str, ">>") == 0)
+	{
+		//printf("PASS\n");
 		return (2);
+	}
 	if (ft_strcmp(str, "<") == 0)
 		return (3);
 	if (ft_strcmp(str, "<<") == 0)

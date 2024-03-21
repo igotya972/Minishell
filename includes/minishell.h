@@ -83,6 +83,10 @@ int			is_redirection(char *str);
 int			create_file();
 int			dup_and_truc(int fd);
 
+/*	heredoc_file.c	*/
+int			redirect_output_append(char *file);
+int			redirect_input_rdonly(char *file);
+
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
 void		child_process(t_data *data, int i, int fd[2], int fd_in);

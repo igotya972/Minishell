@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <dferjul@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/20 18:11:56 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/21 14:04:34 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	launch_exec(t_data *data)
 }
 
 int	exec_cmd(t_data *data, int i)
-{
+{ 
 	int			fd;
 	char		*path;
 	char		**cmd;
@@ -58,10 +58,31 @@ int	exec_cmd(t_data *data, int i)
 			return (no_command(data->lexer[i], path, cmd, 0));
 		data->pid = ft_fork();
 		child_signal(data->pid);
-		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]))
+		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]) == 1)
 		{
 			fd = create_file();
 		}
+		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]) == 2)
+		{
+			fd = redirect_output_append(data->input);
+		}
+		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]) == 3)
+		{
+			fd = redirect_input_rdonly(data->input);
+		}
+			// if (is_redirection(data->input) == 2)
+			// {
+			// 	fd = redirect_output_append(data->input);
+			// }
+			// if (is_redirection(data->input) == 3)
+			// {
+				
+			// }
+			// if (is_redirection(data->input) == 4)
+			// {
+				
+			// }
+		//}
 		if (data->pid == 0)
 			exec_simple_cmd(data, path, cmd);
 		if (fd)
