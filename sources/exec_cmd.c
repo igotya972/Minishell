@@ -52,45 +52,17 @@ int	exec_cmd(t_data *data, int i)
 		g_error = 0;
 		if (!data->path)
 			return (no_path(data->lexer[i]));
-		cmd = cmd_until_delimiteur(data->lexer, i);
+		// cmd = cmd_until_delimiteur(data->lexer, i);
 		path = path_cmd(data->path, data->lexer[i]);
 		if (!path)
-			return (no_command(data->lexer[i], path, cmd, 0));
+			return (no_command(data->lexer[i], path, NULL, 0));
 		data->pid = ft_fork();
 		child_signal(data->pid);
-		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]) == 1)
-		{
-			fd = create_file();
-		}
-		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]) == 2)
-		{
-			fd = redirect_output_append(data->input);
-		}
-		if (is_redirection(data->lexer[until_delimiteur(data->lexer, i)]) == 3)
-		{
-			fd = redirect_input_rdonly(data->input);
-		}
-			// if (is_redirection(data->input) == 2)
-			// {
-			// 	fd = redirect_output_append(data->input);
-			// }
-			// if (is_redirection(data->input) == 3)
-			// {
-				
-			// }
-			// if (is_redirection(data->input) == 4)
-			// {
-				
-			// }
-		//}
+		cmd = launch_heredoc(data, i, &fd);
+		debug_tab(cmd);
 		if (data->pid == 0)
 			exec_simple_cmd(data, path, cmd);
-		if (fd)
-		{
-			dup2(fd, 1);
-			close(fd);
-			fd = 0;
-		}
+		fd = end_heredoc(fd);
 		free(path);
 		ft_free_tab(cmd);
 	}
