@@ -86,7 +86,8 @@ void	debug_tab(char **tab)
 			else
 				printf("%c", tab[i][j]);
 		}
-		printf("\n");
+		printf(".\n");
 	}
+	printf("tab[%d] = %s.\n", i, tab[i]);
 	printf("DEBUG_DONE\n\n");
 }

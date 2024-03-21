@@ -35,3 +35,20 @@ int	redirect_input_rdonly(char *file)
 	close(fd);
 	return (save);
 }
+
+int	redirect_output_trunc(t_data *data, int i)
+{
+	int	fd;
+	int save;
+
+	while (is_redirection(data->lexer[until_delimiteur(data->lexer, ++i)]) == 1)
+	{
+		fd = open(data->lexer[until_delimiteur(data->lexer, i) - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		close(fd);
+	}
+	fd = open(data->lexer[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	save = dup(1);
+	dup2(fd, 1);
+	close(fd);
+	return (save);
+}

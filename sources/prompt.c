@@ -28,7 +28,7 @@ void	minishell_prompt(t_data *data)
 		lexer(data);
 		if (!check_parse_error(data->lexer))
 			launch_exec(data);
-		ft_free_tab(data->lexer);
+		// ft_free_tab(data->lexer);
 		free(data->input);
 	}
 }

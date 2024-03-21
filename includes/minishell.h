@@ -80,12 +80,14 @@ void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 
 /*	heredoc.c	*/
 int			is_redirection(char *str);
-int			create_file();
-int			dup_and_truc(int fd);
+int			end_heredoc(int fd);
+char		**launch_heredoc(t_data *data, int i, int *fd);
+char		**del_redirect(char **lexer);
 
 /*	heredoc_file.c	*/
 int			redirect_output_append(char *file);
 int			redirect_input_rdonly(char *file);
+int			redirect_output_trunc(t_data *data, int i);
 
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
@@ -199,6 +201,7 @@ int			no_path(char *str);
 void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);
 int			check_parse_error2(char **input, char **delimiteur, int i, int j);
 void		ft_add_history(char *input);
+char		**ft_strdup_tab(char **tab);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

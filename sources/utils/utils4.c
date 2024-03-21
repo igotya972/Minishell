@@ -15,7 +15,7 @@ int	check_parse_error2(char **input, char **delimiteur, int i, int j)
 {
 	if (ft_strcmp(input[i], delimiteur[j]) == 0 && !input[i + 1])
 	{
-		printf("Minishell: parse error near `%s'\n", input[i]);
+		printf("Minishell: parse error near `\\n'\n");
 		g_error = 2;
 		return (1);
 	}
@@ -41,4 +41,21 @@ void	ft_add_history(char *input)
 		add_history(input);
 	free(old_input);
 	old_input = ft_strdup(input);
+}
+
+char	**ft_strdup_tab(char **tab)
+{
+	int		i;
+	char	**new_tab;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	new_tab = malloc(sizeof(char *) * (i + 1));
+	ft_protect_malloc(new_tab);
+	i = -1;
+	while (tab[++i])
+		new_tab[i] = ft_strdup(tab[i]);
+	new_tab[i] = NULL;
+	return (new_tab);
 }
