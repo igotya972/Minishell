@@ -72,6 +72,7 @@ void		minishell_prompt(t_data *data);
 void		launch_exec(t_data *data);
 int			exec_cmd(t_data *data, int i);
 int			no_command(char *str, char *path, char **cmd, int flag);
+void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
@@ -87,7 +88,7 @@ char		**del_redirect(char **lexer);
 /*	heredoc_file.c	*/
 int			redirect_output_append(char *file);
 int			redirect_input_rdonly(char *file);
-int			redirect_output_trunc(t_data *data, int i);
+int			redirect_output(t_data *data, int i);
 
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
@@ -120,11 +121,11 @@ char		*ft_addcontrol(char *str, int j, int flag);
 char		*add_control_preli(char *tmp, char *s, int *j, int flag);
 
 /*	builtins.c	*/
-int			ft_echo(t_data *data, char **inputs, int i);
+int			ft_echo(char **inputs, int i);
 void		launch_builtins(t_data *data, char **input, int i);
 void		ft_pwd(void);
 void		launch_builtins2(t_data *data, char **inputs, int i);
-void		ft_echo2(t_data *data, char **inputs, int *i, int *add);
+void		ft_echo2(char **inputs, int *i, int *add);
 
 /*	ft_cd.c		*/
 void		ft_cd(t_data *data, char **inputs, int i, char *ctrl_rm);

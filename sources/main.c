@@ -31,5 +31,4 @@ int	main(int argc, char **argv, char **envp)
 // to do : here doc
 // to do : qwe | asd
 // to do : exit 3 | exit
-// to do : ls > qwe -la (probleme)
-// to do : la > asd (asd: command not found)
+// to do : ls -la > qwe >> qwe (probleme)

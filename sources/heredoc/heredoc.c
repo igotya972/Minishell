@@ -18,13 +18,9 @@ char	**launch_heredoc(t_data *data, int i, int *fd)
 
 	*fd = 0;
 	type = is_redirection(data->lexer[until_delimiteur(data->lexer, i)]);
-	if (type == 1)
+	if (type == 1 || type == 2)
 	{
-		*fd = redirect_output_trunc(data, i + 1);
-	}
-	else if (type == 2)
-	{
-		*fd = redirect_output_append(data->lexer[until_delimiteur(data->lexer, i) + 1]);
+		*fd = redirect_output(data, until_delimiteur(data->lexer, i));
 	}
 	else if (type == 3)
 	{
@@ -83,7 +79,7 @@ char	**del_redirect(char **lexer)
 			i -= 1;
 		i++;
 	}
-	tmp = malloc(sizeof(char *) * (i + 1));
+	tmp = malloc(sizeof(char *) * (i + 2));
 	i = -1;
 	j = -1;
 	while (lexer[++i])
