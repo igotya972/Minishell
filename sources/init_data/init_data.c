@@ -21,6 +21,7 @@ void	init_data(t_data *data, char **envp)
 	data->old_pwd = NULL;
 	data->oldpwd_status = 0;
 	data->path = init_path(envp);
+	data->pid = 0;
 	init_export(data);
 }
 

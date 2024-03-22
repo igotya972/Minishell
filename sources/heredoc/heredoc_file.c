@@ -36,17 +36,39 @@ int	redirect_input_rdonly(char *file)
 	return (save);
 }
 
-int	redirect_output_trunc(t_data *data, int i)
+int	redirect_output(t_data *data, int i)
 {
 	int	fd;
-	int save;
+	int	save;
+	int	j;
+	int len_tab;
+	int	type;
 
-	while (is_redirection(data->lexer[until_delimiteur(data->lexer, ++i)]) == 1)
+	j = 0;
+	len_tab = 0;
+	while (data->lexer[len_tab])
+		len_tab++;
+	// printf("i = %d\n", i);
+	// printf("q = %s\n", data->lexer[until_delimiteur(data->lexer, i)]);
+	type = is_redirection(data->lexer[i]);
+	i += 2;
+
+	while ((type == 1 || type == 2) && i < len_tab && (is_redirection(data->lexer[i]) == 1 || is_redirection(data->lexer[i]) == 2))
 	{
-		fd = open(data->lexer[until_delimiteur(data->lexer, i) - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		j = until_delimiteur(data->lexer, j) + 1;
+		// printf("s = %s\n", data->lexer[j]);
+		fd = open(data->lexer[j], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		close(fd);
+		// printf("q = %s\n", data->lexer[i]);
+		type = is_redirection(data->lexer[i]);
+		i += 2;
 	}
-	fd = open(data->lexer[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	// printf("j = %d, i = %d\n", j, i);
+	// printf("save = %d\n", type);
+	if (type == 1)
+		fd = open(data->lexer[i - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (type == 2)
+		fd = open(data->lexer[i - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	save = dup(1);
 	dup2(fd, 1);
 	close(fd);

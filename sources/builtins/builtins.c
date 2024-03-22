@@ -19,7 +19,7 @@ void	launch_builtins(t_data *data, char **inputs, int i)
 	if (ft_strcmp(inputs[i], "exit") == 0)
 		ft_exit(data, i);
 	else if (ft_strcmp(inputs[i], "echo") == 0)
-		i += ft_echo(data, inputs, i);
+		i += ft_echo(inputs, i);
 	else if (ft_strcmp(inputs[i], "pwd") == 0)
 		ft_pwd();
 	else if (ft_strcmp(inputs[i], "env") == 0)
@@ -56,7 +56,7 @@ void	launch_builtins2(t_data *data, char **inputs, int i)
 	}
 }
 
-int	ft_echo(t_data *data, char **inputs, int i)
+int	ft_echo(char **inputs, int i)
 {
 	int	add;
 
@@ -64,7 +64,7 @@ int	ft_echo(t_data *data, char **inputs, int i)
 	if (inputs[i + 1])
 	{
 		if (ft_strcmp(inputs[i + 1], "-n") == 0)
-			ft_echo2(data, inputs, &i, &add);
+			ft_echo2(inputs, &i, &add);
 		else
 		{
 			while (inputs[++i] && is_exec_delimiteur(inputs[i]) != 1)
@@ -81,7 +81,7 @@ int	ft_echo(t_data *data, char **inputs, int i)
 	return (add);
 }
 
-void	ft_echo2(t_data *data, char **inputs, int *i, int *add)
+void	ft_echo2(char **inputs, int *i, int *add)
 {
 	*add += 1;
 	if (inputs[*i + 2])
@@ -95,7 +95,7 @@ void	ft_echo2(t_data *data, char **inputs, int *i, int *add)
 		}
 	}
 	else
-		minishell_prompt(data);
+		return ;
 }
 
 void	ft_pwd(void)
