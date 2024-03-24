@@ -14,10 +14,8 @@
 
 void	launch_exec(t_data *data)
 {
-	// int		i;
 	int		status;
 
-	// i = -1;
 	if (is_pipe(data->lexer))
 	{
 		signal(SIGINT, child_signal);
@@ -29,15 +27,15 @@ void	launch_exec(t_data *data)
 		signal(SIGINT, child_signal);
 		signal(SIGQUIT, child_signal);
 		exec_cmd(data, 0);
-		while (wait(&status) > 0)
-			;
-		if (g_error != 130 && g_error != 131 && g_error != 127)
-			g_error = WEXITSTATUS(status);
 	}
+	while (wait(&status) > 0)
+		;
+	if (g_error != 130 && g_error != 131 && g_error != 127)
+		g_error = WEXITSTATUS(status);
 }
 
 int	exec_cmd(t_data *data, int i)
-{ 
+{
 	int			fd;
 	char		*path;
 	char		**cmd;

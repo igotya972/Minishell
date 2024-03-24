@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils4.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/24 10:10:17 by afont             #+#    #+#             */
+/*   Updated: 2024/03/24 10:10:44 by afont            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	delimiteur_modifier(char *tmp, char *input, int *i, int *j)
@@ -19,7 +31,8 @@ int	check_parse_error2(char **input, char **delimiteur, int i, int j)
 		g_error = 2;
 		return (1);
 	}
-	if (ft_strcmp(input[i], delimiteur[j]) == 0 && input[i + 1] && ft_strcmp(input[i + 1], delimiteur[j]) == 0)
+	if (ft_strcmp(input[i], delimiteur[j]) == 0 && input[i + 1] && \
+	ft_strcmp(input[i + 1], delimiteur[j]) == 0)
 	{
 		printf("Minishell: parse error near `%s'\n", input[i + 1]);
 		g_error = 2;

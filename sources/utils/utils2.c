@@ -3,20 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 11:40:45 by afont             #+#    #+#             */
-/*   Updated: 2024/03/21 14:01:37 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/24 10:16:44 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+#define PD1 '|'
+#define PD2 '>'
+#define PD3 '<'
+
+#define ED1 "||"
+#define ED2 ">>"
+#define ED3 "<<"
+#define ED4 "|"
+#define ED5 ">"
+#define ED6 "<"
+
 int	is_parser_delimiteur(char c)
 {
-	char	delimiteur[3] = {'|', '>', '<'};
+	char	delimiteur[3];
 	int		i;
 
+	delimiteur[0] = PD1;
+	delimiteur[1] = PD2;
+	delimiteur[2] = PD3;
 	i = -1;
 	while (++i < 3)
 		if (c == delimiteur[i])
@@ -39,9 +53,15 @@ int	nbr_parser_delimiteur(char *str)
 
 int	is_exec_delimiteur(char *str)
 {
-	char	delimiteur[6][3] = {{"||"}, {">>"}, {"<<"}, {"|"}, {">"}, {"<"}};
+	char	*delimiteur[6];
 	int		i;
 
+	delimiteur[0] = ED1;
+	delimiteur[1] = ED2;
+	delimiteur[2] = ED3;
+	delimiteur[3] = ED4;
+	delimiteur[4] = ED5;
+	delimiteur[5] = ED6;
 	i = -1;
 	while (++i < 6)
 		if (ft_strcmp(str, delimiteur[i]) == 0)

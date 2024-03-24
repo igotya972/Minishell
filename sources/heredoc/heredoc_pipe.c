@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 01:37:38 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/24 10:14:33 by afont            ###   ########.fr       */
+/*   Created: 2024/03/24 10:19:58 by afont             #+#    #+#             */
+/*   Updated: 2024/03/24 10:20:06 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**launch_heredoc(t_data *data, int i, int *fd)
+char	**launch_heredoc_pipe(t_data *data, int i, int *fd)
 {
 	int	type;
 
@@ -30,60 +30,9 @@ char	**launch_heredoc(t_data *data, int i, int *fd)
 	// {
 	// 	*fd = redirect_input_heredoc(data->lexer[until_delimiteur(data->lexer, i) + 1]);
 	// }
+
 	data->lexer = del_redirect(data->lexer);
 	// debug_tab(data->lexer);
 	// ft_free_tab(cmd);
 	return (cmd_until_delimiteur(data->lexer, i));
-}
-
-int	end_heredoc(int fd)
-{
-	if (fd)
-	{
-		dup2(fd, 1);
-		close(fd);
-	}
-	return (0);
-}
-
-int	is_redirection(char *str)
-{
-	if (ft_strcmp(str, ">") == 0)
-		return (1);
-	if (ft_strcmp(str, ">>") == 0)
-		return (2);
-	if (ft_strcmp(str, "<") == 0)
-		return (3);
-	if (ft_strcmp(str, "<<") == 0)
-		return (4);
-	return (0);
-}
-
-char	**del_redirect(char **lexer)
-{
-	int		i;
-	int		j;
-	char	**tmp;
-
-	i = -1;
-	j = -1;
-	while (lexer[++j])
-	{
-		if (is_redirection(lexer[j]))
-			i -= 1;
-		i++;
-	}
-	tmp = malloc(sizeof(char *) * (i + 2));
-	i = -1;
-	j = -1;
-	while (lexer[++i])
-	{
-		if (is_redirection(lexer[i]))
-			i++;
-		else
-			tmp[++j] = ft_strdup(lexer[i]);
-	}
-	tmp[++j] = NULL;
-	ft_free_tab(lexer);
-	return (tmp);
 }
