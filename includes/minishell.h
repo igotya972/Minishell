@@ -89,6 +89,7 @@ char		**del_redirect(char **lexer);
 int			redirect_output_append(char *file);
 int			redirect_input_rdonly(char *file);
 int			redirect_output(t_data *data, int i);
+int			redirect_ouput2(t_data *data, int type, int i);
 
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);

@@ -38,6 +38,7 @@ void	exec_pipe(t_data *data)
 {
 	int		fd[2];
 	int		fd_in;
+	// int		file_fd;
 	char	**delimiteur;
 	int		i;
 
@@ -47,6 +48,9 @@ void	exec_pipe(t_data *data)
 	while (data->lexer[++i] && g_error != 130)
 	{
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
+		// debug_tab(delimiteur);
+		// delimiteur = launch_heredoc_pipe(data, i, &file_fd);
+		// debug_tab(delimiteur);
 		if (!data->path && !is_builtins(delimiteur[0]))
 		{
 			no_path(delimiteur[0]);
@@ -64,8 +68,9 @@ void	exec_pipe(t_data *data)
 			}
 			else
 				i = parent_process(&fd_in, fd, i, data);
-			ft_free_tab(delimiteur);
 		}
+		// file_fd = end_heredoc(file_fd);
+		ft_free_tab(delimiteur);
 	}
 	if (fd_in != 0)
 		close(fd_in);

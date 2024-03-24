@@ -33,8 +33,6 @@ char	*ft_delimiteur_to_control(char *s)
 	}
 	tmp = ft_strdup(s);
 	free(s);
-
-	
 	return (tmp);
 }
 

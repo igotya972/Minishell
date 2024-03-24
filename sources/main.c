@@ -27,8 +27,8 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-// to do : arreter l'exec quand la commande echoue (code erreur?, cd asdjhfag > ls)
-// to do : here doc
-// to do : qwe | asd
-// to do : exit 3 | exit
-// to do : ls -la > qwe >> qwe (probleme)
+// to do : heredoc
+// to do : qwe | asd (probleme)
+// to do : exit 3 | exit (probleme)
+// to do : > qwe (probleme)
+// to do : cd adqweasd > qwe (probleme)
