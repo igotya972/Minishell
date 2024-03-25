@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:07:17 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/24 10:27:22 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/25 12:43:18 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,19 @@ int	redirect_output_append(char *file)
 int	redirect_input_rdonly(char *file)
 {
 	int	fd;
-	int	save;
+	//int	save;
 
-	save = dup(1);
+	// save = dup(1);
 	fd = open(file, O_RDONLY);
+	printf("cc\n");
+	if (fd == -1)
+	{
+		printf("no such file or directory: %s\n", file);
+		exit(1);
+	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (save);
+	return (0);
 }
 
 int	redirect_output(t_data *data, int i)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/25 10:54:24 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/25 12:57:19 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	launch_exec(t_data *data)
 		g_error = WEXITSTATUS(status);
 }
 
-int	exec_cmd(t_data *data, int i)
+void	exec_cmd(t_data *data, int i)
 {
 	int			fd;
 	char		*path;
@@ -49,14 +49,16 @@ int	exec_cmd(t_data *data, int i)
 	if (!is_builtins(data->lexer[i]))
 		data->pid = ft_fork();
 	child_signal(data->pid);
-	cmd = launch_heredoc(data, i, &fd);
 	if (data->pid == 0 || is_builtins(data->lexer[i]))
+	{
+		cmd = launch_heredoc(data, i, &fd);
 		exec_child_cmd(data, path, cmd, i);
+		ft_free_tab(cmd);
+	}
 	fd = end_heredoc(fd);
 	free(path);
-	ft_free_tab(cmd);
-	i = until_delimiteur(data->lexer, i);
-	return (i);
+	// i = until_delimiteur(data->lexer, i);
+	// return (i);
 }
 
 int	no_command(char *str, char *path, char **cmd, int flag)
