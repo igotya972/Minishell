@@ -71,7 +71,7 @@ void		minishell_prompt(t_data *data);
 /*	exec_cmd.c	*/
 void		launch_exec(t_data *data);
 void		exec_cmd(t_data *data, int i);
-int			no_command(char *str, char *path, char **cmd, int flag);
+void		no_command(char *str, char *path, char **cmd, int flag);
 void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 
 /*	exec.pipe.c	*/
@@ -197,7 +197,7 @@ char		**ft_remove_control_tab(char **str);
 char		*ft_remove_control(char *str);
 int			ft_atoi_simple(char *str);
 int			is_pipe(char **lexer);
-int			no_path(char *str);
+void		no_path(char *str);
 
 /*	utils4.c	*/
 void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);

@@ -89,9 +89,9 @@ int	is_pipe(char **lexer)
 	return (0);
 }
 
-int	no_path(char *str)
+void	no_path(char *str)
 {
 	printf("%s: No such file or directory\n", str);
 	g_error = 127;
-	return (-2);
+	return ;
 }
