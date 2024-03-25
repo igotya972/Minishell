@@ -42,10 +42,16 @@ void	exec_cmd(t_data *data, int i)
 
 	g_error = 0;
 	if (!data->path)
-		return (no_path(data->lexer[i]));
+	{
+		no_path(data->lexer[i]);
+		return ;
+	}
 	path = path_cmd(data->path, data->lexer[i]);
 	if (!path && !is_builtins(data->lexer[i]))
-		return (no_command(data->lexer[i], path, NULL, 0));
+	{
+		no_command(data->lexer[i], path, NULL, 0);
+		return ;
+	}
 	if (!is_builtins(data->lexer[i]))
 		data->pid = ft_fork();
 	child_signal(data->pid);
@@ -54,11 +60,9 @@ void	exec_cmd(t_data *data, int i)
 		cmd = launch_heredoc(data, i, &fd);
 		exec_child_cmd(data, path, cmd, i);
 		ft_free_tab(cmd);
+		fd = end_heredoc(fd);
 	}
-	fd = end_heredoc(fd);
 	free(path);
-	// i = until_delimiteur(data->lexer, i);
-	// return (i);
 }
 
 int	no_command(char *str, char *path, char **cmd, int flag)

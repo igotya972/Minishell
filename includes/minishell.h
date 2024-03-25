@@ -70,7 +70,7 @@ void		minishell_prompt(t_data *data);
 
 /*	exec_cmd.c	*/
 void		launch_exec(t_data *data);
-int			exec_cmd(t_data *data, int i);
+void		exec_cmd(t_data *data, int i);
 int			no_command(char *str, char *path, char **cmd, int flag);
 void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 
