@@ -6,7 +6,7 @@
 /*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:07:17 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/25 12:43:18 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:13:16 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	redirect_output(t_data *data, int i)
 		type = is_redirection(data->lexer[i]);
 		i += 2;
 	}
-	printf("i = %d, type = %d\n", i, type);
 	return (redirect_ouput2(data, type, i));
 }
 
