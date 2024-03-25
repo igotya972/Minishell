@@ -42,16 +42,10 @@ void	exec_cmd(t_data *data, int i)
 
 	g_error = 0;
 	if (!data->path)
-	{
-		no_path(data->lexer[i]);
-		return ;
-	}
+		return (no_path(data->lexer[i]));
 	path = path_cmd(data->path, data->lexer[i]);
 	if (!path && !is_builtins(data->lexer[i]))
-	{
-		no_command(data->lexer[i], path, NULL, 0);
-		return ;
-	}
+		return (no_command(data->lexer[i], path, NULL, 0));
 	if (!is_builtins(data->lexer[i]))
 		data->pid = ft_fork();
 	child_signal(data->pid);
@@ -65,7 +59,7 @@ void	exec_cmd(t_data *data, int i)
 	free(path);
 }
 
-int	no_command(char *str, char *path, char **cmd, int flag)
+void	no_command(char *str, char *path, char **cmd, int flag)
 {
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
@@ -76,7 +70,7 @@ int	no_command(char *str, char *path, char **cmd, int flag)
 	if (flag)
 		exit(127);
 	else
-		return (-2);
+		return ;
 }
 
 void	exec_child_cmd(t_data *data, char *path, char **cmd, int i)
