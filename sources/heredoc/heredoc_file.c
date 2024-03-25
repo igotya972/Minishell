@@ -27,13 +27,21 @@ int	redirect_output_append(char *file)
 int	redirect_input_rdonly(char *file)
 {
 	int	fd;
-	int	save;
+	// int	save;
 
-	save = dup(1);
+	// save = dup(1);
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		exit(1);
+		// return (-1);
+	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (save);
+	return (0);
 }
 
 int	redirect_output(t_data *data, int i)
@@ -59,6 +67,7 @@ int	redirect_output(t_data *data, int i)
 		type = is_redirection(data->lexer[i]);
 		i += 2;
 	}
+	printf("i = %d, type = %d\n", i, type);
 	return (redirect_ouput2(data, type, i));
 }
 
