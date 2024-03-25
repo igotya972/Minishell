@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 02:01:55 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/21 14:04:34 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:54:24 by afont            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	launch_exec(t_data *data)
 {
