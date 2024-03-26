@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 10:19:58 by afont             #+#    #+#             */
-/*   Updated: 2024/03/24 10:20:06 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/26 02:48:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**launch_heredoc_pipe(t_data *data, int i, int *fd)
+/* char	**launch_heredoc_pipe(t_data *data, int i, int *fd)
 {
 	int	type;
 
@@ -36,3 +36,4 @@ char	**launch_heredoc_pipe(t_data *data, int i, int *fd)
 	// ft_free_tab(cmd);
 	return (cmd_until_delimiteur(data->lexer, i));
 }
+ */

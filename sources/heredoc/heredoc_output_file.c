@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_file.c                                     :+:      :+:    :+:   */
+/*   heredoc_output_file.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 01:07:17 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/25 18:13:16 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:54:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,6 @@ int	redirect_output_append(char *file)
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (save);
-}
-
-int	redirect_input_rdonly(char *file)
-{
-	int	fd;
-	// int	save;
-
-	// save = dup(1);
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		exit(1);
-		// return (-1);
-	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	return (0);
 }
 
 int	redirect_output(t_data *data, int i)

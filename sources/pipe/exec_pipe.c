@@ -69,7 +69,6 @@ void	exec_pipe(t_data *data)
 			else
 				i = parent_process(&fd_in, fd, i, data);
 		}
-		// file_fd = end_heredoc(file_fd);
 		ft_free_tab(delimiteur);
 	}
 	if (fd_in != 0)
