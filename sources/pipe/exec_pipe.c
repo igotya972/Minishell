@@ -48,7 +48,7 @@ void	exec_pipe(t_data *data)
 	{
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
 		// debug_tab(delimiteur);
-		// delimiteur = launch_heredoc_pipe(data, i, &file_fd);
+		// delimiteur = launch_heredoc(data, i, &file_fd);
 		// debug_tab(delimiteur);
 		if (!data->path && !is_builtins(delimiteur[0]))
 		{
@@ -58,7 +58,7 @@ void	exec_pipe(t_data *data)
 		else
 		{
 			pipe(fd);
-			data->pid = ft_fork();
+			data->pid = ft_fork(data);
 			child_signal(data->pid);
 			if (data->pid == 0)
 			{
@@ -74,15 +74,12 @@ void	exec_pipe(t_data *data)
 		close(fd_in);
 }
 
-pid_t	ft_fork(void)
+pid_t	ft_fork(t_data *data)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("Erreur fork");
-		exit(EXIT_FAILURE);
-	}
+		ft_error("fork", data);
 	return (pid);
 }

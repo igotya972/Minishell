@@ -30,5 +30,4 @@ int	main(int argc, char **argv, char **envp)
 // to do : heredoc
 // to do : qwe | asd (probleme)
 // to do : exit 3 | exit (probleme)
-// to do : > qwe (probleme)+ adqweasd > qwe (probleme)
-// to do : unset PATH + builtins (probleme)
+// to do : > qwe (probleme) + adqweasd > qwe (probleme)

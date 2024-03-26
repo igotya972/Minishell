@@ -72,6 +72,7 @@ typedef struct s_cmd
 void		signal_manager(int signum);
 void		handle_ctrld(t_data *data);
 void		child_signal(int signum);
+void		child_signal_heredoc(int signum);
 
 /*	minishell.c	*/
 void		minishell_prompt(t_data *data);
@@ -84,7 +85,7 @@ void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
-pid_t		ft_fork(void);
+pid_t		ft_fork(t_data *data);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		prepare_and_exec_cmd(char **cmd, t_data *data);
 
@@ -99,18 +100,18 @@ char		**launch_heredoc(t_data *data, int i, int *fd);
 char		**del_redirect(char **lexer);
 
 /*	heredoc_input_file.c	*/
-int			redirect_output_append(char *file);
 int			redirect_output(t_data *data, int i);
 int			redirect_ouput2(t_data *data, int type, int i);
 
 /*	heredoc_output_file.c	*/
-int			redirect_input_rdonly(char *file);
-int			redirect_input_heredoc(char *delimiter);
+int			redirect_input_rdonly(t_data *data, char *file);
+int			redirect_input_heredoc(t_data *data, char *delimiter);
+int			open_append_trunc(char *file, int type);
 
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
 void		child_process(t_data *data, int i, int fd[2], int fd_in);
-void		dup_and_close(int in_fd, int out_fd);
+void		dup_and_close(t_data *data, int in_fd, int out_fd);
 
 /*	parser.c	*/
 void		lexer(t_data *data);

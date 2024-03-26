@@ -24,23 +24,21 @@ char	**launch_heredoc(t_data *data, int i, int *fd)
 	}
 	else if (type == 3)
 	{
-		*fd = redirect_input_rdonly(data->lexer[until_delimiteur(data->lexer, i) + 1]);
+		*fd = redirect_input_rdonly(data, data->lexer[until_delimiteur(data->lexer, i) + 1]);
 	}
 	else if (type == 4)
 	{
-		*fd = redirect_input_heredoc(data->lexer[until_delimiteur(data->lexer, i) + 1]);
+		signal(SIGINT, child_signal_heredoc);
+		signal(SIGQUIT, SIG_IGN);
+		*fd = redirect_input_heredoc(data, data->lexer[until_delimiteur(data->lexer, i) + 1]);
 	}
-	// debug_tab(data->lexer);
 	data->lexer = del_redirect(data->lexer);
-	// debug_tab(data->lexer);
-	// debug_tab(data->lexer);
-	// ft_free_tab(cmd);
 	return (cmd_until_delimiteur(data->lexer, i));
 }
 
 int	end_heredoc(int fd)
 {
-	if (fd)
+	if (fd && fd != -1)
 	{
 		dup2(fd, 1);
 		close(fd);
