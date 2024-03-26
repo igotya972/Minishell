@@ -18,7 +18,7 @@ void	exec_simple_cmd(t_data *data, char *path, char **cmd)
 		no_command(cmd[0], path, cmd, 1);
 }
 
-static void	prepare_and_exec_cmd(char **cmd, t_data *data)
+void	prepare_and_exec_cmd(char **cmd, t_data *data)
 {
 	char	*path;
 
@@ -38,7 +38,6 @@ void	exec_pipe(t_data *data)
 {
 	int		fd[2];
 	int		fd_in;
-	// int		file_fd;
 	char	**delimiteur;
 	int		i;
 

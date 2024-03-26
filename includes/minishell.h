@@ -54,6 +54,14 @@ struct	s_data
 	t_export	*export;
 };
 
+typedef struct s_pipe_data
+{
+	int		fd[2];
+	int		fd_in;
+	int		i;
+	t_data	*data;
+}			t_pipe_data;
+
 typedef struct s_cmd
 {
 	char	*cmd;
@@ -78,6 +86,11 @@ void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 void		exec_pipe(t_data *data);
 pid_t		ft_fork(void);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
+void		prepare_and_exec_cmd(char **cmd, t_data *data);
+
+/*	pipe.c	*/
+//make void		exec_pipe_bis(t_data *data, char **delimiter, int *fd, int fd_in, int i);
+void		exec_child_process(t_pipe_data *pipe_d, char **delimiter);
 
 /*	heredoc.c	*/
 int			is_redirection(char *str);
