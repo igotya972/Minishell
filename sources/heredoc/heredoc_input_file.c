@@ -34,40 +34,35 @@ int	redirect_input_heredoc(char *delimiter)
 	int		pipe_fd[2];
 	pid_t	pid;
 	char	*line;
-	size_t	len;
 
-	len = 0;
-	line = NULL;
 	if (pipe(pipe_fd) == -1)
 	{
 		perror("pipe");
 		return (-1);
 	}
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		return (-1);
-	}
+	pid = ft_fork();
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
-		while (getline(&line, &len, stdin) != -1)
+		while (1)
 		{
-			if (strncmp(line, delimiter, strlen(delimiter)) == 0)
+			line = readline("readline> ");
+			if (!line || ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 			{
+				free(line);
 				break ;
 			}
-			write(pipe_fd[1], line, strlen(line));
+			write(pipe_fd[1], line, ft_strlen(line));
+			write(pipe_fd[1], "\n", 1);
+			free(line);
 		}
-		free(line);
 		close(pipe_fd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		close(pipe_fd[1]);
-		dup2(pipe_fd[0], STDIN_FILENO);
+		dup2(pipe_fd[0], 0);
 		close(pipe_fd[0]);
 		wait(NULL);
 	}
