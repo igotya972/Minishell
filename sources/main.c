@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:38:04 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/25 10:50:24 by afont            ###   ########.fr       */
+/*   Updated: 2024/03/25 22:38:36 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int	main(int argc, char **argv, char **envp)
 // to do : heredoc
 // to do : qwe | asd (probleme)
 // to do : exit 3 | exit (probleme)
-// to do : > qwe (probleme)
-// to do : cd adqweasd > qwe (probleme)
+// to do : > qwe (probleme)+ adqweasd > qwe (probleme)
 // to do : unset PATH + builtins (probleme)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 01:37:38 by dferjul           #+#    #+#             */
-/*   Updated: 2024/03/25 18:11:53 by dferjul          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:56:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	**launch_heredoc(t_data *data, int i, int *fd)
 	{
 		*fd = redirect_input_rdonly(data->lexer[until_delimiteur(data->lexer, i) + 1]);
 	}
-	// else if (type == 4)
-	// {
-	// 	*fd = redirect_input_heredoc(data->lexer[until_delimiteur(data->lexer, i) + 1]);
-	// }
+	else if (type == 4)
+	{
+		*fd = redirect_input_heredoc(data->lexer[until_delimiteur(data->lexer, i) + 1]);
+	}
 	// debug_tab(data->lexer);
 	data->lexer = del_redirect(data->lexer);
 	// debug_tab(data->lexer);
