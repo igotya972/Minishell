@@ -12,9 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-int	redirect_input_rdonly(char *file)
+int	redirect_input_rdonly(t_data *data, char *file)
 {
 	int	fd;
+	int	save;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -22,11 +23,17 @@ int	redirect_input_rdonly(char *file)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		exit(1);
+		if (!is_builtins(data->lexer[0]))
+			exit(1);
+		else
+			return (-1);
 	}
-	dup2(fd, STDIN_FILENO);
+	if (is_builtins(data->lexer[0]))
+		return (0);
+	save = dup(0);
+	dup2(fd, 0);
 	close(fd);
-	return (0);
+	return (save);
 }
 
 static void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
@@ -36,7 +43,7 @@ static void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if (!line || ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+		if (!line || ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -47,17 +54,13 @@ static void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
 	}
 }
 
-int	redirect_input_heredoc(char *delimiter)
+int	redirect_input_heredoc(t_data *data, char *delimiter)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
 
-	if (pipe(pipe_fd) == -1)
-	{
-		perror("pipe");
-		return (-1);
-	}
-	pid = ft_fork();
+	pipe(pipe_fd);
+	pid = ft_fork(data);
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);

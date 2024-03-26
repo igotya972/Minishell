@@ -45,10 +45,16 @@ void	child_signal(int signum)
 		g_error = 130;
 	}
 	else if (signum == SIGQUIT)
-	{
-		write(1, "\n", 1);
 		g_error = 131;
-	}
 	else if (pid == 0)
 		pid = signum;
+}
+
+void	child_signal_heredoc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit(130);
+	}
 }
