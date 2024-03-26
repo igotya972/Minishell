@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_input_file.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dferjul <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 01:21:30 by marvin            #+#    #+#             */
-/*   Updated: 2024/03/26 01:21:30 by marvin           ###   ########.fr       */
+/*   Created: 2024/03/26 04:50:51 by dferjul           #+#    #+#             */
+/*   Updated: 2024/03/26 04:50:51 by dferjul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,28 @@ int	redirect_input_rdonly(char *file)
 	return (0);
 }
 
+static void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("heredoc> ");
+		if (!line || ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(pipe_write_end, line, ft_strlen(line));
+		write(pipe_write_end, "\n", 1);
+		free(line);
+	}
+}
+
 int	redirect_input_heredoc(char *delimiter)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
-	char	*line;
 
 	if (pipe(pipe_fd) == -1)
 	{
@@ -44,18 +61,7 @@ int	redirect_input_heredoc(char *delimiter)
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
-		while (1)
-		{
-			line = readline("readline> ");
-			if (!line || ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
-			{
-				free(line);
-				break ;
-			}
-			write(pipe_fd[1], line, ft_strlen(line));
-			write(pipe_fd[1], "\n", 1);
-			free(line);
-		}
+		read_and_write_to_pipe(pipe_fd[1], delimiter);
 		close(pipe_fd[1]);
 		exit(EXIT_SUCCESS);
 	}
