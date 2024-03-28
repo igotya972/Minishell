@@ -72,3 +72,16 @@ char	**ft_strdup_tab(char **tab)
 	new_tab[i] = NULL;
 	return (new_tab);
 }
+
+int	nbr_redirect(char **lexer)
+{
+	int		i;
+	int		nbr;
+
+	i = -1;
+	nbr = 0;
+	while (lexer[++i])
+		if (is_redirection(lexer[i]) && is_redirection(lexer[i]) != 4)
+			nbr++;
+	return (nbr);
+}

@@ -12,38 +12,34 @@
 
 #include "../../includes/minishell.h"
 
-int	redirect_output(t_data *data, int i)
+int	redirect_output(char **lexer)
 {
-	int	fd;
-	int	j;
-	int	len_tab;
 	int	type;
+	int	save;
+	int	i;
 
-	j = 0;
-	len_tab = 0;
-	while (data->lexer[len_tab])
-		len_tab++;
-	type = is_redirection(data->lexer[i]);
-	i += 2;
-	while ((type == 1 || type == 2) && i < len_tab && \
-	(is_redirection(data->lexer[i]) == 1 || \
-	is_redirection(data->lexer[i]) == 2))
+	i = -1;
+	save = 0;
+	while (lexer[++i])
 	{
-		j = until_delimiteur(data->lexer, j) + 1;
-		fd = open_append_trunc(data->lexer[j], type);
-		close(fd);
-		type = is_redirection(data->lexer[i]);
-		i += 2;
+		type = is_redirection(lexer[i]);
+		if ((type == 1 || type == 2))
+		{
+			if (is_redirection_output(lexer, i + 1))
+				close(open_append_trunc(lexer[i + 1], type));
+			else
+				save = redirect_output2(lexer[i + 1], type);
+		}
 	}
-	return (redirect_ouput2(data, type, i));
+	return (save);
 }
 
-int	redirect_ouput2(t_data *data, int type, int i)
+int	redirect_output2(char *file, int type)
 {
 	int	fd;
 	int	save;
 
-	fd = open_append_trunc(data->lexer[i - 1], type);
+	fd = open_append_trunc(file, type);
 	save = dup(1);
 	dup2(fd, 1);
 	close(fd);

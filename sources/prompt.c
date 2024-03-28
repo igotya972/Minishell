@@ -26,7 +26,7 @@ void	minishell_prompt(t_data *data)
 		handle_ctrld(data);
 		ft_add_history(data->input);
 		lexer(data);
-		if (!check_parse_error(data->lexer))
+		if (data->input[0] && !check_parse_error(data->lexer))
 			launch_exec(data);
 		ft_free_tab(data->lexer);
 		free(data->input);

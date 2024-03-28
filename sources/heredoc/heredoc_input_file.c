@@ -12,6 +12,34 @@
 
 #include "../../includes/minishell.h"
 
+int	redirect_input(t_data *data, char **lexer)
+{
+	int	i;
+	int	type;
+	int	save;
+
+	save = 0;
+	i = -1;
+	while (lexer[++i])
+	{
+		type = is_redirection(lexer[i]);
+		if (type == 3 && !is_redirection_input(lexer, i + 1))
+		{
+			save = redirect_input_rdonly(data, lexer[i + 1]);
+		}
+		else if (type == 4)
+		{
+			signal(SIGINT, child_signal_heredoc);
+			signal(SIGQUIT, SIG_IGN);
+			if (is_redirection_input(lexer, i + 1))
+				fake_heredoc(lexer[i + 1]);
+			else
+				redirect_input_heredoc(data, lexer[i + 1]);
+		}
+	}
+	return (save);
+}
+
 int	redirect_input_rdonly(t_data *data, char *file)
 {
 	int	fd;
@@ -36,7 +64,7 @@ int	redirect_input_rdonly(t_data *data, char *file)
 	return (save);
 }
 
-static void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
+void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
 {
 	char	*line;
 
@@ -54,7 +82,7 @@ static void	read_and_write_to_pipe(int pipe_write_end, char *delimiter)
 	}
 }
 
-int	redirect_input_heredoc(t_data *data, char *delimiter)
+void	redirect_input_heredoc(t_data *data, char *delimiter)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
@@ -75,5 +103,20 @@ int	redirect_input_heredoc(t_data *data, char *delimiter)
 		close(pipe_fd[0]);
 		wait(NULL);
 	}
-	return (0);
+}
+
+void	fake_heredoc(char *delimiter)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("heredoc> ");
+		if (!line || ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		free(line);
+	}
 }
