@@ -36,28 +36,26 @@ void	launch_exec(t_data *data)
 
 void	exec_cmd(t_data *data, int i)
 {
-	int			fd;
+	int			file_fd[2];
 	char		*path;
 	char		**cmd;
 
+	file_fd[0] = 0;
+	file_fd[1] = 0;
 	g_error = 0;
 	if (!is_builtins(data->lexer[i]))
 	{
-		if (!data->path)
-			return (no_path(data->lexer[i]));
-		path = path_cmd(data->path, data->lexer[i]);
+		path = pre_exec(data, i);
 		if (!path)
-			return (no_command(data->lexer[i], path, NULL, 0));
-		data->pid = ft_fork(data);
-		child_signal(data->pid);
+			return ;
 	}
 	if (data->pid == 0 || is_builtins(data->lexer[i]))
 	{
-		cmd = launch_heredoc(data, i, &fd);
-		if (fd != -1)
+		cmd = launch_heredoc(data, i, file_fd);
+		if (file_fd[0] != -1)
 			exec_child_cmd(data, path, cmd, i);
 		ft_free_tab(cmd);
-		fd = end_heredoc(fd);
+		end_heredoc(file_fd);
 	}
 	if (!is_builtins(data->lexer[i]))
 		free(path);
@@ -80,10 +78,27 @@ void	no_command(char *str, char *path, char **cmd, int flag)
 void	exec_child_cmd(t_data *data, char *path, char **cmd, int i)
 {
 	if (is_builtins(data->lexer[i]))
-	{
 		launch_builtins(data, data->lexer, i);
-		// exit(0);
-	}
 	else
 		exec_simple_cmd(data, path, cmd);
+}
+
+char	*pre_exec(t_data *data, int i)
+{
+	char	*path;
+
+	if (!data->path)
+	{
+		no_path(data->lexer[i]);
+		return (NULL);
+	}
+	path = path_cmd(data->path, data->lexer[i]);
+	if (!path)
+	{
+		no_command(data->lexer[i], path, NULL, 0);
+		return (NULL);
+	}
+	data->pid = ft_fork(data);
+	child_signal(data->pid);
+	return (path);
 }

@@ -82,6 +82,7 @@ void		launch_exec(t_data *data);
 void		exec_cmd(t_data *data, int i);
 void		no_command(char *str, char *path, char **cmd, int flag);
 void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
+char		*pre_exec(t_data *data, int i);
 
 /*	exec.pipe.c	*/
 void		exec_pipe(t_data *data);
@@ -89,24 +90,25 @@ pid_t		ft_fork(t_data *data);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		prepare_and_exec_cmd(char **cmd, t_data *data);
 
-/*	pipe.c	*/
-//make void		exec_pipe_bis(t_data *data, char **delimiter, int *fd, int fd_in, int i);
-void		exec_child_process(t_pipe_data *pipe_d, char **delimiter);
-
 /*	heredoc.c	*/
+char		**launch_heredoc(t_data *data, int i, int fd[2]);
+void		end_heredoc(int fd[2]);
 int			is_redirection(char *str);
-int			end_heredoc(int fd);
-char		**launch_heredoc(t_data *data, int i, int *fd);
-char		**del_redirect(char **lexer);
 
 /*	heredoc_input_file.c	*/
-int			redirect_output(t_data *data, int i);
-int			redirect_ouput2(t_data *data, int type, int i);
+int			redirect_input(t_data *data, char **lexer);
+int			redirect_input_rdonly(t_data *data, char *file);
+void		read_and_write_to_pipe(int pipe_write_end, char *delimiter);
+void		redirect_input_heredoc(t_data *data, char *delimiter);
+void		fake_heredoc(char *delimiter);
 
 /*	heredoc_output_file.c	*/
-int			redirect_input_rdonly(t_data *data, char *file);
-int			redirect_input_heredoc(t_data *data, char *delimiter);
+int			redirect_output(char **lexer);
+int			redirect_output2(char *file, int type);
 int			open_append_trunc(char *file, int type);
+
+/*	del_redirect.c	*/
+char		**del_redirect(char **lexer);
 
 /*	utils_pipe.c	*/
 int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
@@ -221,6 +223,11 @@ void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);
 int			check_parse_error2(char **input, char **delimiteur, int i, int j);
 void		ft_add_history(char *input);
 char		**ft_strdup_tab(char **tab);
+int			nbr_redirect(char **lexer);
+
+/*	utils5.c	*/
+int			is_redirection_input(char **lexer, int i);
+int			is_redirection_output(char **lexer, int i);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);

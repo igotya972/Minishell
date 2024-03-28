@@ -12,38 +12,34 @@
 
 #include "../../includes/minishell.h"
 
-char	**launch_heredoc(t_data *data, int i, int *fd)
+char	**launch_heredoc(t_data *data, int i, int fd[2])
 {
-	int	type;
-
-	*fd = 0;
-	type = is_redirection(data->lexer[until_delimiteur(data->lexer, i)]);
-	if (type == 1 || type == 2)
+	if (is_redirection_input(data->lexer, 0))
 	{
-		*fd = redirect_output(data, until_delimiteur(data->lexer, i));
+		fd[0] = redirect_input(data, data->lexer);
 	}
-	else if (type == 3)
+	if (is_redirection_output(data->lexer, 0))
 	{
-		*fd = redirect_input_rdonly(data, data->lexer[until_delimiteur(data->lexer, i) + 1]);
-	}
-	else if (type == 4)
-	{
-		signal(SIGINT, child_signal_heredoc);
-		signal(SIGQUIT, SIG_IGN);
-		*fd = redirect_input_heredoc(data, data->lexer[until_delimiteur(data->lexer, i) + 1]);
+		fd[1] = redirect_output(data->lexer);
 	}
 	data->lexer = del_redirect(data->lexer);
 	return (cmd_until_delimiteur(data->lexer, i));
 }
 
-int	end_heredoc(int fd)
+void	end_heredoc(int fd[2])
 {
-	if (fd && fd != -1)
+	if (fd[0] && fd[0] != -1)
 	{
-		dup2(fd, 1);
-		close(fd);
+		dup2(fd[0], 1);
+		close(fd[0]);
 	}
-	return (0);
+	if (fd[1] && fd[1] != -1)
+	{
+		dup2(fd[1], 1);
+		close(fd[1]);
+	}
+	fd[0] = 0;
+	fd[1] = 0;
 }
 
 int	is_redirection(char *str)
@@ -57,33 +53,4 @@ int	is_redirection(char *str)
 	if (ft_strcmp(str, "<<") == 0)
 		return (4);
 	return (0);
-}
-
-char	**del_redirect(char **lexer)
-{
-	int		i;
-	int		j;
-	char	**tmp;
-
-	i = -1;
-	j = -1;
-	while (lexer[++j])
-	{
-		if (is_redirection(lexer[j]))
-			i -= 1;
-		i++;
-	}
-	tmp = malloc(sizeof(char *) * (i + 2));
-	i = -1;
-	j = -1;
-	while (lexer[++i])
-	{
-		if (is_redirection(lexer[i]))
-			i++;
-		else
-			tmp[++j] = ft_strdup(lexer[i]);
-	}
-	tmp[++j] = NULL;
-	ft_free_tab(lexer);
-	return (tmp);
 }
