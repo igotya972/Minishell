@@ -41,21 +41,6 @@ int	check_parse_error2(char **input, char **delimiteur, int i, int j)
 	return (0);
 }
 
-void	ft_add_history(char *input)
-{
-	static char	*old_input;
-
-	if (!old_input)
-	{
-		old_input = ft_strdup(input);
-		add_history(input);
-	}
-	else if (ft_strcmp(input, old_input) != 0)
-		add_history(input);
-	free(old_input);
-	old_input = ft_strdup(input);
-}
-
 char	**ft_strdup_tab(char **tab)
 {
 	int		i;

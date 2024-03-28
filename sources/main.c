@@ -23,6 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	ft_protect_malloc(data);
 	init_data(data, envp);
+	add_file_to_history();
 	minishell_prompt(data);
 	return (0);
 }
