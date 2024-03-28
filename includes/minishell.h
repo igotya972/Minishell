@@ -13,6 +13,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
+// # include "../GNL/get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -20,7 +22,6 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/libft.h"
 # include <fcntl.h>
 # include <errno.h>
 # include <stdbool.h>
@@ -28,6 +29,10 @@
 # include <stddef.h>
 # include <sys/wait.h>
 # include <sys/types.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 50
+# endif
 
 extern int				g_error;
 
@@ -221,7 +226,6 @@ void		no_path(char *str);
 /*	utils4.c	*/
 void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);
 int			check_parse_error2(char **input, char **delimiteur, int i, int j);
-void		ft_add_history(char *input);
 char		**ft_strdup_tab(char **tab);
 int			nbr_redirect(char **lexer);
 
@@ -248,5 +252,18 @@ char		**init_path(char **envp);
 /*	ft_exit.c	*/
 void		ft_error(char *str, t_data *data);
 void		ft_exit(t_data *data, int i);
+
+/*	add_history.c	*/
+void		ft_add_history(char *input);
+void		add_history_to_file(char *input);
+void		add_file_to_history(void);
+char		*get_history_path(void);
+
+/*	GNL	*/
+char	*get_next_line(int fd);
+int		is_newline(char *buff);
+char	*del_newline(char *buff);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*after_newline(char *buff);
 
 #endif
