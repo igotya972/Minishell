@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_history.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afont <afont@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/28 14:49:25 by afont             #+#    #+#             */
+/*   Updated: 2024/03/28 14:51:52 by afont            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	ft_add_history(char *input)
 {
 	static char	*old_input;
-
 
 	if (input[0] && !old_input)
 	{
@@ -38,7 +49,7 @@ void	add_history_to_file(char *input)
 	ft_putstr_fd(tmp, fd);
 	free(path);
 	free(tmp);
-}	
+}
 
 void	add_file_to_history(void)
 {
@@ -48,13 +59,7 @@ void	add_file_to_history(void)
 	tmp = get_history_path();
 	fd = open(tmp, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_putstr_fd("minishell: cannot access", 2);
-		ft_putstr_fd(tmp, 2);
-		ft_putstr_fd("\n", 2);
-		free(tmp);
-		return ;
-	}
+		return (error_history(tmp));
 	free(tmp);
 	tmp = get_next_line(fd);
 	if (tmp)
@@ -70,7 +75,15 @@ void	add_file_to_history(void)
 	close(fd);
 }
 
-char *get_history_path(void)
+void	error_history(char *str)
+{
+	ft_putstr_fd("minishell: cannot access", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
+	free(str);
+}
+
+char	*get_history_path(void)
 {
 	char	*pwd;
 	char	*path;

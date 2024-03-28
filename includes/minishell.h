@@ -258,12 +258,13 @@ void		ft_add_history(char *input);
 void		add_history_to_file(char *input);
 void		add_file_to_history(void);
 char		*get_history_path(void);
+void		error_history(char *str);
 
 /*	GNL	*/
-char	*get_next_line(int fd);
-int		is_newline(char *buff);
-char	*del_newline(char *buff);
-char	*ft_strjoin_gnl(char *s1, char *s2);
-char	*after_newline(char *buff);
+char		*get_next_line(int fd);
+int			is_newline(char *buff);
+char		*del_newline(char *buff);
+char		*ft_strjoin_gnl(char *s1, char *s2);
+char		*after_newline(char *buff);
 
 #endif
