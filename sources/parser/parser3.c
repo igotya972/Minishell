@@ -12,11 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-#define D1 ">>"
-#define D2 "<<"
-#define D3 ">"
-#define D4 "<"
-
 char	*ft_add_to_str(char *input, char *value, int i, int len_key)
 {
 	char	*tmp1;
@@ -105,20 +100,10 @@ char	*ft_delimiteur(char *input)
 int	check_parse_error(char **input)
 {
 	int		i;
-	int		j;
-	char	*delimiteur[4];
 
-	delimiteur[0] = D1;
-	delimiteur[1] = D2;
-	delimiteur[2] = D3;
-	delimiteur[3] = D4;
 	i = -1;
 	while (input[++i])
-	{
-		j = -1;
-		while (++j < 4)
-			if (check_parse_error2(input, delimiteur, i, j))
-				return (1);
-	}
+		if (check_parse_error2(input, i))
+			return (1);
 	return (0);
 }
