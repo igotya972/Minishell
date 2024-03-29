@@ -128,7 +128,6 @@ char		**del_redirect_pipe(char **lexer, int flag);
 int			len_del_redirect(char **lexer);
 int			len_del_redirect_pipe(char **lexer, int i_base);
 
-
 /*	parser.c	*/
 void		lexer(t_data *data);
 char		*ft_space_to_control(char *input);
