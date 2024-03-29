@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-// # include "../GNL/get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -38,13 +37,7 @@ extern int				g_error;
 
 typedef struct s_data	t_data;
 typedef struct s_export	t_export;
-
-struct	s_export
-{
-	char	*key;
-	char	*value;
-	char	*export_str;
-};
+typedef struct s_pipe	t_pipe;
 
 struct	s_data
 {
@@ -59,19 +52,19 @@ struct	s_data
 	t_export	*export;
 };
 
-typedef struct s_pipe_data
+struct	s_export
 {
-	int		fd[2];
-	int		fd_in;
-	int		i;
-	t_data	*data;
-}			t_pipe_data;
+	char	*key;
+	char	*value;
+	char	*export_str;
+};
 
-typedef struct s_cmd
+struct s_pipe
 {
-	char	*cmd;
-	char	**args;
-}	t_cmd;
+	int		fd_pipe[2];
+	int		fd_file[2];
+	int		fd_in;
+};
 
 /*	ft_signal.c	*/
 void		signal_manager(int signum);
@@ -89,11 +82,28 @@ void		no_command(char *str, char *path, char **cmd, int flag);
 void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 char		*pre_exec(t_data *data, int i);
 
-/*	exec.pipe.c	*/
+/*	exec_pipe.c	*/
 void		exec_pipe(t_data *data);
 pid_t		ft_fork(t_data *data);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		prepare_and_exec_cmd(char **cmd, t_data *data);
+
+/*	utils_pipe.c	*/
+int			parent_process(t_data *data, t_pipe *fd, int i);
+void		child_process(t_data *data, int i, t_pipe *fd);
+void		dup_and_close(t_data *data, int in_fd, int out_fd);
+int			until_pipe(char **str, int i);
+void		init_pipe_data(t_pipe *fd);
+
+/*	utils_pipe2.c	*/
+int			check_pipe_path(t_data *data, int *i);
+
+/*	heredoc_pipe.c	*/
+char		**launch_heredoc_pipe(t_data *data, int i, int file_fd[2]);
+int			is_redirection_input_pipe(char **lexer, int i);
+int			is_redirection_output_pipe(char **lexer, int i);
+int			redirect_input_pipe(t_data *data, char **lexer, int i);
+int			redirect_output_pipe(char **lexer, int i);
 
 /*	heredoc.c	*/
 char		**launch_heredoc(t_data *data, int i, int fd[2]);
@@ -114,11 +124,10 @@ int			open_append_trunc(char *file, int type);
 
 /*	del_redirect.c	*/
 char		**del_redirect(char **lexer);
+char		**del_redirect_pipe(char **lexer, int flag);
+int			len_del_redirect(char **lexer);
+int			len_del_redirect_pipe(char **lexer, int i_base);
 
-/*	utils_pipe.c	*/
-int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
-void		child_process(t_data *data, int i, int fd[2], int fd_in);
-void		dup_and_close(t_data *data, int in_fd, int out_fd);
 
 /*	parser.c	*/
 void		lexer(t_data *data);

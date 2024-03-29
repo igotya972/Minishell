@@ -36,42 +36,30 @@ void	prepare_and_exec_cmd(char **cmd, t_data *data)
 
 void	exec_pipe(t_data *data)
 {
-	int		fd[2];
-	int		fd_in;
-	char	**delimiteur;
 	int		i;
+	t_pipe	*fd;
 
+	fd = malloc(sizeof(t_pipe));
+	ft_protect_malloc(fd);
+	init_pipe_data(fd);
 	i = -1;
-	fd_in = 0;
 	g_error = 0;
 	while (data->lexer[++i] && g_error != 130)
 	{
-		delimiteur = cmd_until_delimiteur(data->lexer, i);
-		// debug_tab(delimiteur);
-		// delimiteur = launch_heredoc(data, i, &file_fd);
-		// debug_tab(delimiteur);
-		if (!data->path && !is_builtins(delimiteur[0]))
+		if (check_pipe_path(data, &i))
 		{
-			no_path(delimiteur[0]);
-			i = until_delimiteur(data->lexer, i);
-		}
-		else
-		{
-			pipe(fd);
+			pipe(fd->fd_pipe);
 			data->pid = ft_fork(data);
 			child_signal(data->pid);
 			if (data->pid == 0)
-			{
-				child_process(data, i, fd, fd_in);
-				prepare_and_exec_cmd(delimiteur, data);
-			}
+				child_process(data, i, fd);
 			else
-				i = parent_process(&fd_in, fd, i, data);
+				i = parent_process(data, fd, i);
 		}
-		ft_free_tab(delimiteur);
 	}
-	if (fd_in != 0)
-		close(fd_in);
+	if (fd->fd_in)
+		close(fd->fd_in);
+	free(fd);
 }
 
 pid_t	ft_fork(t_data *data)
