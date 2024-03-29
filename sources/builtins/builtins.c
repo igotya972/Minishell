@@ -70,7 +70,9 @@ int	ft_echo(char **inputs, int i)
 			while (inputs[++i] && is_exec_delimiteur(inputs[i]) != 1)
 			{
 				add++;
-				printf("%s ", inputs[i]);
+				printf("%s", inputs[i]);
+				if (inputs[i + 1] && is_exec_delimiteur(inputs[i + 1]) != 1)
+					printf(" ");
 			}
 			printf("\n");
 		}
