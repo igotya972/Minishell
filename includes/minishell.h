@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-// # include "../GNL/get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -67,12 +66,6 @@ typedef struct s_pipe_data
 	t_data	*data;
 }			t_pipe_data;
 
-typedef struct s_cmd
-{
-	char	*cmd;
-	char	**args;
-}	t_cmd;
-
 /*	ft_signal.c	*/
 void		signal_manager(int signum);
 void		handle_ctrld(t_data *data);
@@ -89,11 +82,24 @@ void		no_command(char *str, char *path, char **cmd, int flag);
 void		exec_child_cmd(t_data *data, char *path, char **cmd, int i);
 char		*pre_exec(t_data *data, int i);
 
-/*	exec.pipe.c	*/
+/*	exec_pipe.c	*/
 void		exec_pipe(t_data *data);
 pid_t		ft_fork(t_data *data);
 void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		prepare_and_exec_cmd(char **cmd, t_data *data);
+
+/*	utils_pipe.c	*/
+int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
+void		child_process(t_data *data, int i, int fd[2], int fd_in);
+void		dup_and_close(t_data *data, int in_fd, int out_fd);
+int			until_pipe(char **str, int i);
+
+/*	heredoc_pipe.c	*/
+char		**launch_heredoc_pipe(t_data *data, int i, int file_fd[2]);
+int			is_redirection_input_pipe(char **lexer, int i);
+int			is_redirection_output_pipe(char **lexer, int i);
+int			redirect_input_pipe(t_data *data, char **lexer, int i);
+int			redirect_output_pipe(char **lexer, int i);
 
 /*	heredoc.c	*/
 char		**launch_heredoc(t_data *data, int i, int fd[2]);
@@ -114,11 +120,7 @@ int			open_append_trunc(char *file, int type);
 
 /*	del_redirect.c	*/
 char		**del_redirect(char **lexer);
-
-/*	utils_pipe.c	*/
-int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
-void		child_process(t_data *data, int i, int fd[2], int fd_in);
-void		dup_and_close(t_data *data, int in_fd, int out_fd);
+char		**del_redirect_pipe(char **lexer, int flag);
 
 /*	parser.c	*/
 void		lexer(t_data *data);

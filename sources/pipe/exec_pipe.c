@@ -36,20 +36,21 @@ void	prepare_and_exec_cmd(char **cmd, t_data *data)
 
 void	exec_pipe(t_data *data)
 {
-	int		fd[2];
+	int		fd_pipe[2];
+	int 	file_fd[2];
 	int		fd_in;
-	char	**delimiteur;
 	int		i;
+	char	**delimiteur;
+	char	**cmd;
 
+	file_fd[0] = 0;
+	file_fd[1] = 0;
 	i = -1;
 	fd_in = 0;
 	g_error = 0;
 	while (data->lexer[++i] && g_error != 130)
 	{
 		delimiteur = cmd_until_delimiteur(data->lexer, i);
-		// debug_tab(delimiteur);
-		// delimiteur = launch_heredoc(data, i, &file_fd);
-		// debug_tab(delimiteur);
 		if (!data->path && !is_builtins(delimiteur[0]))
 		{
 			no_path(delimiteur[0]);
@@ -57,16 +58,18 @@ void	exec_pipe(t_data *data)
 		}
 		else
 		{
-			pipe(fd);
+			pipe(fd_pipe);
 			data->pid = ft_fork(data);
 			child_signal(data->pid);
 			if (data->pid == 0)
 			{
-				child_process(data, i, fd, fd_in);
-				prepare_and_exec_cmd(delimiteur, data);
+				child_process(data, i, fd_pipe, fd_in);
+				cmd = launch_heredoc_pipe(data, i, file_fd);
+				prepare_and_exec_cmd(cmd, data);
+				end_heredoc(file_fd);
 			}
 			else
-				i = parent_process(&fd_in, fd, i, data);
+				i = parent_process(&fd_in, fd_pipe, i, data);
 		}
 		ft_free_tab(delimiteur);
 	}

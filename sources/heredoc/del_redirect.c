@@ -18,15 +18,16 @@ char	**del_redirect(char **lexer)
 	int		j;
 	char	**tmp;
 
-	i = -1;
+	i = 0;
 	j = -1;
 	while (lexer[++j])
 	{
-		if (is_redirection(lexer[j]) == 1 || is_redirection(lexer[j]) == 2)
-			i -= 1;
 		i++;
+		if (is_redirection(lexer[j]))
+			i -= 2;
 	}
-	tmp = malloc(sizeof(char *) * (i + 2));
+	tmp = malloc(sizeof(char *) * (i + 1));
+	ft_protect_malloc(tmp);
 	i = -1;
 	j = -1;
 	while (lexer[++i])
@@ -38,5 +39,36 @@ char	**del_redirect(char **lexer)
 	}
 	tmp[++j] = NULL;
 	ft_free_tab(lexer);
+	return (tmp);
+}
+
+char **del_redirect_pipe(char **lexer, int i_base)
+{
+	int		j;
+	int		k;
+	char	**tmp;
+
+	j = i_base;
+	k = 0;
+	while (lexer[j] && ft_strcmp(lexer[j], "|"))
+	{
+		k++;
+		if (is_redirection(lexer[j++]))
+			k -= 2;
+	}
+	tmp = malloc(sizeof(char *) * (k + 1));
+	ft_protect_malloc(tmp);
+	j = i_base;
+	k = -1;
+	while (lexer[j] && ft_strcmp(lexer[j], "|"))
+	{
+		if (is_redirection(lexer[j]))
+			j++;
+		else
+			tmp[++k] = ft_strdup(lexer[j]);
+		j++;
+	}
+	tmp[++k] = NULL;
+	// debug_tab(tmp);
 	return (tmp);
 }
