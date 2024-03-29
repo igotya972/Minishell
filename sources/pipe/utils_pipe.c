@@ -12,12 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-int	parent_process(int *fd_in, int fd[2], int i, t_data *data)
+int	parent_process(t_data *data, t_pipe *fd, int i)
 {
-	close(fd[1]);
-	if (*fd_in != 0)
-		close(*fd_in);
-	*fd_in = fd[0];
+	close(fd->fd_pipe[1]);
+	if (fd->fd_in != 0)
+		close(fd->fd_in);
+	fd->fd_in = fd->fd_pipe[0];
 	return (until_pipe(data->lexer, i));
 }
 
@@ -29,15 +29,20 @@ void	dup_and_close(t_data *data, int in_fd, int out_fd)
 		close(in_fd);
 }
 
-void	child_process(t_data *data, int i, int fd[2], int fd_in)
+void	child_process(t_data *data, int i, t_pipe *fd)
 {
-	close(fd[0]);
-	if (fd_in != 0)
-		dup_and_close(data, fd_in, STDIN_FILENO);
+	char	**cmd;
+
+	close(fd->fd_pipe[0]);
+	if (fd->fd_in != 0)
+		dup_and_close(data, fd->fd_in, STDIN_FILENO);
 	if (data->lexer[until_pipe(data->lexer, i) + 1])
-		dup_and_close(data, fd[1], 1);
+		dup_and_close(data, fd->fd_pipe[1], 1);
 	else
-		close(fd[1]);
+		close(fd->fd_pipe[1]);
+	cmd = launch_heredoc_pipe(data, i, fd->fd_pipe);
+	prepare_and_exec_cmd(cmd, data);
+	end_heredoc(fd->fd_file);
 }
 
 int	until_pipe(char **str, int i)
@@ -49,4 +54,13 @@ int	until_pipe(char **str, int i)
 		i++;
 	}
 	return (i - 1);
+}
+
+void	init_pipe_data(t_pipe *fd)
+{
+	fd->fd_in = 0;
+	fd->fd_file[0] = 0;
+	fd->fd_file[1] = 0;
+	fd->fd_pipe[0] = 0;
+	fd->fd_pipe[1] = 0;
 }

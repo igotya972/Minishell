@@ -37,13 +37,7 @@ extern int				g_error;
 
 typedef struct s_data	t_data;
 typedef struct s_export	t_export;
-
-struct	s_export
-{
-	char	*key;
-	char	*value;
-	char	*export_str;
-};
+typedef struct s_pipe	t_pipe;
 
 struct	s_data
 {
@@ -58,13 +52,19 @@ struct	s_data
 	t_export	*export;
 };
 
-typedef struct s_pipe_data
+struct	s_export
 {
-	int		fd[2];
+	char	*key;
+	char	*value;
+	char	*export_str;
+};
+
+struct s_pipe
+{
+	int		fd_pipe[2];
+	int		fd_file[2];
 	int		fd_in;
-	int		i;
-	t_data	*data;
-}			t_pipe_data;
+};
 
 /*	ft_signal.c	*/
 void		signal_manager(int signum);
@@ -89,10 +89,14 @@ void		exec_simple_cmd(t_data *data, char *path, char **cmd);
 void		prepare_and_exec_cmd(char **cmd, t_data *data);
 
 /*	utils_pipe.c	*/
-int			parent_process(int *fd_in, int fd[2], int i, t_data *data);
-void		child_process(t_data *data, int i, int fd[2], int fd_in);
+int			parent_process(t_data *data, t_pipe *fd, int i);
+void		child_process(t_data *data, int i, t_pipe *fd);
 void		dup_and_close(t_data *data, int in_fd, int out_fd);
 int			until_pipe(char **str, int i);
+void		init_pipe_data(t_pipe *fd);
+
+/*	utils_pipe2.c	*/
+int			check_pipe_path(t_data *data, int *i);
 
 /*	heredoc_pipe.c	*/
 char		**launch_heredoc_pipe(t_data *data, int i, int file_fd[2]);
@@ -121,6 +125,9 @@ int			open_append_trunc(char *file, int type);
 /*	del_redirect.c	*/
 char		**del_redirect(char **lexer);
 char		**del_redirect_pipe(char **lexer, int flag);
+int			len_del_redirect(char **lexer);
+int			len_del_redirect_pipe(char **lexer, int i_base);
+
 
 /*	parser.c	*/
 void		lexer(t_data *data);

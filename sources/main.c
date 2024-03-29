@@ -28,9 +28,10 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-// to do : heredoc
 // to do : qwe | asd (probleme)
-// to do : exit 3 | exit (probleme)
+// to do : exit 3 | exit (probleme code erreur) 
 // to do : > qwe (probleme) + adqweasd > qwe (probleme)
 // to do : t1 << t2 (probleme)
 // to do : cat << t1 <<< t2 (probleme)
+// to do : wc << t1 | cat << t2 (probleme)
+// to do : wc << t1 | asd (probleme)

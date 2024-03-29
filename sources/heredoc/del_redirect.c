@@ -18,14 +18,7 @@ char	**del_redirect(char **lexer)
 	int		j;
 	char	**tmp;
 
-	i = 0;
-	j = -1;
-	while (lexer[++j])
-	{
-		i++;
-		if (is_redirection(lexer[j]))
-			i -= 2;
-	}
+	i = len_del_redirect(lexer);
 	tmp = malloc(sizeof(char *) * (i + 1));
 	ft_protect_malloc(tmp);
 	i = -1;
@@ -42,20 +35,13 @@ char	**del_redirect(char **lexer)
 	return (tmp);
 }
 
-char **del_redirect_pipe(char **lexer, int i_base)
+char	**del_redirect_pipe(char **lexer, int i_base)
 {
 	int		j;
 	int		k;
 	char	**tmp;
 
-	j = i_base;
-	k = 0;
-	while (lexer[j] && ft_strcmp(lexer[j], "|"))
-	{
-		k++;
-		if (is_redirection(lexer[j++]))
-			k -= 2;
-	}
+	k = len_del_redirect_pipe(lexer, i_base);
 	tmp = malloc(sizeof(char *) * (k + 1));
 	ft_protect_malloc(tmp);
 	j = i_base;
@@ -69,6 +55,38 @@ char **del_redirect_pipe(char **lexer, int i_base)
 		j++;
 	}
 	tmp[++k] = NULL;
-	// debug_tab(tmp);
 	return (tmp);
+}
+
+int	len_del_redirect_pipe(char **lexer, int i_base)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = i_base;
+	while (lexer[j] && ft_strcmp(lexer[j], "|"))
+	{
+		i++;
+		if (is_redirection(lexer[j]))
+			i -= 2;
+		j++;
+	}
+	return (i);
+}
+
+int	len_del_redirect(char **lexer)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = -1;
+	while (lexer[++j])
+	{
+		i++;
+		if (is_redirection(lexer[j]))
+			i -= 2;
+	}
+	return (i);
 }
