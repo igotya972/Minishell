@@ -128,7 +128,6 @@ char		**del_redirect_pipe(char **lexer, int flag);
 int			len_del_redirect(char **lexer);
 int			len_del_redirect_pipe(char **lexer, int i_base);
 
-
 /*	parser.c	*/
 void		lexer(t_data *data);
 char		*ft_space_to_control(char *input);
@@ -234,7 +233,7 @@ void		no_path(char *str);
 
 /*	utils4.c	*/
 void		delimiteur_modifier(char *tmp, char *input, int *i, int *j);
-int			check_parse_error2(char **input, char **delimiteur, int i, int j);
+int			check_parse_error2(char **input, int i);
 char		**ft_strdup_tab(char **tab);
 int			nbr_redirect(char **lexer);
 

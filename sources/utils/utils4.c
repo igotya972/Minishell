@@ -23,19 +23,18 @@ void	delimiteur_modifier(char *tmp, char *input, int *i, int *j)
 		tmp[++(*j)] = ' ';
 }
 
-int	check_parse_error2(char **input, char **delimiteur, int i, int j)
+int	check_parse_error2(char **input, int i)
 {
-	if (ft_strcmp(input[i], delimiteur[j]) == 0 && !input[i + 1])
+	if (is_redirection(input[i]) && !input[i + 1])
 	{
 		printf("Minishell: parse error near `\\n'\n");
 		g_error = 2;
 		return (1);
 	}
-	if (ft_strcmp(input[i], delimiteur[j]) == 0 && input[i + 1] && \
-	ft_strcmp(input[i + 1], delimiteur[j]) == 0)
+	if (is_redirection(input[i]) && is_redirection(input[i + 1]))
 	{
 		printf("Minishell: parse error near `%s'\n", input[i + 1]);
-		g_error = 2;
+		g_error = 1;
 		return (1);
 	}
 	return (0);
