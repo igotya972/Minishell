@@ -37,6 +37,12 @@ int	check_parse_error2(char **input, int i)
 		g_error = 1;
 		return (1);
 	}
+	if (!ft_strcmp(input[i], "|") && input[i + 1] && !ft_strcmp(input[i + 1], "|"))
+	{
+		printf("Minishell: parse error near `|'\n");
+		g_error = 2;
+		return (1);
+	}
 	return (0);
 }
 

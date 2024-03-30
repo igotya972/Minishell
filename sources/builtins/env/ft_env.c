@@ -54,6 +54,8 @@ char	**envp_modifier2(t_data *data, int i)
 		else if (ft_strncmp(data->envp[i], "PWD=", 4) == 0)
 		{
 			tmp = getcwd(NULL, 0);
+			if (!tmp)
+				tmp = ft_strdup(data->recovery_pwd);
 			new_envp[i] = ft_strjoin("PWD=", tmp);
 			free(tmp);
 		}

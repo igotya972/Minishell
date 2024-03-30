@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	ft_protect_malloc(data);
 	init_data(data, envp);
-	add_file_to_history();
+	add_file_to_history(data);
 	minishell_prompt(data);
 	return (0);
 }
@@ -36,3 +36,4 @@ int	main(int argc, char **argv, char **envp)
 // to do : wc << t1 | asd (probleme)
 // to do : ./minishell |wc (probleme)
 // to do : exit 3 | cd asd wqe | exit
+// to do : mkdir, cd, rm -rf

@@ -22,6 +22,7 @@ void	init_data(t_data *data, char **envp)
 	data->oldpwd_status = 0;
 	data->path = init_path(envp);
 	data->pid = 0;
+	data->groot_pwd = getcwd(NULL, 0);
 	init_export(data);
 }
 
