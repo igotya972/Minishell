@@ -23,12 +23,14 @@ char	**ft_remove_control_tab(char **str)
 	while (str[i])
 		i++;
 	tmp = malloc(sizeof(char *) * (i + 1));
+	ft_protect_malloc(tmp);
 	i = -1;
 	while (str[++i])
 	{
 		j = -1;
 		k = -1;
 		tmp[i] = malloc(sizeof(char) * (ft_strlen(str[i]) + 1));
+		ft_protect_malloc(tmp[i]);
 		while (str[i][++j])
 			if (str[i][j] != 18)
 				tmp[i][++k] = str[i][j];
@@ -46,6 +48,7 @@ char	*ft_remove_control(char *str)
 	char	*tmp;
 
 	tmp = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ft_protect_malloc(tmp);
 	i = -1;
 	j = -1;
 	if (!str)
