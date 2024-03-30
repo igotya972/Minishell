@@ -14,24 +14,20 @@
 
 void	launch_exec(t_data *data)
 {
-	int		status;
-
 	if (is_pipe(data->lexer))
 	{
 		signal(SIGINT, child_signal);
 		signal(SIGQUIT, child_signal);
 		exec_pipe(data);
+		wait_pipe(data);
 	}
 	else if (data->lexer[0])
 	{
 		signal(SIGINT, child_signal);
 		signal(SIGQUIT, child_signal);
 		exec_cmd(data, 0);
+		wait_exec(data);
 	}
-	while (wait(&status) > 0)
-		;
-	if (g_error != 130 && g_error != 131 && g_error != 127)
-		g_error = WEXITSTATUS(status);
 }
 
 void	exec_cmd(t_data *data, int i)

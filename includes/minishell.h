@@ -240,6 +240,9 @@ int			nbr_redirect(char **lexer);
 /*	utils5.c	*/
 int			is_redirection_input(char **lexer, int i);
 int			is_redirection_output(char **lexer, int i);
+int			is_builtins_last(char **str);
+void		wait_exec(t_data *data);
+void		wait_pipe(t_data *data);
 
 /*	ft_env.c	*/
 void		ft_unset_env(t_data *data, char **inputs, int i);
@@ -259,7 +262,7 @@ char		**init_path(char **envp);
 
 /*	ft_exit.c	*/
 void		ft_error(char *str, t_data *data);
-void		ft_exit(t_data *data, int i);
+void		ft_exit(t_data *data, char **inputs, int i);
 
 /*	add_history.c	*/
 void		ft_add_history(char *input);

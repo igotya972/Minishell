@@ -17,7 +17,7 @@ void	launch_builtins(t_data *data, char **inputs, int i)
 	char	*tmp;
 
 	if (ft_strcmp(inputs[i], "exit") == 0)
-		ft_exit(data, i);
+		ft_exit(data, inputs, i);
 	else if (ft_strcmp(inputs[i], "echo") == 0)
 		i += ft_echo(inputs, i);
 	else if (ft_strcmp(inputs[i], "pwd") == 0)

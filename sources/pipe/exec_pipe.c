@@ -25,7 +25,7 @@ void	prepare_and_exec_cmd(char **cmd, t_data *data)
 	if (is_builtins(cmd[0]))
 	{
 		launch_builtins(data, cmd, 0);
-		exit(0);
+		exit(g_error);
 	}
 	else
 	{

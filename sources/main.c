@@ -34,3 +34,5 @@ int	main(int argc, char **argv, char **envp)
 // to do : t1 << t2 (probleme)
 // to do : wc << t1 | cat << t2 (probleme)
 // to do : wc << t1 | asd (probleme)
+// to do : ./minishell |wc (probleme)
+// to do : exit 3 | cd asd wqe | exit

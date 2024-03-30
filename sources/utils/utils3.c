@@ -84,7 +84,7 @@ int	is_pipe(char **lexer)
 
 	i = -1;
 	while (lexer[++i])
-		if (ft_strcmp(lexer[i], "|") == 0)
+		if (!ft_strcmp(lexer[i], "|"))
 			return (1);
 	return (0);
 }

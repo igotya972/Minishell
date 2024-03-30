@@ -12,25 +12,25 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(t_data *data, int i)
+void	ft_exit(t_data *data, char **inputs, int i)
 {
 	int	status;
 
-	if (data->lexer[i + 1] && !is_exec_delimiteur(data->lexer[i + 1]) && \
-	data->lexer[i + 2] && !is_exec_delimiteur(data->lexer[i + 2]))
+	if (inputs[i + 1] && !is_exec_delimiteur(inputs[i + 1]) && \
+	inputs[i + 2] && !is_exec_delimiteur(inputs[i + 2]))
 	{
 		printf("exit: too many arguments\n");
 		exit(1);
 	}
-	if (data->lexer[i + 1] && !is_exec_delimiteur(data->lexer[i + 1]))
+	if (inputs[i + 1] && !is_exec_delimiteur(inputs[i + 1]))
 	{
-		status = ft_atoi_simple(data->lexer[i + 1]);
+		status = ft_atoi_simple(inputs[i + 1]);
 		ft_free(data);
 		if (status != -1)
 			exit(status);
 		else
 		{
-			printf("exit: %s: numeric argument required\n", data->lexer[i + 1]);
+			printf("exit: %s: numeric argument required\n", inputs[i + 1]);
 			exit(2);
 		}
 	}
