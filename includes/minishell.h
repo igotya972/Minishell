@@ -48,7 +48,7 @@ struct	s_data
 	char		*env_path;
 	char		*old_pwd;
 	char		*recovery_pwd;
-	char 		*groot_pwd;
+	char		*groot_pwd;
 	int			oldpwd_status;
 	int			pid;
 	t_export	*export;

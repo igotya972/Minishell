@@ -35,7 +35,8 @@ char	*ft_init_prompt(t_data *data)
 	{
 		free(data->groot_pwd);
 		data->groot_pwd = ft_strdup(pwd);
-		data->recovery_pwd = getcwd(NULL, 0); //leaks
+		free(data->recovery_pwd);
+		data->recovery_pwd = getcwd(NULL, 0);
 	}
 	prompt2 = ft_strjoin(prompt, pwd);
 	free(prompt);
