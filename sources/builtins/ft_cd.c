@@ -50,6 +50,8 @@ int	ft_chdir(t_data *data, char *path)
 		return (1);
 	}
 	tmp = getcwd(NULL, 0);
+	if (!tmp)
+		tmp = ft_strdup(data->recovery_pwd);
 	chdir(path);
 	if (data->old_pwd)
 		free(data->old_pwd);
@@ -69,6 +71,8 @@ void	export_modifier(t_data *data)
 	new_export = malloc(sizeof(char *) * 2);
 	ft_protect_malloc(new_export);
 	tmp = getcwd(NULL, 0);
+	if (!tmp)
+		tmp = ft_strdup(data->recovery_pwd);
 	new_export[0] = ft_strdup("export");
 	new_export[1] = ft_strjoin("PWD=", tmp);
 	ft_export(data, new_export, 0, 1);
@@ -93,6 +97,6 @@ void	ft_cd_minus(t_data *data)
 	else
 	{
 		g_error = ft_chdir(data, data->old_pwd);
-		ft_pwd();
+		ft_pwd(data);
 	}
 }

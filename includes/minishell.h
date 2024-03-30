@@ -47,6 +47,8 @@ struct	s_data
 	char		*input;
 	char		*env_path;
 	char		*old_pwd;
+	char		*recovery_pwd;
+	char 		*groot_pwd;
 	int			oldpwd_status;
 	int			pid;
 	t_export	*export;
@@ -156,7 +158,7 @@ char		*add_control_preli(char *tmp, char *s, int *j, int flag);
 /*	builtins.c	*/
 int			ft_echo(char **inputs, int i);
 void		launch_builtins(t_data *data, char **input, int i);
-void		ft_pwd(void);
+void		ft_pwd(t_data *data);
 void		launch_builtins2(t_data *data, char **inputs, int i);
 void		ft_echo2(char **inputs, int *i, int *add);
 
@@ -211,7 +213,7 @@ void		ft_unset2(t_data *data, t_export *tmp, int j);
 t_export	*ft_unset3(t_data *data);
 
 /*	utils.c */
-char		*ft_init_prompt(void);
+char		*ft_init_prompt(t_data *data);
 void		ft_protect_malloc(void *ptr);
 int			is_builtins(char *lexer_i);
 int			until_delimiteur(char **str, int i);
@@ -265,10 +267,10 @@ void		ft_error(char *str, t_data *data);
 void		ft_exit(t_data *data, char **inputs, int i);
 
 /*	add_history.c	*/
-void		ft_add_history(char *input);
-void		add_history_to_file(char *input);
-void		add_file_to_history(void);
-char		*get_history_path(void);
+void		ft_add_history(t_data *data, char *input);
+void		add_history_to_file(t_data *data, char *input);
+void		add_file_to_history(t_data *data);
+char		*get_history_path(t_data *data);
 void		error_history(char *str);
 
 /*	GNL	*/

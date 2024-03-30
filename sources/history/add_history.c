@@ -12,32 +12,32 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_add_history(char *input)
+void	ft_add_history(t_data *data, char *input)
 {
 	static char	*old_input;
 
 	if (input[0] && !old_input)
 	{
 		old_input = ft_strdup(input);
-		add_history_to_file(input);
+		add_history_to_file(data, input);
 		add_history(input);
 	}
 	else if (input[0] && ft_strcmp(input, old_input) != 0)
 	{
-		add_history_to_file(input);
+		add_history_to_file(data, input);
 		add_history(input);
 	}
 	free(old_input);
 	old_input = ft_strdup(input);
 }
 
-void	add_history_to_file(char *input)
+void	add_history_to_file(t_data *data, char *input)
 {
 	char		*tmp;
 	char		*path;
 	static int	fd;
 
-	path = get_history_path();
+	path = get_history_path(data);
 	tmp = ft_strjoin(input, "\n");
 	if (!fd)
 		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -51,12 +51,12 @@ void	add_history_to_file(char *input)
 	free(tmp);
 }
 
-void	add_file_to_history(void)
+void	add_file_to_history(t_data *data)
 {
 	char	*tmp;
 	int		fd;
 
-	tmp = get_history_path();
+	tmp = get_history_path(data);
 	fd = open(tmp, O_RDONLY);
 	if (fd == -1)
 		return (error_history(tmp));
@@ -83,12 +83,14 @@ void	error_history(char *str)
 	free(str);
 }
 
-char	*get_history_path(void)
+char	*get_history_path(t_data *data)
 {
 	char	*pwd;
 	char	*path;
 
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		pwd = ft_strdup(data->recovery_pwd);
 	ft_protect_malloc(pwd);
 	path = ft_strjoin(pwd, "/sources/history/.minishell_history");
 	free(pwd);

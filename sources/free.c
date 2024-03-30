@@ -27,6 +27,8 @@ void	ft_free(t_data *data)
 		}
 		free(data->export);
 	}
+	if (data->groot_pwd)
+		free(data->groot_pwd);
 	if (data->input)
 		free(data->input);
 	ft_free2(data);

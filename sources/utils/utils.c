@@ -21,7 +21,7 @@
 #define D7 '\''
 #define D8 17
 
-char	*ft_init_prompt(void)
+char	*ft_init_prompt(t_data *data)
 {
 	char	*prompt;
 	char	*prompt2;
@@ -29,6 +29,14 @@ char	*ft_init_prompt(void)
 
 	prompt = ft_strjoin("", "• \033[32mminishell\033[0;0m:\033[34m");
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		pwd = ft_strdup(data->groot_pwd);
+	else
+	{
+		free(data->groot_pwd);
+		data->groot_pwd = ft_strdup(pwd);
+		data->recovery_pwd = getcwd(NULL, 0); //leaks
+	}
 	prompt2 = ft_strjoin(prompt, pwd);
 	free(prompt);
 	free(pwd);

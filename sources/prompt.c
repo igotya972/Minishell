@@ -20,11 +20,11 @@ void	minishell_prompt(t_data *data)
 	{
 		signal(SIGINT, &signal_manager);
 		signal(SIGQUIT, SIG_IGN);
-		prompt = ft_init_prompt();
+		prompt = ft_init_prompt(data);
 		data->input = readline(prompt);
 		free(prompt);
 		handle_ctrld(data);
-		ft_add_history(data->input);
+		ft_add_history(data, data->input);
 		lexer(data);
 		if (data->input[0] && !check_parse_error(data->lexer))
 			launch_exec(data);

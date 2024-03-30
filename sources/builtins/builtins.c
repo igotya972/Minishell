@@ -21,7 +21,7 @@ void	launch_builtins(t_data *data, char **inputs, int i)
 	else if (ft_strcmp(inputs[i], "echo") == 0)
 		i += ft_echo(inputs, i);
 	else if (ft_strcmp(inputs[i], "pwd") == 0)
-		ft_pwd();
+		ft_pwd(data);
 	else if (ft_strcmp(inputs[i], "env") == 0)
 		ft_env(data);
 	else if (ft_strcmp(inputs[i], "cd") == 0)
@@ -100,11 +100,13 @@ void	ft_echo2(char **inputs, int *i, int *add)
 		return ;
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_data *data)
 {
 	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
+	if (!tmp)
+		tmp = ft_strdup(data->recovery_pwd);
 	printf("%s\n", tmp);
 	free(tmp);
 	g_error = 0;
