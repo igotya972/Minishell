@@ -42,6 +42,7 @@ char	*ft_addcontrol(char *str, int j, int flag)
 	char	*tmp;
 
 	tmp2 = malloc(sizeof(char) * (j + 4 - flag) + 1);
+	ft_protect_malloc(tmp2);
 	ft_strlcpy(tmp2, str, j + 4 - flag);
 	tmp2[j + 3 - flag] = 18;
 	tmp2[j + 4 - flag] = '\0';
